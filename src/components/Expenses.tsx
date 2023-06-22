@@ -2,7 +2,7 @@ import { useState } from "react"
 import Spinner from "./Spinner"
 import NewExpense from "./NewExpense"
 
-export default function (): JSX.Element {
+export default function Expenses(): JSX.Element {
   const [onNewRegister, setOnNewRegister] = useState<boolean>(false)
   const [onLoading, setOnLoading] = useState<boolean>(false)
   const nextStage = (): void => {

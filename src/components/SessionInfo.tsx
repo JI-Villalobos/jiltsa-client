@@ -2,7 +2,7 @@ import { CurrentAccounting, getCurrentAccounting } from "@/utils/appStorage"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
-export default function (): JSX.Element {
+export default function SessionInfo(): JSX.Element {
   const [accountingExists, setAccountingExist] = useState<boolean>(false)
   const [accounting, setAccounting] =  useState<CurrentAccounting | undefined>()
   
