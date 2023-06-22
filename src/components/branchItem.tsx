@@ -1,0 +1,17 @@
+import { Branch } from "@/services/api/branches"
+import Link from "next/link"
+
+type Props = {
+  branch: Branch
+}
+
+export default function BranchItem({ branch }: Props) {
+  return (
+    <Link 
+      href={`/account-branch/${branch.id}`} 
+      className="bg-mp-dark rounded text-center text-mp-gray-soft hover:bg-mp-soft-dark w-1/3 m-2"
+    >
+      {branch.name}
+    </Link>
+  )
+}

@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  app:
+    build: .
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL}
+    ports:
+      - "3000:3000"
+    volumes:
+      - /usr/src/node_modules
+      - .:/usr/src
+         
