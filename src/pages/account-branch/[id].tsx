@@ -1,8 +1,7 @@
 'use client'
 import { Inter } from 'next/font/google'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NextRouter, useRouter } from 'next/router'
-import { AuthContext } from '@/context/AuthContext'
 import TableReport from '@/components/TableReport'
 import { RequestStatus } from '@/services'
 import { Accounting, getLatestRegistries } from '@/services/api/accounts'
@@ -20,25 +19,19 @@ export default function AdminHome() {
     onError: false
   }
 
-  const isAuth: boolean = useContext(AuthContext)
-
   const router: NextRouter = useRouter()
   const { id } = router.query
   const [status, setStatus] = useState<RequestStatus>(req)
   const [accounts, setAccounts] = useState<Accounting[]>([])
   const [customDisplay, setCustomDisplay] = useState<boolean>(false)
-  const [branchId, setBranchId] = useState<number>(1)
+  const [branchId, setBranchId] = useState<number>()
 
   useEffect(() => {
-    if (!isAuth) {
-      router.push("/login")
-    } else if (id && typeof id === 'string') {
-      setBranchId(parseInt(id))
-      setStatus({
-        ...req,
-        onLoading: true
-      })
-      getLatestRegistries(branchId).then((result) => {
+    setStatus({ ...status, onLoading: true })
+    if (id && typeof id === 'string') {
+      const branch = parseInt(id)
+      setBranchId(branch)
+      getLatestRegistries(branch).then((result) => {
         setAccounts(result)
         setStatus({
           ...req,
@@ -50,14 +43,15 @@ export default function AdminHome() {
           onError: true
         })
       })
-
-    }
-  }, [])
+    } 
+  }, [branchId])
 
   return (
     <Layout>
       <>
-        <DateSelection setDisplay={setCustomDisplay} setAccounts={setAccounts} branch={branchId} />
+        {
+          branchId && (<DateSelection setDisplay={setCustomDisplay} setAccounts={setAccounts} branch={branchId} />)
+        }
         <p className='mt-4 text-2xl text-mp-dark font-coda'>Actividad Reciente:</p>
         {
           customDisplay ? (<>
