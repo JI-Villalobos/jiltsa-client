@@ -45,12 +45,13 @@ export default function NewExpense(): JSX.Element {
       .then(() => {
         setStatus({ ...status, onLoading: false })
         setTimeout(() => {
-          router.reload()
+          setSuccessTransition(false)
+          setSelectedItem(false)
         }, 2000)
         setSuccessTransition(true)
       })
       .catch(() => {
-        setStatus({...status, onError: true})
+        setStatus({ ...status, onError: true, onLoading: false })
       })
   }
 
@@ -77,10 +78,10 @@ export default function NewExpense(): JSX.Element {
         </div>
         {
           successTransition ? (
-          <div className="flex flex-col justify-center items-center w-1/3">
-            <p className="text-sm text-mp-light-green font-coda text-center">Registro exitoso, redireccionando</p>
-            <Spinner bgBlank />
-          </div>)
+            <div className="flex flex-col justify-center items-center w-1/3">
+              <p className="text-sm text-mp-light-green font-coda text-center">Registro exitoso, redireccionando</p>
+              <Spinner bgBlank />
+            </div>)
             : (<ExpenseDetail expenseDetails={expense} expense={setExpense} />)
         }
 

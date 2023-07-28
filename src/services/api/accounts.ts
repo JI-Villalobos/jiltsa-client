@@ -14,6 +14,7 @@ export interface Accounting {
 }
 
 export type CreateAccounting = Pick<Accounting, 'sellerId' | 'branchId'>
+export type CustomAccounting = Omit<Accounting, 'expenseRegistries' | 'incomeRegistries' | 'id'>
 
 const token: string = Cookies.get('token')!
 
@@ -51,6 +52,13 @@ export const getAccounting = async (accountingId: number): Promise<Accounting> =
 export const newAccounting = async (accounting: CreateAccounting): Promise<Accounting> => {
   axios.defaults.headers.Authorization = `Bearer ${token}`;
   const { data }: AxiosResponse<Accounting> = await axios.post(endPoints.accountings.createAccounting, accounting, options) 
+
+  return data
+}
+
+export const newCustomAccounting =  async (accounting: CustomAccounting): Promise<Accounting> => {
+  axios.defaults.headers.Authorization = `Bearer ${token}`;
+  const { data }: AxiosResponse<Accounting> = await axios.post(endPoints.accountings.createOutOfDateAccounting, accounting, options)
 
   return data
 }

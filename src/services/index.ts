@@ -15,7 +15,8 @@ export const endPoints ={
     getLastRegistries: (branchId: number) => `${API}/accounts/${branchId}`,
     getByDate: (initial: string, end: string, branchId: number) => `${API}/accounts/${initial}/${end}/${branchId}`,
     getAccounting: (accountingId: number) => `${API}/accounts/account/${accountingId}`,
-    createAccounting: `${API}/accounts`
+    createAccounting: `${API}/accounts`,
+    createOutOfDateAccounting: `${API}/accounts/out-of-date`
   },
   sellers: {
     getSeller: (sellerId: number) => `${API}/sellers/${sellerId}`,
