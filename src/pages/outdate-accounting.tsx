@@ -3,7 +3,7 @@ import Spinner from "@/components/Spinner";
 import Layout from "@/layouts/Layout";
 import { useState } from "react";
 
-export default function outOfDateAccounting(): JSX.Element {
+export default function OutOfDateAccounting(): JSX.Element {
   const [adviceHidden, setAdviceHidden] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
