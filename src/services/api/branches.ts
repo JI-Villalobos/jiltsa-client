@@ -42,7 +42,7 @@ export const getBranchConfig = async (): Promise<BranchConfig[]> => {
   return data
 }
 
-export const uodateBranchConfig = async (branchConfigId: number, BranchConfig: BranchConfig): Promise<BranchConfig> => {
+export const updateBranchConfig = async (branchConfigId: number, BranchConfig: BranchConfig): Promise<BranchConfig> => {
   const { data }: AxiosResponse<BranchConfig> = await axios.put(endPoints.branches.updateBranchConfig(branchConfigId), BranchConfig, options)
 
   return data

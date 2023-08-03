@@ -1,6 +1,5 @@
-import AsideMenu from "@/components/AsideMenu";
+import BranchConfigCollection from "@/components/BranchConfigCollection";
 import ExpenseTypeCollection from "@/components/ExpensetypeCollection";
-import Header from "@/components/Header";
 import IncomeTypeCollection from "@/components/IncomeTypeCollection";
 import Layout from "@/layouts/Layout";
 
@@ -10,12 +9,7 @@ export default function Collections(): JSX.Element {
       <>
         <IncomeTypeCollection />
         <ExpenseTypeCollection />
-        <div>
-          <p>Editar Saldos iniciales</p>
-          <div>
-            
-          </div>
-        </div>
+        <BranchConfigCollection />
       </>
     </Layout>
   )
