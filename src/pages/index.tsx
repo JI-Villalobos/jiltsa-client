@@ -39,7 +39,7 @@ export default function Home() {
       <Header />
       <div className='flex h-full mt-20 justify-center'>
        <div className='flex flex-col items-center justify-center border border-mp-green rounded h-1/5 w-1/3'>
-        <p className='text-mp-green font-semibold'>Revisando Crdenciales..</p>
+        <p className='text-mp-green font-semibold'>Revisando Credenciales..</p>
         <Spinner bgBlank/>
        </div>
       </div>

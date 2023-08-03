@@ -8,6 +8,13 @@ export interface Branch {
   isActive: boolean
 }
 
+export interface BranchConfig {
+  id: number,
+  branchId: number,
+  initialBalance: number
+}
+
+
 const token: string = Cookies.get('token')!
 
 const options = {
@@ -28,3 +35,15 @@ export const getBranchById = async (branchId: number): Promise<Branch> => {
 
   return data
 } 
+
+export const getBranchConfig = async (): Promise<BranchConfig[]> => {
+  const { data }: AxiosResponse<BranchConfig[]> = await axios.get(endPoints.branches.getBranchConfig, options)
+
+  return data
+}
+
+export const uodateBranchConfig = async (branchConfigId: number, BranchConfig: BranchConfig): Promise<BranchConfig> => {
+  const { data }: AxiosResponse<BranchConfig> = await axios.put(endPoints.branches.updateBranchConfig(branchConfigId), BranchConfig, options)
+
+  return data
+}

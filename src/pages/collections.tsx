@@ -10,6 +10,12 @@ export default function Collections(): JSX.Element {
       <>
         <IncomeTypeCollection />
         <ExpenseTypeCollection />
+        <div>
+          <p>Editar Saldos iniciales</p>
+          <div>
+            
+          </div>
+        </div>
       </>
     </Layout>
   )

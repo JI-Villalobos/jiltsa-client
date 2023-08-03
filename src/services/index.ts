@@ -36,7 +36,9 @@ export const endPoints ={
   },
   branches: {
     branches: `${API}/branches`,
-    getById: (branchId: number) => `${API}/branches/${branchId}`
+    getById: (branchId: number) => `${API}/branches/${branchId}`,
+    getBranchConfig: `${API}/branch-configuration`,
+    updateBranchConfig: (branchConfigId: number) => `${API}/branch-configuration/${branchConfigId}`
   },
   cash: {
     withdrawals: `${API}/withdrawals`,
