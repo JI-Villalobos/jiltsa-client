@@ -1,10 +1,9 @@
-import AsideMenu from "@/components/AsideMenu";
-import Header from "@/components/Header";
 import Spinner from "@/components/Spinner";
 import BranchItem from "@/components/branchItem";
 import Layout from "@/layouts/Layout";
 import { RequestStatus } from "@/services";
 import { Branch, getBranches } from "@/services/api/branches";
+import { setLocalBranches } from "@/utils/appStorage";
 import { useEffect, useState } from "react";
 
 export default function Admin(): JSX.Element {
@@ -15,6 +14,7 @@ export default function Admin(): JSX.Element {
     setStatus({ ...status, onLoading: true })
     getBranches().then((result) => {
       setBranches(result)
+      setLocalBranches(result)
       setStatus({ ...status, onLoading: false })
     }).catch(() => {
       setStatus({ ...status, onError: true })

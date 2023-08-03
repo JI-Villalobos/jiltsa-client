@@ -1,4 +1,5 @@
 import { AuthResponse } from "@/services/api/auth";
+import { Branch } from "@/services/api/branches";
 import Cookies from "js-cookie";
 
 export type CurrentAccounting = {
@@ -22,6 +23,27 @@ export const getCurrentAccounting = (): CurrentAccounting | undefined => {
 export const setCurrentAccounting = (currentAccounting: CurrentAccounting): void => {
   Cookies.set('accountingId', currentAccounting.accountingId.toString(), {  expires: 1 })
   Cookies.set('seller', currentAccounting.seller, { expires: 1 })
+}
+
+export const setLocalBranches = (branches: Branch[]): void => {
+  Cookies.set('branches', JSON.stringify(branches))
+}
+
+export const getLocalBranches = (): Branch[] | undefined => {
+  const branches: string | undefined = Cookies.get('branches')
+
+  if(branches){
+    return JSON.parse(branches)
+  }
+}
+
+export const getLocalBranch = ( branchId: number): Branch | undefined => {
+  const storedData: string | undefined = Cookies.get('branches')
+
+  if(storedData){
+    const branches: Branch[] = JSON.parse(storedData)
+    return branches.find((branch) => branch.id === branchId)
+  }
 }
 
 export const deleteAccounting = (): void => {
