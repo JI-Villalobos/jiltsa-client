@@ -8,6 +8,10 @@ export interface Branch {
   isActive: boolean
 }
 
+export interface TotalBalance {
+  totals: number
+}
+
 export interface BranchConfig {
   id: number,
   branchId: number,
@@ -44,6 +48,12 @@ export const getBranchConfig = async (): Promise<BranchConfig[]> => {
 
 export const updateBranchConfig = async (branchConfigId: number, BranchConfig: BranchConfig): Promise<BranchConfig> => {
   const { data }: AxiosResponse<BranchConfig> = await axios.put(endPoints.branches.updateBranchConfig(branchConfigId), BranchConfig, options)
+
+  return data
+}
+
+export const getTotalBalance = async (branchId: number): Promise<TotalBalance> => {
+  const { data }: AxiosResponse<TotalBalance> = await axios.get(endPoints.branches.getTotalBalance(branchId), options)
 
   return data
 }
