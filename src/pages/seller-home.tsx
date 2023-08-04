@@ -1,9 +1,8 @@
-import AsideMenu from "@/components/AsideMenu";
 import Error from "@/components/Error";
-import Header from "@/components/Header";
 import SessionInfo from "@/components/SessionInfo";
 import Skeleton from "@/components/Skeleton";
 import TableReport from "@/components/TableReport";
+import TotalBalanceItem from "@/components/TotalBalanceItem";
 import { AuthContext } from "@/context/AuthContext";
 import Layout from "@/layouts/Layout";
 import { RequestStatus } from "@/services";
@@ -24,6 +23,7 @@ export default function SellerHome(): JSX.Element {
   const router: NextRouter = useRouter()
   const [status, setStatus] = useState<RequestStatus>(req)
   const [accounts, setAccounts] = useState<Accounting[]>([])
+  
 
   const branchId: number = parseInt(Cookies.get('branchId')!)
 
@@ -47,7 +47,6 @@ export default function SellerHome(): JSX.Element {
           onError: true
         })
       })
-
     }
   }, [])
 
@@ -55,6 +54,7 @@ export default function SellerHome(): JSX.Element {
     <Layout>
       <>
         <SessionInfo />
+        <TotalBalanceItem />
         <p className='mt-4 text-2xl text-mp-dark font-coda'>Actividad Reciente:</p>
         {status.onLoading ? <Skeleton /> : status.onError ? <Error /> : <TableReport accounts={accounts} />}
       </>

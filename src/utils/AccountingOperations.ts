@@ -2,6 +2,7 @@ import { Accounting } from "@/services/api/accounts"
 import { ExpenseRegistry } from "@/services/api/expenses"
 import { IncomeRegistry } from "@/services/api/incomes"
 import { Income } from "./variables"
+import { formatAmount } from "./formatAmount"
 
 export type RowData = {
   otherIncomes: string
@@ -10,16 +11,6 @@ export type RowData = {
   expenses: string
 }
 
-
-const formatAmount = (amount: number): string => {
-  const formatter = new Intl.NumberFormat('ex-MX', {
-    style: 'currency',
-    currency: 'MXN',
-    minimumFractionDigits: 0
-  })
-
-  return formatter.format(amount)
-}
 
  const getIncome = (incomes: IncomeRegistry[], tag: string): string => {
   const income = incomes.find(item => item.tag === tag)
