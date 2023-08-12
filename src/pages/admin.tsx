@@ -3,12 +3,15 @@ import BranchItem from "@/components/branchItem";
 import Layout from "@/layouts/Layout";
 import { RequestStatus } from "@/services";
 import { Branch, getBranches } from "@/services/api/branches";
-import { setLocalBranches } from "@/utils/appStorage";
-import { useEffect, useState } from "react";
+import { setLocalBranches, updateUserRole } from "@/utils/appStorage";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 export default function Admin(): JSX.Element {
   const [branches, setBranches] = useState<Branch[]>([])
   const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
+
+  const route = useRouter()
 
   useEffect(() => {
     setStatus({ ...status, onLoading: true })
@@ -21,9 +24,18 @@ export default function Admin(): JSX.Element {
     })
   }, [])
 
+  const handleDemoOption = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    updateUserRole()
+    route.push('/')
+  }
+
   return (
     <Layout>
       <>
+      <button onClick={handleDemoOption} className="m-4 bg-mp-green text-mp-gray-soft text-sm rounded h-8 w-44">
+        Cambiar a DEMO
+      </button>
         {
           status.onLoading ? (<Spinner bgBlank />)
             : (<>

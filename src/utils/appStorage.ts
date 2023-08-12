@@ -1,6 +1,7 @@
 import { AuthResponse } from "@/services/api/auth";
 import { Branch } from "@/services/api/branches";
 import Cookies from "js-cookie";
+import { Role } from "./variables";
 
 export type CurrentAccounting = {
   accountingId: number,
@@ -78,6 +79,10 @@ export const getUserCredentials = (): AuthResponse | undefined => {
       branchId
     }
   }
+}
+
+export const updateUserRole = (): void => {
+  Cookies.set('role', Role.USER, { expires: 25 })
 }
 
 export const deleteUserCredentials = () => {
