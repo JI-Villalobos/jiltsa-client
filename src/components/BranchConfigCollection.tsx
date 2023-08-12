@@ -31,7 +31,7 @@ export default function BranchConfigCollection(): JSX.Element {
             status.onLoading && <Spinner bgBlank />
           }
           {
-            branches.map((branch) => (<InitialBalanceItem branch={branch} />))
+            branches.map((branch) => (<InitialBalanceItem branch={branch} key={`branch-key-${branch.id}`}/>))
           }
         </div>
       </div>
