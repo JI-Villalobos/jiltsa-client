@@ -4,6 +4,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Spinner from "./Spinner"
 import { getBranchId, getCurrentAccounting } from "@/utils/appStorage"
 import { CreateCashWithdrawalDto } from "@/services/api/withdrawals"
+import Link from "next/link"
 
 type Props = {
   setCashWithdrawal: Dispatch<SetStateAction<CreateCashWithdrawalDto>>
@@ -64,6 +65,11 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
             </button>
           )
       }
+      <div className="p-2">
+        <Link href={`withdrawals/${cashWithDrawal.branch}`} className="text-mp-blue text-xs underline">
+          Ver Registros
+        </Link>
+      </div>
     </div>
   )
 }
