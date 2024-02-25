@@ -44,5 +44,8 @@ export const endPoints ={
   cash: {
     withdrawals: `${API}/withdrawals`,
     getCashRegistries: (branch: string) => `${API}/withdrawals/${branch}`
+  },
+  providers: {
+    op: `${API}/providers`
   }
 }
