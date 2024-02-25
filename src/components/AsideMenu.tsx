@@ -42,7 +42,8 @@ export default function AsideMenu(): JSX.Element {
           <LinkItem path="/admin" icon="/home.svg" name="Movimientos" />
           <LinkItem path="/sellers" icon="/casher.svg" name="Vendedoras" />
           <LinkItem path="/cashwithdrawals" icon="/withdrawal.svg" name="Retiros" />
-          <LinkItem path="/collections" icon="/withdrawal.svg" name="Configuración" />
+          <LinkItem path="/collections" icon="/config.svg" name="Configuración" />
+          <LinkItem path="/providers" icon="/providers.svg" name="Proveedores" />
         </>)
           : (<>
             <LinkItem path="/seller-home" icon="/home.svg" name="Movimientos" />
