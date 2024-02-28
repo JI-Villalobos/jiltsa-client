@@ -47,5 +47,12 @@ export const endPoints ={
   },
   providers: {
     op: `${API}/providers`
+  },
+  billing: {
+    bills: `${API}/bills/`,
+    saveAll: `${API}/bills/save-all`,
+    all: (page: number) => `${API}/bills?page=${page}`,
+    pending: (page: number) => `${API}/bills/pending?page=${page}`,
+    getById: (billId: number) => `${API}/bills/${billId}`,
   }
 }
