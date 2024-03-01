@@ -41,23 +41,23 @@ export default function BillingTable({ mode }: Props): JSX.Element {
     }
     console.log(page?.content);
 
-  }, [mode])
+  }, [mode, setNumberPage])
 
   return (
     <>
       {
         status.onLoading ? <Spinner bgBlank />
-          : status.onSuccess ? (<>
+          : page ? (<>
             <table className="min-w-full divide-y-2 divide-mp-strong-gray text-sm">
               <HeaderTable />
               <tbody className="divide-y divide-mp-strong-gray">
                 {
-                  page?.content.map((bill) => (<RowTable bill={bill} />))
+                  page?.content.map((bill) => (<RowTable bill={bill} key={`bill-idd-${bill.id}`}/>))
                 }
               </tbody>
             </table>
             <div className="w-full mt-4 flex justify-center">
-              <BillingPagination />
+              <BillingPagination pages={page.totalPages} setNumberPage={setNumberPage} currentPage={numberPage}/>
             </div>
           </>)
             : <p>Error</p>

@@ -1,4 +1,13 @@
-export default function BillingPagination(): JSX.Element {
+import { Dispatch, SetStateAction, useState } from "react"
+
+type Props = {
+  currentPage: number
+  pages: number
+  setNumberPage: Dispatch<SetStateAction<number>>
+}
+
+export default function BillingPagination({ pages, setNumberPage, currentPage }: Props): JSX.Element {
+
   return (
     <ol className="w-full flex justify-center gap-1 text-xs font-medium">
       <li>
@@ -23,25 +32,21 @@ export default function BillingPagination(): JSX.Element {
       </li>
 
       <li>
-        <a
-          href="#"
-          className="block w-6 rounded border border-mp-soft-dark bg-white text-center leading-6 text-mp-soft-dark"
-        >
-          1
-        </a>
-      </li>
+        {
+          Array.from({ length: pages }, (_, index) => (
+            <button
+              className={
+                index==currentPage ? 'block w-6 rounded border border-mp-dark bg-mp-dark text-center leading-6 text-mp-gray-soft' 
+                : 'block w-6 rounded border border-mp-soft-dark bg-white text-center leading-6 text-mp-soft-dark'
+              }
+              id={`id-${index}`}
+              key={`page-id-${index}`}
+            >
+              1
+            </button>
+          ))
+        }
 
-      <li className="block size-8 rounded border-blue-600 bg-mp-dark text-center leading-8 text-mp-gray-soft">
-        2
-      </li>
-
-      <li>
-        <a
-          href="#"
-          className="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
-        >
-          3
-        </a>
       </li>
       <li>
         <a

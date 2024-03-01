@@ -1,6 +1,7 @@
 import { Bill } from "@/services/api/billing"
 import DateFormat from "@/utils/DateFormat"
 import { formatAmount } from "@/utils/formatAmount"
+import { ChangeEvent, ChangeEventHandler } from "react"
 
 type Props = {
   bill: Bill
@@ -12,7 +13,13 @@ export default function RowTable({ bill }: Props): JSX.Element {
       <th className="px-4 py-2">
         <label htmlFor="SelectAll" className="sr-only">Select All</label>
 
-        <input type="checkbox" id="SelectAll" className="size-5 rounded border-mp-soft-dark" disabled={bill.isPaid} checked={bill.isPaid}/>
+        <input
+          type="checkbox"
+          id="SelectAll"
+          className="size-5 rounded border-mp-soft-dark"
+          disabled={bill.isPaid}
+          defaultChecked={bill.isPaid}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => console.log(bill)} />
       </th>
       <td className="whitespace-nowrap px-4 py-2 font-medium text-mp-soft-dark">{bill.branch}</td>
       <td className="whitespace-nowrap px-4 py-2 text-mp-soft-dark">{DateFormat(bill.date)}</td>
