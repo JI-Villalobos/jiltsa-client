@@ -37,12 +37,13 @@ export default function BillingPagination({ pages, setNumberPage, currentPage }:
             <button
               className={
                 index==currentPage ? 'block w-6 rounded border border-mp-dark bg-mp-dark text-center leading-6 text-mp-gray-soft' 
-                : 'block w-6 rounded border border-mp-soft-dark bg-white text-center leading-6 text-mp-soft-dark'
+                : 'block w-6 rounded border border-mp-soft-dark bg-white text-center leading-6 text-mp-soft-dark hover:bg-mp-dark'
               }
               id={`id-${index}`}
               key={`page-id-${index}`}
+              onClick={() => setNumberPage(index)}
             >
-              1
+              {index + 1}
             </button>
           ))
         }

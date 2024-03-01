@@ -1,20 +1,22 @@
 import { Mode } from "@/services/api/pagination";
 import HeaderTable from "./HeaderTable";
 import RowTable from "./RowTable";
-import { useEffect, useState } from "react";
-import { PageBill, getBills, getPendingBills } from "@/services/api/billing";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Bill, PageBill, getBills, getPendingBills } from "@/services/api/billing";
 import { RequestStatus } from "@/services";
 import BillingPagination from "./BillingPagination";
 import Spinner from "@/components/Spinner";
 
 export interface Props {
   mode: Mode
+  selectedBills: Bill[]
+  setSelectedBills: Dispatch<SetStateAction<Bill[]>>
 }
 
-export default function BillingTable({ mode }: Props): JSX.Element {
+export default function BillingTable({ mode, setSelectedBills, selectedBills }: Props): JSX.Element {
   const [page, setPage] = useState<PageBill>()
   const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
-  const [numberPage, setNumberPage] = useState(0)
+  const [numberPage, setNumberPage] = useState(0)  
 
   useEffect(() => {
     setStatus({ ...status, onLoading: true })
@@ -39,7 +41,6 @@ export default function BillingTable({ mode }: Props): JSX.Element {
           
         })
     }
-    console.log(page?.content);
 
   }, [mode, setNumberPage])
 
@@ -52,7 +53,7 @@ export default function BillingTable({ mode }: Props): JSX.Element {
               <HeaderTable />
               <tbody className="divide-y divide-mp-strong-gray">
                 {
-                  page?.content.map((bill) => (<RowTable bill={bill} key={`bill-idd-${bill.id}`}/>))
+                  page?.content.map((bill) => (<RowTable bills={selectedBills} bill={bill} setSelectedBills={setSelectedBills} key={`bill-idd-${bill.id}`}/>))
                 }
               </tbody>
             </table>
