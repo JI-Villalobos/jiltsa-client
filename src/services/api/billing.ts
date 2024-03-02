@@ -43,3 +43,9 @@ export const getPendingBills = async (page: number): Promise<PageBill> => {
 
   return data
 }
+
+export const getBillById = async (id: number): Promise<Bill> => {
+  const { data }: AxiosResponse<Bill> = await axios.get(endPoints.billing.getById(id), options)
+
+  return data
+}

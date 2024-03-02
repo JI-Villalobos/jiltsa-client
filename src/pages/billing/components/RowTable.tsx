@@ -1,7 +1,9 @@
 import { Bill } from "@/services/api/billing"
 import DateFormat from "@/utils/DateFormat"
 import { formatAmount } from "@/utils/formatAmount"
+import Link from "next/link"
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
+import ShowBillDetails from "@/components/modals/ShowBillDetails"
 
 type Props = {
   bill: Bill
@@ -16,7 +18,7 @@ export default function RowTable({ bill, setSelectedBills, bills }: Props): JSX.
     if (!checked) {
       const updatedList = bills
       if (!bill.isPaid) {
-        updatedList.push(bill) 
+        updatedList.push(bill)
       }
       setSelectedBills(updatedList)
     } else {
@@ -48,12 +50,12 @@ export default function RowTable({ bill, setSelectedBills, bills }: Props): JSX.
       <td className="whitespace-nowrap px-4 py-2 text-mp-green">{formatAmount(bill.amount)}</td>
       <td className="whitespace-nowrap px-4 py-2 text-mp-soft-dark">{DateFormat(bill.limitPaymentDate)}</td>
       <td className="whitespace-nowrap px-4 py-2">
-        <a
-          href="#"
+        <Link
+          href={`/bill/${bill.id}`}
           className="inline-block rounded bg-mp-dark px-4 py-2 text-xs font-medium text-mp-gray-soft hover:bg-mp-soft-dark"
         >
           View
-        </a>
+        </Link>
       </td>
     </tr>
   )

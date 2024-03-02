@@ -24,7 +24,7 @@ export default function Billing(): JSX.Element {
             onClick={() => console.log(selectedBills)
             }
           >
-            Pagar
+            Pagar Seleccionadas
           </a>
 
         </div>
