@@ -77,13 +77,25 @@ export default function BillDetail() {
 
                     {
                       bill.isPaid ? (
-                      <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                        <dt className="font-medium text-mp-soft-dark">Ticket de Pago</dt>
-                        <dd className="text-gray-700 sm:col-span-2">OIUEOIUO984797-876KJHDFKJHDS9878</dd>
-                      </div>)
-                      : <div>
-                        <p className="text-center text-mp-error m-2">Pendiente de Pago</p>
-                      </div>
+                        <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                          <dt className="font-medium text-mp-soft-dark">Ticket de Pago</dt>
+                          <dd className="text-gray-700 sm:col-span-2">OIUEOIUO984797-876KJHDFKJHDS9878</dd>
+                        </div>)
+                        : <div>
+                          <p className="text-center text-mp-error m-2">Pendiente de Pago</p>
+                        </div>
+                    }
+                    {
+                      bill.isActive ? (
+                        <div>
+                          <p className="text-center text-mp-error m-2">Pendiente de Recpción</p>
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                          <dt className="font-medium text-mp-soft-dark">Fecha de Recepción</dt>
+                          <dd className="text-mp-blue sm:col-span-2">{DateFormat(bill.receptionDate)}</dd>
+                        </div>
+                      )
                     }
 
                   </dl>

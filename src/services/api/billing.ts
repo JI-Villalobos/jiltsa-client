@@ -15,9 +15,10 @@ export interface Bill {
   paymentTicket: string
   providerId: number
   isActive: boolean
+  receptionDate: string
 }
 
-export type CreateBill = Omit<Bill, 'id' | 'limitPaymentDate' | 'isPaid' | 'paymentTicket' |'isActive' >
+export type CreateBill = Omit<Bill, 'id' | 'limitPaymentDate' | 'isPaid' | 'paymentTicket' |'isActive' | 'receptionDate'>
 
 export type PageBill = {
   content: Bill[]
