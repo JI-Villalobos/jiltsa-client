@@ -1,4 +1,5 @@
 import { Mode } from "@/services/api/pagination"
+import { useRouter } from "next/router"
 import { ChangeEvent, Dispatch, SetStateAction } from "react"
 
 type Props = {
@@ -6,6 +7,7 @@ type Props = {
 }
 
 export default function BillingOptions({ setMode }: Props): JSX.Element {
+  const router = useRouter()
 
   const handleMode = (mode: string) : Mode => {
       if(mode == 'PENDING')
@@ -32,6 +34,7 @@ export default function BillingOptions({ setMode }: Props): JSX.Element {
       <button
         className="block rounded-lg bg-mp-dark px-5 py-3 text-sm font-medium text-mp-gray-soft transition hover:bg-mp-soft-dark focus:outline-none focus:ring"
         type="button"
+        onClick={() => router.push("/billing/new")}
       >
         Nueva Factura
       </button>

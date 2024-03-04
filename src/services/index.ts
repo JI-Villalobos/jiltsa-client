@@ -6,6 +6,30 @@ export type RequestStatus = {
   onSuccess: boolean
 }
 
+export const pendingRequest: RequestStatus = {
+  onLoading: true,
+  onError: false,
+  onSuccess: false
+}
+
+export const failedRequest: RequestStatus = {
+  onLoading: false,
+  onError: true,
+  onSuccess: false
+}
+
+export const initialStatus: RequestStatus = {
+  onLoading: false,
+  onError: false,
+  onSuccess: false
+}
+
+export const successfullRequest: RequestStatus = {
+  onLoading: false,
+  onError: false,
+  onSuccess: true
+}
+
 export const endPoints ={
   auth: {
     registration: `${API}/auth/register`,
@@ -49,7 +73,7 @@ export const endPoints ={
     op: `${API}/providers`
   },
   billing: {
-    bills: `${API}/bills/`,
+    bills: `${API}/bills`,
     saveAll: `${API}/bills/save-all`,
     all: (page: number) => `${API}/bills?page=${page}`,
     pending: (page: number) => `${API}/bills/pending?page=${page}`,

@@ -8,7 +8,7 @@ export interface Bill {
   date: string
   invoice: string
   branch: string
-  branchId: string
+  branchId: number
   amount: number
   limitPaymentDate: string
   isPaid: boolean
@@ -47,6 +47,12 @@ export const getPendingBills = async (page: number): Promise<PageBill> => {
 
 export const getBillById = async (id: number): Promise<Bill> => {
   const { data }: AxiosResponse<Bill> = await axios.get(endPoints.billing.getById(id), options)
+
+  return data
+}
+
+export const createNewBill = async (bill: CreateBill): Promise<Bill> => {
+  const { data }: AxiosResponse<Bill> = await axios.post(endPoints.billing.bills, bill, options)
 
   return data
 }
