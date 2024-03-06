@@ -78,5 +78,9 @@ export const endPoints ={
     all: (page: number) => `${API}/bills?page=${page}`,
     pending: (page: number) => `${API}/bills/pending?page=${page}`,
     getById: (billId: number) => `${API}/bills/${billId}`,
+  },
+  payment: {
+    payment: `${API}/payment`,
+    getTicket: `${API}/payment/ticket`
   }
 }
