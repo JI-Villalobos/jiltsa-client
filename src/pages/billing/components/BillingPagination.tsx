@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import { Dispatch, SetStateAction, useState } from "react"
 
 type Props = {
@@ -7,9 +8,10 @@ type Props = {
 }
 
 export default function BillingPagination({ pages, setNumberPage, currentPage }: Props): JSX.Element {
+  const router = useRouter()
 
   return (
-    <ol className="w-full flex justify-center gap-1 text-xs font-medium">
+    <ol className="w-full flex justify-center items-center gap-1 text-xs font-medium">
       <li>
         <a
           href="#"
@@ -31,17 +33,19 @@ export default function BillingPagination({ pages, setNumberPage, currentPage }:
         </a>
       </li>
 
-      <li>
+      <li className="flex flex-row">
         {
           Array.from({ length: pages }, (_, index) => (
             <button
               className={
-                index==currentPage ? 'block w-6 rounded border border-mp-dark bg-mp-dark text-center leading-6 text-mp-gray-soft' 
-                : 'block w-6 rounded border border-mp-soft-dark bg-white text-center leading-6 text-mp-soft-dark hover:bg-mp-dark'
+                index == currentPage ? 'block w-6 rounded border border-mp-dark bg-mp-dark text-center leading-6 text-mp-gray-soft m-1'
+                  : 'block w-6 rounded border border-mp-soft-dark bg-white text-center leading-6 text-mp-soft-dark hover:bg-mp-dark m-1'
               }
               id={`id-${index}`}
               key={`page-id-${index}`}
-              onClick={() => setNumberPage(index)}
+              onClick={() => {
+                setNumberPage(index)
+              }}
             >
               {index + 1}
             </button>

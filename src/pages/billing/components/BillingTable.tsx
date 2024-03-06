@@ -44,14 +44,14 @@ export default function BillingTable({ mode, setSelectedBills, selectedBills }: 
         })
     }
 
-  }, [mode, setNumberPage])
+  }, [mode, numberPage])
 
   return (
     <>
       {
-        status.onLoading ? <Spinner bgBlank />
+        status.onLoading ? (<div className="w-full flex items-center justify-center"><Spinner bgBlank /></div>)
           : page ? (<>
-            <table className="min-w-full divide-y-2 divide-mp-strong-gray text-sm">
+            <table className="overflow-x-auto divide-y-2 divide-mp-strong-gray text-sm">
               <HeaderTable />
               <tbody className="divide-y divide-mp-strong-gray">
                 {

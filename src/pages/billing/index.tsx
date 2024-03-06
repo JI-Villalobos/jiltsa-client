@@ -22,9 +22,9 @@ export default function Billing(): JSX.Element {
 
   return (
     <Layout>
-      <div className="overflow-y-auto">
+      <div className="flex flex-col xl:justify-start items-center">
         <BillingOptions setMode={setMode} />
-        <div className="w-full mt-6 flex justify-center">
+        <div className="mt-6 flex">
 
           <button
             className="inline-block rounded bg-mp-blue px-4 py-2 text-xs font-medium text-mp-gray-soft mr-14"
@@ -43,7 +43,7 @@ export default function Billing(): JSX.Element {
           </button>
 
         </div>
-        <div className="overflow-x-auto m-4">
+        <div className="m-4">
           <BillingTable mode={mode} selectedBills={selectedBills} setSelectedBills={setSelectedBills} />
         </div>
       </div>

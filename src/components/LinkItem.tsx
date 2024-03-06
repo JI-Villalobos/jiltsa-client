@@ -11,9 +11,9 @@ type Props = {
 export default function LinkItem({ path, icon, name }: Props): JSX.Element {
 
   return (
-    <div className='flex flex-row mt-4 hover:bg-mp-soft-dark'>
-      <Link href={path} className="font-coda text-mp-gray-soft text-sm p-2 w-3/4">{name}</Link>
+    <Link className='flex flex-row mt-4 hover:bg-mp-soft-dark justify-center' href={path}>
+      <p className="font-coda text-mp-gray-soft text-xs p-2 lg:w-3/4 lg:hidden md:hidden xl:block">{name}</p>
       <Image src={icon} alt='' width={20} height={20} />
-    </div>
+    </Link>
   )
 }
