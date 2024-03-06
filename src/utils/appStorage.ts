@@ -2,6 +2,7 @@ import { AuthResponse } from "@/services/api/auth";
 import { Branch } from "@/services/api/branches";
 import Cookies from "js-cookie";
 import { Role } from "./variables";
+import { Bill } from "@/services/api/billing";
 
 export type CurrentAccounting = {
   accountingId: number,
@@ -83,6 +84,22 @@ export const getUserCredentials = (): AuthResponse | undefined => {
 
 export const updateUserRole = (): void => {
   Cookies.set('role', Role.USER, { expires: 25 })
+}
+
+export const setBills = (bills: Bill[]) => {
+  Cookies.set('bills', JSON.stringify(bills))
+}
+
+export const getBills = (): Bill[] | undefined => {
+  const bills: string | undefined = Cookies.get('bills')
+
+  if(bills){
+    return JSON.parse(bills)
+  }
+}
+
+export const clearBillStorage = () => {
+  Cookies.remove('bills')
 }
 
 export const deleteUserCredentials = () => {

@@ -2,7 +2,7 @@ import { Bill } from "@/services/api/billing"
 import DateFormat from "@/utils/DateFormat"
 import { formatAmount } from "@/utils/formatAmount"
 import Link from "next/link"
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 
 type Props = {
   bill: Bill
@@ -11,46 +11,52 @@ type Props = {
 }
 
 export default function RowTable({ bill, setSelectedBills, bills }: Props): JSX.Element {
-  const [checked, setChecked] = useState(bill.isPaid)
+  const [action, setAction] = useState(1)
 
-  const handleSelectedBill = () => {
-    if (!checked) {
-      const updatedList = bills
-      if (!bill.isPaid) {
-        updatedList.push(bill)
-      }
-      setSelectedBills(updatedList)
+  
+  const selectBill = () => {
+    console.log('initial', bills);
+    
+    if (action == 1) {
+      bills.push(bill)
+      setAction(2)
+      console.log('pushing', bills);
     } else {
       const index = bills.indexOf(bill)
-      const b = bills.splice(index, 1)
-      setSelectedBills(b)
+      bills.splice(index, 1)
+      setAction(1)
+      console.log('splicing', bills);
     }
+    setSelectedBills(bills)
   }
 
   return (
     <tr>
-      <th className="px-4 py-2">
-        <label htmlFor="SelectAll" className="sr-only">Select All</label>
-
-        <input
-          type="checkbox"
-          id="SelectAll"
-          className="size-5 rounded border-mp-soft-dark"
-          disabled={bill.isPaid}
-          defaultChecked={bill.isPaid}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setChecked(!checked)
-            handleSelectedBill()
-          }} />
-      </th>
-      <td className="whitespace-nowrap px-4 py-2 font-medium text-mp-soft-dark">{bill.branch}</td>
-      <td className="whitespace-nowrap px-4 py-2 text-mp-soft-dark">{DateFormat(bill.date)}</td>
-      <td className="whitespace-nowrap px-4 py-2 text-mp-blue">{bill.invoice}</td>
-      <td className="whitespace-nowrap px-4 py-2 text-mp-green">{formatAmount(bill.amount)}</td>
-      <td className="whitespace-nowrap px-4 py-2 text-mp-soft-dark">{DateFormat(bill.limitPaymentDate)}</td>
+      {
+        bill.isPaid ? (
+          <td className="px-4 py-2">
+            <div className="w-4 h-4 rounded bg-mp-light-green"></div>
+          </td>)
+          : (<td className="px-4 py-2">
+            <button 
+              type="button" 
+              disabled={bill.isPaid} 
+              className={
+              action == 1 ? 'w-4 h-4 border border-mp-dark rounded'
+                : 'w-4 h-4 bg-mp-blue rounded'
+              }
+              onClick={selectBill}
+            ></button>
+          </td>)
+      }
+      <td className="whitespace-nowrap px-4 py-2 text-xs font-medium text-mp-soft-dark">{bill.branch}</td>
+      <td className="whitespace-nowrap px-4 py-2 text-xs text-mp-soft-dark">{DateFormat(bill.date)}</td>
+      <td className="whitespace-nowrap px-4 py-2 text-xs text-mp-blue">{bill.invoice}</td>
+      <td className="whitespace-nowrap px-4 py-2 text-xs text-mp-green">{formatAmount(bill.amount)}</td>
+      <td className="whitespace-nowrap px-4 py-2 text-xs text-mp-soft-dark">{DateFormat(bill.limitPaymentDate)}</td>
       {
         bill.isActive ? (<td className="whitespace-nowrap px-4 py-2 text-mp-soft-dark">Pendiente</td>)
-        : (<td className="whitespace-nowrap px-4 py-2 text-mp-soft-dark">{DateFormat(bill.receptionDate)}</td>)
+          : (<td className="whitespace-nowrap px-4 py-2 text-mp-soft-dark">{DateFormat(bill.receptionDate)}</td>)
       }
       <td className="whitespace-nowrap px-4 py-2">
         <Link

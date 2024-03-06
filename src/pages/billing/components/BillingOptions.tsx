@@ -17,7 +17,7 @@ export default function BillingOptions({ setMode }: Props): JSX.Element {
   }
 
   return (
-    <div className="w-8/12 mt-4 flex flex-row justify-between">
+    <div className="w-9/12 mt-2 flex flex-row justify-between">
       <div className="w-4/12">
         <label htmlFor="searchBy" className="block text-sm font-medium text-mp-dark"> Mostrar por: </label>
 

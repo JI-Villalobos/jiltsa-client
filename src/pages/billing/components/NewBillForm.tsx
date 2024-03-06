@@ -2,7 +2,7 @@ import Spinner from "@/components/Spinner"
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { CreateBill, createNewBill } from "@/services/api/billing"
 import { Branch, getBranches } from "@/services/api/branches"
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react"
+import React, { ChangeEvent, useEffect, useRef, useState } from "react"
 
 export default function NewBillForm() {
   const [branches, setBranches] = useState<Branch[]>([])

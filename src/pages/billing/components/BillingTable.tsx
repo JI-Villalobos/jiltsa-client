@@ -6,6 +6,7 @@ import { Bill, PageBill, getBills, getPendingBills } from "@/services/api/billin
 import { RequestStatus } from "@/services";
 import BillingPagination from "./BillingPagination";
 import Spinner from "@/components/Spinner";
+import { clearBillStorage } from "@/utils/appStorage";
 
 export interface Props {
   mode: Mode
@@ -19,6 +20,7 @@ export default function BillingTable({ mode, setSelectedBills, selectedBills }: 
   const [numberPage, setNumberPage] = useState(0)  
 
   useEffect(() => {
+    clearBillStorage()
     setStatus({ ...status, onLoading: true })
     if (mode == Mode.PENDING) {
       getPendingBills(numberPage)

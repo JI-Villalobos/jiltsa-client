@@ -56,3 +56,9 @@ export const createNewBill = async (bill: CreateBill): Promise<Bill> => {
 
   return data
 }
+
+export const updateBills = async (bills: Bill[]): Promise<Bill[]> => {
+  const { data }: AxiosResponse<Bill[]> = await axios.put(endPoints.billing.bills, bills, options)
+
+  return data
+}
