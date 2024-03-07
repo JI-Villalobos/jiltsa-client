@@ -79,7 +79,7 @@ export default function BillDetail() {
                       bill.isPaid ? (
                         <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                           <dt className="font-medium text-mp-soft-dark">Ticket de Pago</dt>
-                          <dd className="text-gray-700 sm:col-span-2">OIUEOIUO984797-876KJHDFKJHDS9878</dd>
+                          <dd className="text-mp-blue text-xs sm:col-span-2">{bill.paymentTicket}</dd>
                         </div>)
                         : <div>
                           <p className="text-center text-mp-error m-2">Pendiente de Pago</p>

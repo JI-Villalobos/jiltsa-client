@@ -80,7 +80,7 @@ export const endPoints ={
     getById: (billId: number) => `${API}/bills/${billId}`,
   },
   payment: {
-    payment: `${API}/payment`,
-    getTicket: `${API}/payment/ticket`
+    payment: `${API}/payments`,
+    getTicket: `${API}/payments/ticket`
   }
 }

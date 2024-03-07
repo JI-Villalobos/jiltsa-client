@@ -13,10 +13,14 @@ export default function Billing(): JSX.Element {
   const [selectedBills, setSelectedBills] = useState<Bill[]>([])
   const router = useRouter()
 
-  const handleSelectedBills = () => {
+  const handleSelectedBills = (isPayment: boolean) => {
     if (selectedBills.length > 0) {
       setBills(selectedBills)
-      router.push("/billing/update")
+      if (isPayment == true) {
+        router.push("/billing/update?payment=true")
+      } else {
+        router.push("/billing/update")
+      }
     }
   }
 
@@ -28,7 +32,7 @@ export default function Billing(): JSX.Element {
 
           <button
             className="inline-block rounded bg-mp-blue px-4 py-2 text-xs font-medium text-mp-gray-soft mr-14"
-            onClick={() => console.log(selectedBills)
+            onClick={() => handleSelectedBills(true)
             }
           >
             Pagar Seleccionadas
@@ -36,7 +40,7 @@ export default function Billing(): JSX.Element {
           <button
             className="inline-block rounded border border-mp-green px-4 py-2 text-xs font-medium text-mp-green mr-14"
             onClick={() => {
-              handleSelectedBills()
+              handleSelectedBills(false)
             }}
           >
             Confirmar Recepción

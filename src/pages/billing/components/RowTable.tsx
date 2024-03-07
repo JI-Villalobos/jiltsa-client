@@ -15,17 +15,13 @@ export default function RowTable({ bill, setSelectedBills, bills }: Props): JSX.
 
   
   const selectBill = () => {
-    console.log('initial', bills);
-    
     if (action == 1) {
       bills.push(bill)
       setAction(2)
-      console.log('pushing', bills);
     } else {
       const index = bills.indexOf(bill)
       bills.splice(index, 1)
       setAction(1)
-      console.log('splicing', bills);
     }
     setSelectedBills(bills)
   }
