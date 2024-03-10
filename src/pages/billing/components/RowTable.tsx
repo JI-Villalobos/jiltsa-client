@@ -33,6 +33,20 @@ export default function RowTable({ bill, setSelectedBills, bills, setSelectedAmo
     setSelectedBills(bills)
   }
 
+  if (!bill) {
+    <tr>
+      <th className="whitespace-nowrap px-4 py-2"></th>
+        <th className="whitespace-nowrap px-4 py-2"></th>
+        <th className="whitespace-nowrap px-4 py-2"></th>
+        <th className="whitespace-nowrap px-4 py-2 text-mp-error">Un error causo que no pudieramos mostrarte esta factura</th>
+        <th className="whitespace-nowrap px-4 py-2"></th>
+        <th className="whitespace-nowrap px-4 py-2"></th>
+        <th className="whitespace-nowrap px-4 py-2"></th>
+        <th className="whitespace-nowrap px-4 py-2"></th>
+        <th className="px-4 py-2"></th>
+    </tr>
+  }
+
   return (
     <tr className="">
       {
