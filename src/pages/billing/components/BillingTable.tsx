@@ -12,12 +12,14 @@ export interface Props {
   mode: Mode
   selectedBills: Bill[]
   setSelectedBills: Dispatch<SetStateAction<Bill[]>>
+  selectedAmount: number
+  setSelectedAmount: Dispatch<SetStateAction<number>>
 }
 
-export default function BillingTable({ mode, setSelectedBills, selectedBills }: Props): JSX.Element {
+export default function BillingTable({ mode, setSelectedBills, selectedBills, setSelectedAmount, selectedAmount }: Props): JSX.Element {
   const [page, setPage] = useState<PageBill>()
   const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
-  const [numberPage, setNumberPage] = useState(0)  
+  const [numberPage, setNumberPage] = useState(0)
 
   useEffect(() => {
     clearBillStorage()
@@ -40,7 +42,7 @@ export default function BillingTable({ mode, setSelectedBills, selectedBills }: 
         .catch((error) => {
           setStatus({ ...status, onError: true })
           console.log(error);
-          
+
         })
     }
 
@@ -55,12 +57,21 @@ export default function BillingTable({ mode, setSelectedBills, selectedBills }: 
               <HeaderTable />
               <tbody className="divide-y divide-mp-strong-gray">
                 {
-                  page?.content.map((bill) => (<RowTable bills={selectedBills} bill={bill} setSelectedBills={setSelectedBills} key={`bill-idd-${bill.id}`}/>))
+                  page?.content.map((bill) => (
+                    <RowTable
+                      selectedAmount={selectedAmount}
+                      setSelectedAmount={setSelectedAmount}
+                      bills={selectedBills}
+                      bill={bill}
+                      setSelectedBills={setSelectedBills}
+                      key={`bill-idd-${bill.id}`}
+                    />
+                  ))
                 }
               </tbody>
             </table>
             <div className="w-full mt-4 flex justify-center">
-              <BillingPagination pages={page.totalPages} setNumberPage={setNumberPage} currentPage={numberPage}/>
+              <BillingPagination pages={page.totalPages} setNumberPage={setNumberPage} currentPage={numberPage} />
             </div>
           </>)
             : <p>Error</p>

@@ -8,20 +8,27 @@ type Props = {
   bill: Bill
   bills: Bill[]
   setSelectedBills: Dispatch<SetStateAction<Bill[]>>
+  selectedAmount: number
+  setSelectedAmount: Dispatch<SetStateAction<number>>
 }
 
-export default function RowTable({ bill, setSelectedBills, bills }: Props): JSX.Element {
-  const [action, setAction] = useState(1)
+const DISABLED = 1
+const ENABLED = 2
+
+export default function RowTable({ bill, setSelectedBills, bills, setSelectedAmount, selectedAmount }: Props): JSX.Element {
+  const [action, setAction] = useState(DISABLED)
 
   
   const selectBill = () => {
-    if (action == 1) {
+    if (action == DISABLED) {
       bills.push(bill)
-      setAction(2)
+      setAction(ENABLED)
+      setSelectedAmount(selectedAmount + bill.amount)
     } else {
       const index = bills.indexOf(bill)
       bills.splice(index, 1)
-      setAction(1)
+      setAction(DISABLED)
+      setSelectedAmount(selectedAmount - bill.amount)
     }
     setSelectedBills(bills)
   }

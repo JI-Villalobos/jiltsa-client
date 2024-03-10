@@ -32,7 +32,7 @@ export default function BillingOptions({ setMode }: Props): JSX.Element {
         </select>
       </div>
       <button
-        className="block rounded-lg bg-mp-dark px-5 py-3 text-sm font-medium text-mp-gray-soft transition hover:bg-mp-soft-dark focus:outline-none focus:ring"
+        className="block rounded-lg bg-mp-dark px-4 py-1 text-xs font-medium text-mp-gray-soft transition hover:bg-mp-soft-dark focus:outline-none focus:ring"
         type="button"
         onClick={() => router.push("/billing/new")}
       >
