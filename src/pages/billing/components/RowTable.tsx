@@ -34,7 +34,8 @@ export default function RowTable({ bill, setSelectedBills, bills, setSelectedAmo
   }
 
   if (!bill) {
-    <tr>
+    return (
+      <tr>
       <th className="whitespace-nowrap px-4 py-2"></th>
         <th className="whitespace-nowrap px-4 py-2"></th>
         <th className="whitespace-nowrap px-4 py-2"></th>
@@ -45,6 +46,7 @@ export default function RowTable({ bill, setSelectedBills, bills, setSelectedAmo
         <th className="whitespace-nowrap px-4 py-2"></th>
         <th className="px-4 py-2"></th>
     </tr>
+    )
   }
 
   return (
