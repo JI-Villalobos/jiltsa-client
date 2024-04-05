@@ -1,5 +1,5 @@
 'use client'
-import { Inter } from 'next/font/google'
+
 import { useContext, useEffect } from 'react'
 import { NextRouter, useRouter } from 'next/router'
 import { AuthContext } from '@/context/AuthContext'
@@ -8,19 +8,16 @@ import Spinner from '@/components/Spinner'
 import { getUserCredentials } from '@/utils/appStorage'
 import { Role } from '@/utils/variables'
 
-
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
-  const isAuth: boolean = useContext(AuthContext)
+  //const isAuth: boolean = useContext(AuthContext)
 
   const router: NextRouter = useRouter()
 
   useEffect(() => {
     const creds = getUserCredentials()
-    if (!isAuth) {
+    /*if (!isAuth) {
       router.push("/login")
-    }
+    }**/
     setTimeout(() => {
       if (creds) {
         if (creds.role === Role.USER) {
@@ -29,6 +26,8 @@ export default function Home() {
         if (creds.role === Role.ADMIN) {
           router.push("/admin")
         }
+      } else {
+        router.push('/login')
       }
     }, 1000)
 
