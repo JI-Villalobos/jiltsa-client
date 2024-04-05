@@ -1,6 +1,6 @@
 'use client'
 import { Inter } from 'next/font/google'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { NextRouter, useRouter } from 'next/router'
 import { AuthContext } from '@/context/AuthContext'
 import Header from '@/components/Header'
