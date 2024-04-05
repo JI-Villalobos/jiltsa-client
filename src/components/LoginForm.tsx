@@ -1,18 +1,13 @@
 import { AuthRequest, authenticate } from "@/services/api/auth"
 import React, { useState } from "react"
 import Spinner from "./Spinner"
-import { RequestStatus } from "@/services"
+import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { useRouter } from "next/router"
 
 export default function LoginForm(): JSX.Element {
-  const req: RequestStatus = {
-    onLoading: false,
-    onSuccess: false,
-    onError: false
-  }
   const [mail, setMail] = useState<string>('')
   const [pass, setPass] = useState<string>('')
-  const [status, setStatus] = useState<RequestStatus>(req)
+  const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const router = useRouter()
 
   const request: AuthRequest = {
@@ -20,30 +15,21 @@ export default function LoginForm(): JSX.Element {
     pass: pass
   }
 
-  const handleAuth = async (e: React.FormEvent<HTMLButtonElement>) => {
-    setStatus({
-      ...req,
-      onLoading: true
-    })
+  const handleAuth = async (e: React.FormEvent<HTMLFormElement>) => {
+    setStatus(pendingRequest)
     e.preventDefault()
     await authenticate(request).then(
       () => {
-        setStatus({
-          ...req,
-          onLoading: false
-        })
+        setStatus(successfullRequest)
         router.push('/')
       }
     ).catch(() => {
-      setStatus({
-        ...req,
-        onError: true
-      })
+      setStatus(failedRequest)
     })
   }
 
   return (
-    <div className="flex flex-col items-center mt-6">
+    <form onSubmit={handleAuth} className="flex flex-col items-center mt-6">
       <p className="font-medium text-xl font-coda text-mp-dark">Por favor ingresa tu usuario y contraseña</p>
       <input
         placeholder="Usuario"
@@ -63,7 +49,7 @@ export default function LoginForm(): JSX.Element {
           setPass(e.currentTarget.value)
         }}
       />
-      <button type="button" className="rounded bg-mp-green text-mp-gray-soft w-5/12 h-9 m-2 flex items-center justify-center" onClick={handleAuth}>
+      <button type="submit" className="rounded bg-mp-green text-mp-gray-soft w-5/12 h-9 m-2 flex items-center justify-center">
         {status.onLoading ? <Spinner /> : 'Iniciar Sesion'}
       </button>
       {
@@ -74,6 +60,6 @@ export default function LoginForm(): JSX.Element {
             *La autenticación en este portal solo es posible a travez de  personal con credenciales de administrador
           </p>
       }
-    </div>
+    </form>
   )
 }
