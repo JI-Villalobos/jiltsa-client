@@ -1,29 +1,34 @@
 import Spinner from "@/components/Spinner";
 import Layout from "@/layouts/Layout";
-import { RequestStatus } from "@/services";
+import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { CashWithdrawal, getCashRegistries } from "@/services/api/withdrawals";
 import DateFormat from "@/utils/DateFormat";
+import { isAuth } from "@/utils/appStorage";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function BranchWithdrawals(): JSX.Element {
-  const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
+  const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [cashWithdrawals, setCashWithdrawals] = useState<CashWithdrawal[]>([])
 
   const router = useRouter()
   const { branch } = router.query
 
   useEffect(() => {
-    setStatus({ ...status, onLoading: true })
-    if (typeof branch === 'string') {
-      getCashRegistries(branch)
-        .then((result) => {
-          setCashWithdrawals(result)
-          setStatus({ ...status, onLoading: false })
-        })
-        .catch(() => {
-          setStatus({ ...status, onError: true })
-        })
+    if (isAuth()) {
+      setStatus(pendingRequest)
+      if (typeof branch === 'string') {
+        getCashRegistries(branch)
+          .then((result) => {
+            setCashWithdrawals(result)
+            setStatus(successfullRequest)
+          })
+          .catch(() => {
+            setStatus(failedRequest)
+          })
+      }
+    } else {
+      router.push("/login")
     }
   }, [])
 

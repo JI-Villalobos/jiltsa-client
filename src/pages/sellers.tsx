@@ -2,32 +2,39 @@ import NewSeller from "@/components/NewSeller";
 import SellerInfo from "@/components/SelerInfo";
 import Spinner from "@/components/Spinner";
 import Layout from "@/layouts/Layout";
-import { RequestStatus } from "@/services";
+import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { Seller, getAllSellers, getSellerByBranch } from "@/services/api/sellers";
-import { getBranchId } from "@/utils/appStorage";
+import { isAuth } from "@/utils/appStorage";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Sellers(): JSX.Element {
   const [sellers, setSellers] = useState<Seller[]>([])
-  const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
+  const [status, setStatus] = useState<RequestStatus>(initialStatus)
+  const [transitionStatus, setTransitionStatus] = useState(false)
   const [showNewSellerForm, setShowNewSellerForm] = useState<boolean>(false)
+  const router = useRouter()
 
   useEffect(() => {
-    setStatus({ ...status, onLoading: true })
+    if (isAuth()) {
+      setStatus(pendingRequest)
       getAllSellers()
         .then((result) => {
           setSellers(result)
-          setStatus({ ...status, onLoading: false })
+          setStatus(successfullRequest)
         })
         .catch(() => {
-          setStatus({ ...status, onError: true })
+          setStatus(failedRequest)
         })
+    } else {
+      router.push("/login")
+    }
   }, [])
 
   const handleFormTransition = () => {
-    setStatus({ ...status, onLoading: true })
+    setTransitionStatus(true)
     setTimeout(() => {
-      setStatus({ ...status, onLoading: false })
+      setTransitionStatus(false)
       setShowNewSellerForm(true)
     }, 2000)
   }

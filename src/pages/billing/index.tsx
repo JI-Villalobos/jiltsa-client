@@ -5,7 +5,7 @@ import BillingTable from "./components/BillingTable";
 import { Mode } from "@/services/api/pagination";
 import { Bill } from "@/services/api/billing";
 import { useRouter } from "next/router";
-import { setBills } from "@/utils/appStorage";
+import { isAuth, setBills } from "@/utils/appStorage";
 
 
 export default function Billing(): JSX.Element {
@@ -15,15 +15,19 @@ export default function Billing(): JSX.Element {
   const router = useRouter()
 
   const handleSelectedBills = (isPayment: boolean) => {
-    if (selectedBills.length > 0) {
-      setBills(selectedBills)
-      if (isPayment == true) {
-        setSelectedAmount(0)
-        router.push("/billing/update?payment=true")
-      } else {
-        setSelectedAmount(0)
-        router.push("/billing/update")
+    if (isAuth()) {
+      if (selectedBills.length > 0) {
+        setBills(selectedBills)
+        if (isPayment == true) {
+          setSelectedAmount(0)
+          router.push("/billing/update?payment=true")
+        } else {
+          setSelectedAmount(0)
+          router.push("/billing/update")
+        }
       }
+    } else {
+      router.push("/login")
     }
   }
 

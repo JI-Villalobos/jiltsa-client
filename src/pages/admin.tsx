@@ -1,33 +1,36 @@
 import Spinner from "@/components/Spinner";
 import BranchItem from "@/components/branchItem";
 import Layout from "@/layouts/Layout";
-import { RequestStatus } from "@/services";
+import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { Branch, getBranches } from "@/services/api/branches";
-import { setLocalBranches, updateUserRole } from "@/utils/appStorage";
+import { isAuth, setLocalBranches, updateUserRole } from "@/utils/appStorage";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 export default function Admin(): JSX.Element {
   const [branches, setBranches] = useState<Branch[]>([])
-  const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
+  const [status, setStatus] = useState<RequestStatus>(initialStatus)
 
-  const route = useRouter()
+  const router = useRouter()
 
   useEffect(() => {
-    setStatus({ ...status, onLoading: true })
+    if (!isAuth) {
+      router.push("/login")
+    }
+    setStatus(pendingRequest)
     getBranches().then((result) => {
       setBranches(result)
       setLocalBranches(result)
-      setStatus({ ...status, onLoading: false })
+      setStatus(successfullRequest)
     }).catch(() => {
-      setStatus({ ...status, onError: true })
+      setStatus(failedRequest)
     })
   }, [])
 
   const handleDemoOption = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
     updateUserRole()
-    route.push('/')
+    router.push('/')
   }
 
   return (
