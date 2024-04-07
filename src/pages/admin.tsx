@@ -14,7 +14,7 @@ export default function Admin(): JSX.Element {
   const router = useRouter()
 
   useEffect(() => {
-    if (!isAuth) {
+    if (!isAuth()) {
       router.push("/login")
     }
     setStatus(pendingRequest)
