@@ -8,7 +8,7 @@ type Props = {
 export default function TableReport({ accounts }: Props): JSX.Element {
   return (
     
-    <table className='overflow-x-auto divide-y-2 divide-mp-strong-gray text-base'>
+    <table className='overflow-x-auto divide-y-2 divide-mp-strong-gray text-base w-1/2'>
       <thead className="ltr:text-left rtl:text-right">
           <tr>
             <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Fecha</th>
