@@ -12,6 +12,7 @@ export default function NewBillForm() {
   const [date, setDate] = useState<string>()
   const [invoice, setInvoice] = useState<string>()
   const [update, setUpdate] = useState(false)
+  const [reload, setReload] = useState(false)
   const ref = useRef(null)
 
   const DEFAULT_PRV_ID = 1;
@@ -50,10 +51,12 @@ export default function NewBillForm() {
   }
 
   const handleResetValues = (e: React.FormEvent<HTMLButtonElement>) => {
-    setStatus(initialStatus)
+    e.preventDefault()
+    setReload(true)
   }
 
   useEffect(() => {
+    setReload(false)
     setStatus(pendingRequest)
     getBranches()
       .then((result) => {
@@ -65,7 +68,7 @@ export default function NewBillForm() {
         console.log(error);
 
       })
-  }, [])
+  }, [reload])
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-4 sm:px-6 lg:px-8">
