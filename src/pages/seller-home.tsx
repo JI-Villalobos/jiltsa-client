@@ -40,7 +40,9 @@ export default function SellerHome(): JSX.Element {
       <>
         <SessionInfo />
         <p className='mt-2 text-xl text-mp-dark font-coda'>Actividad Reciente:</p>
-        {status.onLoading ? <Skeleton /> : status.onError ? <Error /> : <TableReport accounts={accounts} />}
+        <div className="flex flex-col">
+          {status.onLoading ? <Skeleton /> : status.onError ? <Error /> : <TableReport accounts={accounts} />}
+        </div>
       </>
     </Layout>
   )

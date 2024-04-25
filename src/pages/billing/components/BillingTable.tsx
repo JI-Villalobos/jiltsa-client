@@ -52,7 +52,8 @@ export default function BillingTable({ mode, setSelectedBills, selectedBills, se
     <>
       {
         status.onLoading ? (<div className="w-full flex items-center justify-center"><Spinner bgBlank /></div>)
-          : page ? (<>
+          : page ? (
+          <div className="w-1/2">
             <table className="overflow-x-auto divide-y-2 divide-mp-strong-gray text-sm">
               <HeaderTable />
               <tbody className="divide-y divide-mp-strong-gray">
@@ -73,8 +74,9 @@ export default function BillingTable({ mode, setSelectedBills, selectedBills, se
             <div className="w-full mt-4 flex justify-center">
               <BillingPagination pages={page.totalPages} setNumberPage={setNumberPage} currentPage={numberPage} />
             </div>
-          </>)
-            : <p>Error</p>
+          </div>
+          )  
+          : <p>Error</p>
       }
     </>
   )
