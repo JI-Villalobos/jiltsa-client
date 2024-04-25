@@ -2,6 +2,7 @@ import { CurrentAccounting, getCurrentAccounting } from "@/utils/appStorage"
 import { useEffect, useState } from "react"
 import NotRegisteredSessionInfo from "@/components/NotRegisteredSessionInfo"
 import RegisteredSessionInfo from "@/components/RegisteredSessionInfo"
+import TotalBalanceItem from "./TotalBalanceItem"
 
 export default function SessionInfo(): JSX.Element {
   const [accountingExists, setAccountingExist] = useState<boolean>(false)
@@ -21,7 +22,12 @@ export default function SessionInfo(): JSX.Element {
     <div  className="flex flex-col items-center">
       {
         accountingExists 
-        ? <RegisteredSessionInfo accountingId={accounting.accountingId} seller={accounting.seller}/> 
+        ? (
+            <div className="flex flex-row">
+              <RegisteredSessionInfo accountingId={accounting.accountingId} seller={accounting.seller}/>
+              <TotalBalanceItem />
+            </div>
+          ) 
         : <NotRegisteredSessionInfo />
       }
     </div>

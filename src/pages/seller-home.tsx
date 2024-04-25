@@ -39,8 +39,7 @@ export default function SellerHome(): JSX.Element {
     <Layout>
       <>
         <SessionInfo />
-        <TotalBalanceItem />
-        <p className='mt-4 text-2xl text-mp-dark font-coda'>Actividad Reciente:</p>
+        <p className='mt-2 text-xl text-mp-dark font-coda'>Actividad Reciente:</p>
         {status.onLoading ? <Skeleton /> : status.onError ? <Error /> : <TableReport accounts={accounts} />}
       </>
     </Layout>
