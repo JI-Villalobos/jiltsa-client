@@ -1,6 +1,7 @@
 import { CurrentAccounting, getCurrentAccounting } from "@/utils/appStorage"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import NotRegisteredSessionInfo from "./NotregisteredSessionInfo"
 
 export default function SessionInfo(): JSX.Element {
   const [accountingExists, setAccountingExist] = useState<boolean>(false)
@@ -29,8 +30,7 @@ export default function SessionInfo(): JSX.Element {
         )
           : (
             <>
-              <p className="mt-4 text-mp-error font-coda text-xl">Aun no se ha registrado un nuevo turno</p>
-              <Link href='/operation' className="mt-2 text-mp-blue text-center border border-mp-dark rounded w-1/3">Abrir turno</Link>
+              <NotRegisteredSessionInfo />
             </>
           )
       }

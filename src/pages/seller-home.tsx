@@ -5,23 +5,17 @@ import TableReport from "@/components/TableReport";
 import TotalBalanceItem from "@/components/TotalBalanceItem";
 import { AuthContext } from "@/context/AuthContext";
 import Layout from "@/layouts/Layout";
-import { RequestStatus } from "@/services";
+import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { Accounting, getLatestRegistries } from "@/services/api/accounts";
 import Cookies from "js-cookie";
 import { NextRouter, useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
 export default function SellerHome(): JSX.Element {
-  const req: RequestStatus = {
-    onLoading: false,
-    onSuccess: false,
-    onError: false
-  }
-
   const isAuth: boolean = useContext(AuthContext)
 
   const router: NextRouter = useRouter()
-  const [status, setStatus] = useState<RequestStatus>(req)
+  const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [accounts, setAccounts] = useState<Accounting[]>([])
   
 
@@ -31,21 +25,12 @@ export default function SellerHome(): JSX.Element {
     if (!isAuth) {
       router.push("/login")
     } else {
-      setStatus({
-        ...req,
-        onLoading: true
-      })
+      setStatus(pendingRequest)
       getLatestRegistries(branchId).then((result) => {
         setAccounts(result)
-        setStatus({
-          ...req,
-          onLoading: false
-        })
+        setStatus(successfullRequest)
       }).catch(() => {
-        setStatus({
-          ...req,
-          onError: true
-        })
+        setStatus(failedRequest)
       })
     }
   }, [])
