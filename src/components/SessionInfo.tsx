@@ -1,11 +1,11 @@
 import { CurrentAccounting, getCurrentAccounting } from "@/utils/appStorage"
-import Link from "next/link"
 import { useEffect, useState } from "react"
-import NotRegisteredSessionInfo from "./NotregisteredSessionInfo"
+import NotRegisteredSessionInfo from "@/components/NotRegisteredSessionInfo"
+import RegisteredSessionInfo from "@/components/RegisteredSessionInfo"
 
 export default function SessionInfo(): JSX.Element {
   const [accountingExists, setAccountingExist] = useState<boolean>(false)
-  const [accounting, setAccounting] =  useState<CurrentAccounting | undefined>()
+  const [accounting, setAccounting] =  useState<CurrentAccounting>({accountingId: 0, seller: ''})
   
   useEffect(() => {
     const accounting = getCurrentAccounting()
@@ -20,19 +20,9 @@ export default function SessionInfo(): JSX.Element {
   return (
     <div  className="flex flex-col items-center">
       {
-        accountingExists ? (
-          <>
-            <p className='mt-4 text-mp-dark font-coda text-xl'>
-              Corte Número: <span className='text-mp-blue'>{accounting?.accountingId } </span>
-            </p>
-            <p className='mt-4 text-mp-dark font-coda text-xl'>Vendedora: <span className='text-mp-blue'>{accounting?.seller}</span></p>
-          </>
-        )
-          : (
-            <>
-              <NotRegisteredSessionInfo />
-            </>
-          )
+        accountingExists 
+        ? <RegisteredSessionInfo accountingId={accounting.accountingId} seller={accounting.seller}/> 
+        : <NotRegisteredSessionInfo />
       }
     </div>
   )
