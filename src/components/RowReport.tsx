@@ -51,14 +51,14 @@ export default function RowReport({ account }: Props): JSX.Element {
 
   return (
     <tr className="text-center hover:bg-mp-strong-gray hover:cursor-pointer" onClick={() => route.push(`/account-details/${seller}/${account.id}`)}>
-      <td className='text-mp-dark font-coda'>{DateFormat(account.date!)}</td>
-      <td className='text-mp-dark font-coda'>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-dark font-coda'>{DateFormat(account.date!)}</td>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-dark font-coda'>
         {status.onLoading ? <Spinner /> : `${seller}`}
       </td>
-      <td className='text-mp-blue font-coda'>{rowData.otherIncomes}</td>
-      <td className='text-mp-blue font-coda'>{rowData.incomes}</td>
-      <td className='text-mp-blue font-coda'>{rowData.total}</td>
-      <td className='text-mp-blue font-coda'>{rowData.expenses}</td>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-blue font-coda'>{rowData.otherIncomes}</td>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-blue font-coda'>{rowData.incomes}</td>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-blue font-coda'>{rowData.total}</td>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-blue font-coda'>{rowData.expenses}</td>
     </tr>
   )
 }

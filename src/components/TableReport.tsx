@@ -7,16 +7,19 @@ type Props = {
 
 export default function TableReport({ accounts }: Props): JSX.Element {
   return (
-    <table className='bg-mp-gray-soft rounded table-fixed w-10/12 mt-6'>
-      <tbody>
-        <tr>
-          <th className='text-mp-green font-coda text-center'>Fecha</th>
-          <th className='text-mp-green font-coda text-center'>Vendedora</th>
-          <th className='text-mp-green font-coda text-center'>Prontipagos</th>
-          <th className='text-mp-green font-coda text-center'>Medicamento</th>
-          <th className='text-mp-green font-coda text-center'>Total</th>
-          <th className='text-mp-green font-coda text-center'>Gastos</th>
-        </tr>
+    
+    <table className='overflow-x-auto divide-y-2 divide-mp-strong-gray text-base'>
+      <thead className="ltr:text-left rtl:text-right">
+          <tr>
+            <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Fecha</th>
+            <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Vendedora</th>
+            <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Prontipagos</th>
+            <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Medicamento</th>
+            <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Total</th>
+            <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Gastos</th>
+          </tr>
+        </thead>
+      <tbody className="divide-y divide-mp-strong-gray">  
         {accounts.map((account) => (
           <RowReport key={`acc-id-${account.id}`} account={account}/>
         ))}
