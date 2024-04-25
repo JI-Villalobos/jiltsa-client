@@ -6,8 +6,8 @@ export default function NotRegisteredSessionInfo(): JSX.Element{
             <strong className="block font-medium text-mp-strong-red"> Turno No Registrado </strong>
             <div className="flex flex-col items-center">
                 <p className="mt-2 text-sm text-mp-strong-red">
-                    Aún no se ha registrado un nuevo turno, para registrar gastos ventas y denás acciones
-                    es necesario tener un turo registrado abierto. 
+                    Aún no se ha registrado un nuevo turno, para registrar gastos, ventas y demás acciones
+                    es necesario tener un turno registrado abierto. 
                 </p>
                 <Link href='/operation' className="mt-2 text-mp-blue text-center border border-mp-strong-red p-2 rounded w-1/4">Abrir turno</Link>
             </div>
