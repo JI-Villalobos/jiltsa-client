@@ -3,6 +3,7 @@ import { Branch } from "@/services/api/branches";
 import Cookies from "js-cookie";
 import { Role } from "./variables";
 import { Bill } from "@/services/api/billing";
+import { CreateExpenseRegistry, ExpenseRegistry } from "@/services/api/expenses";
 
 export type CurrentAccounting = {
   accountingId: number,
@@ -108,4 +109,39 @@ export const deleteUserCredentials = () => {
   Cookies.remove('branchId')
   Cookies.remove('accountingId')
   Cookies.remove('seller')
+}
+
+export const initialExpenseRegistry: ExpenseRegistry = {
+  id: 0,
+  accountingId: 0,
+  expenseTypeId: 0,
+  description: '',
+  amount: 0,
+  time: ''
+}
+
+export const setStoredExpenseRegistry = (expense: ExpenseRegistry): void => {
+  Cookies.set('expense', JSON.stringify(expense))
+  console.log(expense);
+  
+}
+
+export const getStoredExpenseRegistry = (): ExpenseRegistry => {
+  const expense = Cookies.get('expense')
+
+  if (expense) {
+    return JSON.parse(expense)
+  }
+
+  return initialExpenseRegistry
+}
+
+export const setTagExpense = (tag: string): void => {
+  Cookies.set('tag', tag)
+}
+
+export const getTag = (): string => {
+  const tag = Cookies.get('tag')
+
+  return tag ? tag : ''
 }

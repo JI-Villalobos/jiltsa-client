@@ -12,9 +12,8 @@ export default function Expenses(): JSX.Element {
     }, 1000)
   }
   return (
-    <div className="bg-mp-gray-soft border border-mp-dark rounded flex flex-col items-center mt-10 w-8/12">
-      <p className="text-mp-green font-coda p-2 font-semibold">Gastos</p>
-      <div className="h-40 w-full flex items-center justify-center">
+    <div className="flex flex-col items-center mt-10 w-8/12">
+      <div className="w-full flex items-center justify-center">
         {
           onNewRegister ? <NewExpense />
             : onLoading ? (
