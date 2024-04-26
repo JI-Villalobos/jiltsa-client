@@ -21,13 +21,12 @@ export default function Operation(): JSX.Element {
     <Layout>
       <>
         {
-          accountingCreated ? <>
-            <SessionInfo />
-            <Expenses />
-            <Incomes />
-           
-          </>
-            :
+          accountingCreated 
+          ? <>
+              <SessionInfo />
+              <Expenses />
+            </>
+          :
             <>
               <OpenAccounting />
             </>

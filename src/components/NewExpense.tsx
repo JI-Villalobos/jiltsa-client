@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import ExpenseDetail from "./ExpenseDetail"
 import ExpenseTicket from "./ExpenseTicket"
 import { ExpenseType, getExpenseTypes } from "@/services/api/collections"
-import { RequestStatus } from "@/services"
+import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import Spinner from "./Spinner"
 import ExpenseTypeItem from "./ExpenseTypeItem"
 import { CreateExpenseRegistry, createExpense } from "@/services/api/expenses"
@@ -14,14 +14,14 @@ export default function NewExpense(): JSX.Element {
   const [item, setItem] = useState<string>('')
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([])
   const [successTransition, setSuccessTransition] = useState<boolean>(false)
-  const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
+  const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [expense, setExpense] = useState<CreateExpenseRegistry>({ accountingId: 0, amount: 0, description: '', expenseTypeId: 1 })
   const [currentAccount, setCurrentAccount] = useState<CurrentAccounting>({ accountingId: 0, seller: '' })
 
   const router = useRouter()
 
   useEffect(() => {
-    setStatus({ ...status, onLoading: true })
+    setStatus(pendingRequest)
     const accounting = getCurrentAccounting()
     if (accounting) {
       setCurrentAccount(accounting)
@@ -30,10 +30,10 @@ export default function NewExpense(): JSX.Element {
     getExpenseTypes()
       .then((result) => {
         setExpenseTypes(result)
-        setStatus({ ...status, onLoading: false })
+        setStatus(successfullRequest)
       })
       .catch(() => {
-        setStatus({ ...status, onError: true })
+        setStatus(failedRequest)
       })
   }, [])
 
