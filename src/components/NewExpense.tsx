@@ -1,19 +1,19 @@
-import React, { ChangeEvent, useEffect, useState } from "react"
-import ExpenseDetail from "./ExpenseDetail"
-import ExpenseTicket from "./ExpenseTicket"
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react"
 import { ExpenseType, getExpenseTypes } from "@/services/api/collections"
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import Spinner from "./Spinner"
-import ExpenseTypeItem from "./ExpenseTypeItem"
 import { CreateExpenseRegistry, createExpense } from "@/services/api/expenses"
 import { CurrentAccounting, getCurrentAccounting, setStoredExpenseRegistry, initialExpenseRegistry } from "@/utils/appStorage"
-import { useRouter } from "next/router"
+import { STAGES } from "./Expenses"
 
-export default function NewExpense(): JSX.Element {
+interface Props {
+  setStage: Dispatch<SetStateAction<number>>
+}
+
+export default function NewExpense({ setStage }: Props): JSX.Element {
   const [selectedItem, setSelectedItem] = useState<ExpenseType>({id: 0, type: ''})
   const [description, setDescription] = useState<string>(selectedItem.type)
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([])
-  const [successTransition, setSuccessTransition] = useState<boolean>(false)
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [amount, setAmount] = useState<number>(0)
   const [currentAccount, setCurrentAccount] = useState<CurrentAccounting>({ accountingId: 0, seller: '' })
@@ -48,10 +48,10 @@ export default function NewExpense(): JSX.Element {
       .then((result) => {
         setStatus(successfullRequest)
         setTimeout(() => {
-          setSuccessTransition(false)
+          setStage(STAGES.SUCCESS)
+          setStoredExpenseRegistry(result)
         }, 2000)
-        setSuccessTransition(true)
-        setStoredExpenseRegistry(result)
+        setStatus(pendingRequest)
       })
       .catch(() => {
         setStatus(failedRequest)
@@ -127,52 +127,9 @@ export default function NewExpense(): JSX.Element {
         {
           status.onLoading
             ? <Spinner />
-            : 'Continuar >>'
+            : 'Registrar >>'
         }
       </button>
     </form>
   )
 }
-
-/**
- * <div className="flex flex-col items-center w-full">
-      <div className="flex flex-row w-full">
-        <div className=" flex flex-col w-1/3 justify-center items-center border-r-2 border-mp-strong-gray">
-          <p className="text-sm text-mp-dark font-coda">{selectedItem ? 'Gasto seleccionado:' : 'Selecciona el tipo de gasto:'}</p>
-          {
-            status.onLoading ? <Spinner bgBlank />
-              : status.onError ? <p className="text-sm text-mp-error font-coda">No fue Posible Cargar los tipos de gastos</p>
-                : selectedItem ? <p className="text-xl text-mp-dark font-coda">{item}</p>
-                  : expenseTypes.map((expenseType) => (
-                    <ExpenseTypeItem
-                      expenseType={expenseType}
-                      key={`expense-type-id-${expenseType.id}`}
-                      expense={setExpense}
-                      expenseDetails={expense}
-                      isSelected={setSelectedItem}
-                      item={setItem}
-                    />
-                  ))
-          }
-        </div>
-        {
-          successTransition ? (
-            <div className="flex flex-col justify-center items-center w-1/3">
-              <p className="text-sm text-mp-light-green font-coda text-center">Registro exitoso, redireccionando</p>
-              <Spinner bgBlank />
-            </div>)
-            : (<ExpenseDetail expenseDetails={expense} expense={setExpense} />)
-        }
-
-        <ExpenseTicket currentAccounting={currentAccount} expense={expense} />
-      </div>
-      <button
-        className="bg-mp-dark rounded text-mp-gray-soft w-32 mb-6"
-        onClick={handleNewExpense}
-        disabled={status.onLoading}
-      >
-        {status.onLoading ? <Spinner /> : 'Registrar'}
-      </button>
-      {status.onError && (<p className="text-sm text-mp-error font-coda text-center">No fue posible registrar el gasto, revisa que los daos sean correctos</p>)}
-    </div>
- */
