@@ -1,4 +1,4 @@
-import { RequestStatus } from "@/services"
+import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { IncomeType } from "@/services/api/collections"
 import { CreateIncomeRegistry, IncomeRegistry, createIncome } from "@/services/api/incomes"
 import React, { Dispatch, SetStateAction, useState } from "react"
@@ -11,12 +11,12 @@ type Props = {
 }
 
 export default function IncomeTypeItem({ incomeType, accountingId, disabled }: Props): JSX.Element {
-  const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
+  const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [amount, setAmount] = useState<number>(0)
   const [incomeRegistry, setIncomeRegistry] = useState<IncomeRegistry | undefined>()
 
   const handleNewIncome = async (e: React.FormEvent<HTMLButtonElement>) => {
-    setStatus({ ...status, onLoading: true })
+    setStatus(pendingRequest)
     const income: CreateIncomeRegistry = {
       accountingId,
       incomeTypeId: incomeType.id,
@@ -28,47 +28,48 @@ export default function IncomeTypeItem({ incomeType, accountingId, disabled }: P
     await createIncome(income)
       .then((result) => {
         setIncomeRegistry(result)
-        setStatus({ ...status, onLoading: false, onSuccess: true })
+        setStatus(successfullRequest)
         disabled(false)
       })
       .catch(() => {
-        setStatus({ ...status, onError: true })
+        setStatus(failedRequest)
       })
   }
 
   return (
     <>
       {
-        status.onLoading ? (
-          <div className="flex flex-col justify-center items-center w-1/2">
+        status.onLoading 
+        ? 
+          <div className="flex flex-col justify-center items-center w-1/2 m-4">
             <Spinner bgBlank />
           </div>
-        )
-          : status.onSuccess ? (
-            <div className="flex flex-col justify-center items-center w-1/2">
-              <p className="text-mp-dark m-2 text-sm">Ingreso Añadido exitosamente</p>
-              <p className="text-mp-dark m-2 text-sm">{incomeRegistry?.tag}</p>
-              <p className="text-mp-dark m-2 text-sm">Monto: $<span className="text-mp-blue">{incomeRegistry?.amount}</span></p>
+        : status.onSuccess 
+          ? 
+            <div className="flex flex-col m-1 justify-center items-center w-1/2 rounded-xl border border-mp-soft-dark  p-4 mt-6">
+              <strong  className="block font-medium text-mp-green">Ingreso Añadido exitosamente</strong  >
+              <p className="text-mp-dark m-1 text-sm">{incomeRegistry?.tag}</p>
+              <p className="text-mp-dark m-1 text-sm">Monto: $<span className="text-mp-blue">{incomeRegistry?.amount}</span></p>
             </div>
-          )
-            : status.onError ? (<p className="text-mp-error m-2">Ocurrio un Error al Registrar el ingreso</p>)
-              : (
-                <div className="flex flex-row justify-center items-center w-1/2">
-                  <p className="text-mp-dark m-2">{incomeType.type}</p>
-                  <input
-                    type="number"
-                    name=""
-                    className="w-20 border border-mp-green text-center text-mp-dark rounded mr-2"
-                    onChange={(e: React.FormEvent<HTMLInputElement>) => setAmount(parseInt(e.currentTarget.value))}
-                  />
-                  <button
-                    className="bg-mp-dark text-mp-gray-soft w-16 rounded border-none hover:cursor-pointer"
-                    onClick={handleNewIncome}
-                  >
-                    OK
-                  </button>
-                </div>
-              )
+          
+        : status.onError 
+          ? <p className="text-mp-error m-2">Ocurrio un Error al Registrar el ingreso</p>
+        : 
+            <div className="flex flex-col justify-center items-center w-full m-4">
+              <label htmlFor="text" className="text-mp-soft-dark">{incomeType.type}</label>
+              <input
+                  type="number"
+                  name=""
+                  className="border text-center text-mp-dark rounded m-2 w-1/2 border-mp-dark p-4 pe-12 text-sm shadow-sm"
+                  onChange={(e: React.FormEvent<HTMLInputElement>) => setAmount(parseInt(e.currentTarget.value))}
+              />
+              <button
+                  className="bg-mp-dark text-mp-gray-soft rounded border-none hover:cursor-pointer p-2"
+                  onClick={handleNewIncome}
+              >
+                  Confirmar
+              </button>
+            </div>
       }
     </>
   )
