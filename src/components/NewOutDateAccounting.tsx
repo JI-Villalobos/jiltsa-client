@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-import SessionInfo from "./SessionInfo";
-import Expenses from "./Expenses";
-import Incomes from "./Incomes";
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { Seller, getSellerByBranch } from "@/services/api/sellers";
 import Cookies from "js-cookie";
 import Spinner from "./Spinner";
-import { Accounting, CustomAccounting, newCustomAccounting } from "@/services/api/accounts";
+import { CustomAccounting, newCustomAccounting } from "@/services/api/accounts";
 import { setCurrentAccounting } from "@/utils/appStorage";
 import OutdateRegistry from "./OutdateRegistry";
 
