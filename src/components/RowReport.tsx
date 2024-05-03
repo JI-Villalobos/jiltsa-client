@@ -1,4 +1,4 @@
-import { RequestStatus } from "@/services"
+import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { Accounting } from "@/services/api/accounts"
 import { getSeller } from "@/services/api/sellers"
 import DateFormat from "@/utils/DateFormat"
@@ -6,21 +6,14 @@ import { useEffect, useState } from "react"
 import Spinner from "./Spinner"
 import { RowData, formatRowData } from "@/utils/AccountingOperations"
 import { useRouter } from "next/router"
-import { Income } from "@/utils/variables"
 
 type Props = {
   account: Accounting
 }
 
-const req: RequestStatus = {
-  onLoading: false,
-  onSuccess: false,
-  onError: false
-}
-
 export default function RowReport({ account }: Props): JSX.Element {
   const [seller, setSeller] = useState<string>('')
-  const [status, setStatus] = useState<RequestStatus>(req)
+  const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [rowData, setRowData] = useState<RowData>({
     otherIncomes: '-',
     incomes: '-',
@@ -31,34 +24,25 @@ export default function RowReport({ account }: Props): JSX.Element {
 
   useEffect(() => {
     setRowData(formatRowData(account))
-    setStatus({
-      ...req,
-      onLoading: true
-    })
+    setStatus(pendingRequest)
     getSeller(account.sellerId).then((result) => {
       setSeller(result.fullName)
-      setStatus({
-        ...req,
-        onLoading: false
-      })
+      setStatus(successfullRequest)
     }).catch(() => {
-      setStatus({
-        ...req,
-        onError: true
-      })
+      setStatus(failedRequest)
     })
   }, [])
 
   return (
     <tr className="text-center hover:bg-mp-strong-gray hover:cursor-pointer" onClick={() => route.push(`/account-details/${seller}/${account.id}`)}>
-      <td className='whitespace-nowrap px-4 py-2 text-mp-soft-dark'>{DateFormat(account.date!)}</td>
-      <td className='whitespace-nowrap px-4 py-2 text-mp-dark'>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-soft-dark text-sm'>{DateFormat(account.date!)}</td>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-dark text-sm'>
         {status.onLoading ? <Spinner /> : `${seller}`}
       </td>
-      <td className='whitespace-nowrap px-4 py-2 text-mp-blue'>{rowData.otherIncomes}</td>
-      <td className='whitespace-nowrap px-4 py-2 text-mp-blue'>{rowData.incomes}</td>
-      <td className='whitespace-nowrap px-4 py-2 text-mp-green'>{rowData.total}</td>
-      <td className='whitespace-nowrap px-4 py-2 text-mp-blue'>{rowData.expenses}</td>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-blue text-sm'>{rowData.otherIncomes}</td>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-blue text-sm'>{rowData.incomes}</td>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-green text-sm'>{rowData.total}</td>
+      <td className='whitespace-nowrap px-4 py-2 text-mp-blue text-sm'>{rowData.expenses}</td>
     </tr>
   )
 }

@@ -99,14 +99,3 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
     </div>
   )
 }
-
-/**
- * <input
-        type="text"
-        placeholder="Concepto del retiro"
-        className="bg-mp-strong-gray mr-2 text-center mb-2 text-mp-dark"
-        onChange={(e: React.FormEvent<HTMLInputElement>) => {
-          setCashWithdrawal({ ...cashWithDrawal, concept: e.currentTarget.value })
-        }}
-      />
- */
