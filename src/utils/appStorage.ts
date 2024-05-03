@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { Role } from "./variables";
 import { Bill } from "@/services/api/billing";
 import { CreateExpenseRegistry, ExpenseRegistry } from "@/services/api/expenses";
+import { CashWithdrawal } from "@/services/api/withdrawals";
 
 export type CurrentAccounting = {
   accountingId: number,

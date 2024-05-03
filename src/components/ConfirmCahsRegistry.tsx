@@ -1,4 +1,4 @@
-import { RequestStatus } from "@/services"
+import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { useRouter } from "next/router"
 import { Dispatch, SetStateAction, useState } from "react"
 import Spinner from "./Spinner"
@@ -10,26 +10,26 @@ type Props = {
 }
 
 export default function ConfirmCashRegistry({ cashWithDrawal, confirmationStage }: Props): JSX.Element {
-  const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
+  const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const router = useRouter()
 
   const handleNewCashWithDrawal = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    setStatus({ ...status, onLoading: true })
+    setStatus(pendingRequest)
     await createCashRegistry(cashWithDrawal)
       .then(() => {
-        setStatus({ ...status, onLoading: false, onSuccess: true })
+        setStatus(successfullRequest)
         setTimeout(() => {
           router.reload()
         }, 1000)
       })
       .catch(() => {
-        setStatus({ ...status, onError: true })
+        setStatus(failedRequest)
       })
   }
 
   return (
-    <div className="border w-2/4 border-mp-green rounded flex flex-col justify-center items-center mt-6">
+    <div className="border w-1/4 border-mp-green rounded flex flex-col justify-center items-center mt-6">
       <p className="text-mp-dark font-coda m-4">Confirma que los datos sean correctos</p>
       <p className="text-sm text-mp-green">Concepto:</p>
       <p className="text-sm text-mp-blue">{cashWithDrawal.concept}</p>
@@ -42,13 +42,13 @@ export default function ConfirmCashRegistry({ cashWithDrawal, confirmationStage 
             : (
               <>
                 <button
-                  className="m-2 rounded bg-mp-dark text-mp-gray-soft text-sm w-20 flex justify-center items-center"
+                  className="m-2 p-2 rounded bg-mp-dark text-mp-gray-soft text-sm w-20 flex justify-center items-center"
                   onClick={handleNewCashWithDrawal}
                 >
                   {status.onLoading ? <Spinner /> : 'Confirmar'}
                 </button>
                 <button
-                  className="m-2 rounded bg-mp-soft-dark text-mp-gray-soft text-sm w-20"
+                  className="m-2 p-2 rounded bg-mp-soft-dark text-mp-gray-soft text-sm w-20"
                   onClick={() => { confirmationStage(false) }}
                 >
                   Cancelar
