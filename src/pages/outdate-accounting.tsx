@@ -24,11 +24,11 @@ export default function OutOfDateAccounting(): JSX.Element {
           ) : (
             <div className="flex flex-col justify-center items-center w-1/2 p-2 m-10 border border-mp-strong-gray rounded">
               <p className="text-sm text-mp-dark text-center">
-                El registro de ventas y gastos extemporaneos, solo debe realizarse bajo imprevistos, ej. fallas en el servicio eléctrio, fallas con el proveedor de internet.
-                Presiona continuar para registrar el turno correpondiente.
+              El registro de ventas y gastos extemporáneos, solo debe realizarse bajo imprevistos, ej. fallas en el servicio eléctrico, 
+                fallas con el proveedor de internet, etc. Presiona continuar para registrar el turno correspondiente.
               </p>
               <button
-                className="text-sm text-mp-gray-soft border bg-mp-dark rounded w-36 h-8 m-4 hover:bg-mp-soft-dark flex flex-row items-center justify-center"
+                className="text-sm text-mp-gray-soft border bg-mp-dark rounded w-36 p-4 m-4 hover:bg-mp-soft-dark flex flex-row items-center justify-center"
                 onClick={hiddeAdvice}
               >
                 {

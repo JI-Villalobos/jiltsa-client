@@ -2,41 +2,32 @@ import React, { useEffect, useState } from "react";
 import SessionInfo from "./SessionInfo";
 import Expenses from "./Expenses";
 import Incomes from "./Incomes";
-import { RequestStatus } from "@/services";
+import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { Seller, getSellerByBranch } from "@/services/api/sellers";
 import Cookies from "js-cookie";
 import Spinner from "./Spinner";
 import { Accounting, CustomAccounting, newCustomAccounting } from "@/services/api/accounts";
 import { setCurrentAccounting } from "@/utils/appStorage";
+import OutdateRegistry from "./OutdateRegistry";
 
 export default function NewOutDateAccounting(): JSX.Element {
   const [accountingRegSuccess, setAccountingRegSuccess] = useState<boolean>(false)
-  const [status, setStatus] = useState<RequestStatus>({
-    onError: false,
-    onLoading: false,
-    onSuccess: false
-  })
+  const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [sellers, setSellers] = useState<Seller[]>([])
   const [accounting, setAccounting] = useState<CustomAccounting>({ branchId: 0, sellerId: 0, date: '' })
 
 
   useEffect(() => {
     const branch = Cookies.get('branchId')
-    setStatus({ ...status, onLoading: true })
+    setStatus(pendingRequest)
     if (branch) {
       const branchId: number = parseInt(branch)
       setAccounting({ ...accounting, branchId: branchId })
       getSellerByBranch(branchId).then((result: Seller[]) => {
         setSellers(result)
-        setStatus({
-          ...status,
-          onLoading: false
-        })
+        setStatus(successfullRequest)
       }).catch(() => {
-        setStatus({
-          ...status,
-          onError: true
-        })
+        setStatus(failedRequest)
       })
     }
   }, [])
@@ -46,29 +37,21 @@ export default function NewOutDateAccounting(): JSX.Element {
     setStatus({ ...status, onLoading: true })
     await newCustomAccounting(accounting)
       .then((result) => {
-        setCurrentAccounting({ accountingId: result.id, seller: 'Extemporaneo' })
+        setCurrentAccounting({ accountingId: result.id, seller: 'Extemporáneo' })
         setStatus({ ...status, onLoading: false })
         setAccountingRegSuccess(true)
       })
       .catch(() => {
         setStatus({ ...status, onError: true })
       })
-    //console.log(accounting);
-
   }
 
   return (
     <>
       {
-        accountingRegSuccess ? (
-          <div className="w-full flex flex-col justify-center items-center">
-            <p>Registro extemporaneo</p>
-            <SessionInfo />
-            <Expenses />
-            <Incomes />
-          </div>
-        ) : (
-          <div className="flex flex-col justify-center items-center w-1/2 p-4 border border-mp-strong-gray rounded">
+        accountingRegSuccess ? <OutdateRegistry />
+        : (
+          <div className="flex flex-col justify-center items-center w-1/2 p-4 border border-mp-strong-gray rounded mt-6">
             <div className="flex flex-col items-center w-full">
               <label className="text-sm text-mp-dark text-center">Fecha del turno</label >
               <input
@@ -96,7 +79,7 @@ export default function NewOutDateAccounting(): JSX.Element {
                   )
               }
               <button
-                className="text-sm text-mp-gray-soft border bg-mp-dark rounded w-36 h-8 m-4 hover:bg-mp-soft-dark flex flex-row justify-center items-center"
+                className="text-sm text-mp-gray-soft border bg-mp-dark rounded w-36 p-4 m-4 hover:bg-mp-soft-dark flex flex-row justify-center items-center"
                 onClick={handleAccountingRegSuccess}
               >
                 {status.onLoading ? <Spinner /> : 'Confirmar'}
