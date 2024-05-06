@@ -8,6 +8,8 @@ import { useEffect, useState } from "react"
 import IncomeSummary from "./IncomesSummary"
 import ExpensesSummary from "./ExpensesSummary"
 import { useRouter } from "next/router"
+import CashRegistry from "@/pages/cash-registry"
+import CashWSummary from "./CashWSummary"
 
 export default function Summary(): JSX.Element{
     const [accounting, setAccounting] = useState<Accounting>()
@@ -51,6 +53,7 @@ export default function Summary(): JSX.Element{
             {
                 accounting.expenseRegistries.length > 0 && <ExpensesSummary expenses={accounting.expenseRegistries}/>
             }
+            <CashWSummary />
             <button className="self-center m-6 bg-mp-dark p-2 text-mp-gray-soft rounded" onClick={handleCloseAccounting}>
                 Terminar
             </button>

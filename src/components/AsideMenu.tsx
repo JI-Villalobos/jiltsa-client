@@ -3,7 +3,7 @@ import LinkItem from "./LinkItem";
 import { useEffect, useState } from "react";
 import { RequestStatus } from "@/services";
 import { getBranchById } from "@/services/api/branches";
-import { getUserCredentials } from "@/utils/appStorage";
+import { getUserCredentials, setBranchName } from "@/utils/appStorage";
 import Spinner from "./Spinner";
 import { Role } from "@/utils/variables";
 
@@ -19,6 +19,7 @@ export default function AsideMenu(): JSX.Element {
       getBranchById(creds.branchId)
         .then((result) => {
           setBranch(result.name)
+          setBranchName(result.name)
           setStatus({ ...status, onLoading: false })
           setRole(creds.role)
         })

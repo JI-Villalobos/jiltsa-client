@@ -33,6 +33,16 @@ export const setLocalBranches = (branches: Branch[]): void => {
   Cookies.set('branches', JSON.stringify(branches))
 }
 
+export const setBranchName = (branch: string): void => {
+  Cookies.set('branch-name', branch)
+}
+
+export const getBranchName = (): string | undefined => {
+  const branch = Cookies.get('branch-name')
+
+  return branch
+}
+
 export const getLocalBranches = (): Branch[] | undefined => {
   const branches: string | undefined = Cookies.get('branches')
 

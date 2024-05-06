@@ -3,6 +3,7 @@ import Incomes from "@/components/Incomes";
 import Layout from "@/layouts/Layout";
 import { useState } from "react";
 import Summary from "./components/Summary";
+import ErrorMessage from "@/components/ErrorMessage";
 
 export default function CloseOperation(): JSX.Element {
     const [stage, setStage] = useState(STAGES.DEFAULT)
@@ -13,7 +14,7 @@ export default function CloseOperation(): JSX.Element {
                 {
                    stage == STAGES.DEFAULT ? <Incomes setStage={setStage}/>
                    : stage == STAGES.SUCCESS ? <Summary />
-                   : <></>
+                   : <ErrorMessage title="Oppss! Error inesperado" description="No te preocupes estamos trabajando para resolverlo"/>
                 }    
             </div>
         </Layout>
