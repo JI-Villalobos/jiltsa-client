@@ -53,7 +53,7 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
         >
           <option value="">Selecciona el concepto</option>
           {
-            conceptList.map((concept) => <option value={concept}>{concept}</option>)
+            conceptList.map((concept) => <option value={concept} key={`conc-id-${concept}`}>{concept}</option>)
           }
         </select>
       </div>

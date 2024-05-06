@@ -7,7 +7,7 @@ type Props = {
   setNumberPage: Dispatch<SetStateAction<number>>
 }
 
-export default function BillingPagination({ pages, setNumberPage, currentPage }: Props): JSX.Element {
+export default function Pagination({ pages, setNumberPage, currentPage }: Props): JSX.Element {
   const router = useRouter()
 
   return (

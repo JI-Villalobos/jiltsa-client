@@ -67,7 +67,11 @@ export const endPoints ={
   },
   cash: {
     withdrawals: `${API}/withdrawals`,
-    getCashRegistries: (branch: string) => `${API}/withdrawals/${branch}`
+    getCashRegistries: (branch: string) => `${API}/withdrawals/all/${branch}`,
+    getLastMonthCashwithrawalRegistries: (branch: string, page: number) => `${API}/withdrawals/last-month/${branch}?page=${page}`,
+    getCurrentCashwithdrawalRegistries: (branch: string) => `${API}/withdrawals/current/${branch}`,
+    getCashwithdrawalRegistriesByTagAndDateAfter: (branch: string, date: string, tag: string, page: number) => `${API}/withdrawals/latest/${branch}/${date}/${tag}?page=${page}`,
+    getCashwithdrawalRegistriesByDateAfer: (branch: string, date: string, page: number) => `${API}/withdrawals/${branch}/since/${date}?page=${page}`
   },
   providers: {
     op: `${API}/providers`
