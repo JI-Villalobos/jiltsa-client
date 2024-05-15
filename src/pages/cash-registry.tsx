@@ -3,7 +3,7 @@ import NewCashRegistry from "@/components/NewCashRegistry";
 import SessionInfo from "@/components/SessionInfo";
 import Layout from "@/layouts/Layout";
 import { CreateCashWithdrawalDto } from "@/services/api/withdrawals";
-import { getCurrentAccounting } from "@/utils/appStorage";
+import { getCurrentAccounting, isAuth } from "@/utils/appStorage";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -14,9 +14,14 @@ export default function CashRegistry() {
 
   useEffect(() => {
     const accounting = getCurrentAccounting()
-    if (!accounting) {
-      router.push("/seller-home")
+    if (isAuth()) {
+      if (!accounting) {
+        router.push("/seller-home")
+      }  
+    } else {
+      router.push('/login')
     }
+    
   }, [])
 
   return (

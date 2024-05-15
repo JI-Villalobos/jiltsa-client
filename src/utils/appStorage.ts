@@ -94,6 +94,14 @@ export const getUserCredentials = (): AuthResponse | undefined => {
   }
 }
 
+export const isAuth = (): boolean => {
+  if (Cookies.get('token')) {
+    return true;
+  }
+
+  return false;
+}
+
 export const updateUserRole = (): void => {
   Cookies.set('role', Role.USER, { expires: 25 })
 }

@@ -6,4 +6,4 @@ WORKDIR /usr/src
 
 RUN yarn install
 
-CMD ["yarn", "build"]
+CMD ["yarn", "dev"]
