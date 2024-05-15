@@ -1,9 +1,10 @@
 import Spinner from "@/components/Spinner";
 import Layout from "@/layouts/Layout";
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
-import { CashWithdrawal, getCashRegistries } from "@/services/api/withdrawals";
+import { CashWithdrawal, PageCashWithdrawal, getCashRegistries, getLatestCashRegistries } from "@/services/api/withdrawals";
 import DateFormat from "@/utils/DateFormat";
-import { isAuth } from "@/utils/appStorage";
+import { formatAmount } from "@/utils/formatAmount";
+import { conceptList } from "@/utils/variables";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Pagination from "../billing/components/Pagination";
@@ -11,7 +12,8 @@ import ErrorMessage from "@/components/ErrorMessage";
 
 export default function BranchWithdrawals(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
-  const [cashWithdrawals, setCashWithdrawals] = useState<CashWithdrawal[]>([])
+  const [page, setPage] = useState<PageCashWithdrawal>()
+  const [pageNumber, setPageNumber] = useState(0)
 
   const router = useRouter()
   const { branch } = router.query
@@ -21,20 +23,16 @@ export default function BranchWithdrawals(): JSX.Element {
   }
 
   useEffect(() => {
-    if (isAuth()) {
-      setStatus(pendingRequest)
-      if (typeof branch === 'string') {
-        getCashRegistries(branch)
-          .then((result) => {
-            setCashWithdrawals(result)
-            setStatus(successfullRequest)
-          })
-          .catch(() => {
-            setStatus(failedRequest)
-          })
-      }
-    } else {
-      router.push("/login")
+    setStatus(pendingRequest)
+    if (typeof branch === 'string') {
+      getLatestCashRegistries(branch, pageNumber)
+        .then((result) => {
+          setPage(result)
+          setStatus(successfullRequest)
+        })
+        .catch(() => {
+          setStatus(failedRequest)
+        })
     }
   }, [pageNumber])
 
