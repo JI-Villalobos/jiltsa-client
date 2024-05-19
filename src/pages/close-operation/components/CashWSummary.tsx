@@ -30,7 +30,7 @@ export default function CashWSummary(): JSX.Element {
             <p className="text-center text-2xl font-bold text-mp-dark sm:text-xl m-2">Retiros registrados las últimas 24 horas</p>
             {
                 status.onLoading ? <Spinner bgBlank />
-                : status.onSuccess ? cashWithdrawals.map(cash => (<CashWSummaryItem cashItem={cash}/>))
+                : status.onSuccess ? cashWithdrawals.map(cash => (<CashWSummaryItem cashItem={cash} key={`cash-item-${cash.id}`}/>))
                 : <ErrorMessage title="Error" description="No fue posible cargar el registro de retiros"/>
             }
         </div>

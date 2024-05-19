@@ -1,3 +1,4 @@
+import ErrorMessage from "@/components/ErrorMessage"
 import { IncomeRegistry } from "@/services/api/incomes"
 import { formatAmount } from "@/utils/formatAmount"
 import { useEffect, useState } from "react"
@@ -12,10 +13,13 @@ export default function IncomeSummary({ incomes }: Props): JSX.Element {
     useEffect(() => {
         if (incomes.length > 0) {
             const total = incomes.map(income => income.amount).reduce((result, val) => result + val)
-            setTotals(total)   
+            setTotals(total)
         }
     }, [])
 
+    if (!incomes) {
+        return (<ErrorMessage title="Error desconocido" description="Un error inesperado causo qué la información no se muestre correctamente" />)
+    }
 
     return (
         <div>

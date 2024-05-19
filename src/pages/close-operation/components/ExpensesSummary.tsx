@@ -1,3 +1,4 @@
+import ErrorMessage from "@/components/ErrorMessage"
 import { ExpenseRegistry } from "@/services/api/expenses"
 import { formatAmount } from "@/utils/formatAmount"
 import { useEffect, useState } from "react"
@@ -15,6 +16,10 @@ export default function ExpensesSummary({ expenses }: Props): JSX.Element {
             setTotals(total)   
         }
     }, [])
+
+    if(!expenses) {
+        return(<ErrorMessage title="Error desconocido" description="Un error inesperado causo qué la información no se muestre correctamente"/>)
+    }
 
     return (
         <div className="flow-root mt-6">
