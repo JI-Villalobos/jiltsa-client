@@ -23,7 +23,7 @@ export default function Expenses(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col items-center mt-10 w-8/12">
+    <div className="flex flex-col items-center w-8/12">
       <div className="w-full flex items-center justify-center">
         {
           stages == STAGES.DEFAULT

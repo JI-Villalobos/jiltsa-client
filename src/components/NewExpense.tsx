@@ -67,7 +67,7 @@ export default function NewExpense({ setStage }: Props): JSX.Element {
   }
 
   return (
-    <form action="#" className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 w-1/2 flex flex-col items-center">
+    <form action="#" className="mb-0 mt-2 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 flex flex-col items-center">
       <h1 className="text-center text-2xl font-bold text-mp-blue sm:text-3xl">Registrar Gasto</h1>
 
       <p className="mx-auto mt-4 max-w-md text-center text-mp-soft-dark">
