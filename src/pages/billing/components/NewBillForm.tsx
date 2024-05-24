@@ -2,6 +2,7 @@ import Spinner from "@/components/Spinner"
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { CreateBill, createNewBill } from "@/services/api/billing"
 import { Branch, getBranches } from "@/services/api/branches"
+import { useRouter } from "next/router"
 import React, { ChangeEvent, useEffect, useRef, useState } from "react"
 
 export default function NewBillForm() {
@@ -12,9 +13,9 @@ export default function NewBillForm() {
   const [date, setDate] = useState<string>()
   const [invoice, setInvoice] = useState<string>()
   const [update, setUpdate] = useState(false)
-  const [reload, setReload] = useState(false)
   const ref = useRef(null)
-
+  
+  const router = useRouter()
   const DEFAULT_PRV_ID = 1;
 
   const handleSelectedBranch = (id: number) => {
@@ -52,11 +53,10 @@ export default function NewBillForm() {
 
   const handleResetValues = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    setReload(true)
+    router.reload()
   }
 
   useEffect(() => {
-    setReload(false)
     setStatus(pendingRequest)
     getBranches()
       .then((result) => {
@@ -68,7 +68,7 @@ export default function NewBillForm() {
         console.log(error);
 
       })
-  }, [reload])
+  }, [])
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-4 sm:px-6 lg:px-8">
