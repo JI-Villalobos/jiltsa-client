@@ -8,13 +8,33 @@ type Props = {
 }
 
 export default function Pagination({ pages, setNumberPage, currentPage }: Props): JSX.Element {
-  const router = useRouter()
+
+  const handlePage = (action: 'prev' | 'next'): number => {  
+    switch (action) {
+      case "next":
+        if (currentPage < pages) {
+          return currentPage++
+        } else {
+          return currentPage
+        }
+        break;
+      case "prev":
+        if (currentPage > 0) {
+          return currentPage--
+        } else {
+          return currentPage
+        }
+      default:
+        return currentPage
+        break;
+    }
+  }
 
   return (
     <ol className="w-full flex justify-center items-center gap-1 text-xs font-medium">
       <li>
-        <a
-          href="#"
+        <button
+          onClick={() => {setNumberPage(handlePage("prev"))}}
           className="inline-flex size-8 items-center justify-center rounded border border-mp-soft-dark bg-white text-mp-soft-dark rtl:rotate-180"
         >
           <span className="sr-only">Prev Page</span>
@@ -30,7 +50,7 @@ export default function Pagination({ pages, setNumberPage, currentPage }: Props)
               clipRule="evenodd"
             />
           </svg>
-        </a>
+        </button>
       </li>
 
       <li className="flex flex-row">
@@ -54,8 +74,8 @@ export default function Pagination({ pages, setNumberPage, currentPage }: Props)
 
       </li>
       <li>
-        <a
-          href="#"
+        <button
+          onClick={() => setNumberPage(handlePage("next"))}
           className="inline-flex size-8 items-center justify-center rounded border border-mp-soft-dark bg-white text-mp-soft-dark rtl:rotate-180"
         >
           <span className="sr-only">Next Page</span>
@@ -71,7 +91,7 @@ export default function Pagination({ pages, setNumberPage, currentPage }: Props)
               clipRule="evenodd"
             />
           </svg>
-        </a>
+        </button>
       </li>
     </ol>
   )
