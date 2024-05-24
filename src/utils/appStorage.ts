@@ -3,8 +3,7 @@ import { Branch } from "@/services/api/branches";
 import Cookies from "js-cookie";
 import { Role } from "./variables";
 import { Bill } from "@/services/api/billing";
-import { CreateExpenseRegistry, ExpenseRegistry } from "@/services/api/expenses";
-import { CashWithdrawal } from "@/services/api/withdrawals";
+import { ExpenseRegistry } from "@/services/api/expenses";
 
 export type CurrentAccounting = {
   accountingId: number,
@@ -102,8 +101,12 @@ export const isAuth = (): boolean => {
   return false;
 }
 
-export const updateUserRole = (): void => {
+export const setUserRole = (): void => {
   Cookies.set('role', Role.USER, { expires: 25 })
+}
+
+export const setAdminRole = (): void => {
+  Cookies.set('role', Role.ADMIN, { expires: 25 })
 }
 
 export const setBills = (bills: Bill[]) => {
@@ -163,4 +166,13 @@ export const getTag = (): string => {
   const tag = Cookies.get('tag')
 
   return tag ? tag : ''
+}
+export const setLocalMode = (mode: 'DEMO' | 'NORMAL'): void => {
+  Cookies.set('mode', mode)
+}
+
+export const getMode = (): string => {
+  const mode = Cookies.get('mode')
+
+  return mode ? mode : 'NORMAL'
 }

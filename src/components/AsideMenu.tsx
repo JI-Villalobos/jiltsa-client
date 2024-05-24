@@ -39,19 +39,21 @@ export default function AsideMenu(): JSX.Element {
         }
       </div>
       {
-        role === Role.ADMIN ? (<>
-          <LinkItem path="/admin" icon="/home.svg" name="Movimientos" />
-          <LinkItem path="/sellers" icon="/casher.svg" name="Vendedoras" />
-          <LinkItem path="/cashwithdrawals" icon="/withdrawal.svg" name="Retiros" />
-          <LinkItem path="/collections" icon="/config.svg" name="Configuración" />
-          <LinkItem path="/providers" icon="/providers.svg" name="Proveedores" />
-          <LinkItem path="/billing" icon="/bill.svg" name="Cuentas x Pagar" />
-        </>)
-          : (<>
+        role === Role.ADMIN ? 
+          <>
+            <LinkItem path="/admin" icon="/home.svg" name="Movimientos" />
+            <LinkItem path="/sellers" icon="/casher.svg" name="Vendedoras" />
+            <LinkItem path="/cashwithdrawals" icon="/withdrawal.svg" name="Retiros" />
+            <LinkItem path="/collections" icon="/config.svg" name="Configuración" />
+            <LinkItem path="/providers" icon="/providers.svg" name="Proveedores" />
+            <LinkItem path="/billing" icon="/bill.svg" name="Cuentas x Pagar" />
+          </>
+        
+        : <>
             <LinkItem path="/seller-home" icon="/home.svg" name="Movimientos" />
             <LinkItem path="/operation" icon="/casher.svg" name="Registro de Gastos" />
             <LinkItem path="/cash-registry" icon="/withdrawal.svg" name="Retiros" />
-          </>)
+          </>
       }
 
     </div>

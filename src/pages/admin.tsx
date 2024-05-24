@@ -3,7 +3,7 @@ import BranchItem from "@/components/branchItem";
 import Layout from "@/layouts/Layout";
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { Branch, getBranches } from "@/services/api/branches";
-import { isAuth, setLocalBranches, updateUserRole } from "@/utils/appStorage";
+import { isAuth, setLocalBranches, setLocalMode, setUserRole } from "@/utils/appStorage";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
@@ -29,7 +29,8 @@ export default function Admin(): JSX.Element {
 
   const handleDemoOption = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    updateUserRole()
+    setLocalMode("DEMO")
+    setUserRole()
     router.push('/')
   }
 
