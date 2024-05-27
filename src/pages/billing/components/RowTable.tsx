@@ -18,17 +18,18 @@ const ENABLED = 2
 export default function RowTable({ bill, setSelectedBills, bills, setSelectedAmount, selectedAmount }: Props): JSX.Element {
   const [action, setAction] = useState(DISABLED)
 
-  
   const selectBill = () => {
     if (action == DISABLED) {
       bills.push(bill)
       setAction(ENABLED)
-      setSelectedAmount(selectedAmount + bill.amount)
+      const value = selectedAmount + bill.amount
+      setSelectedAmount(parseFloat(value.toFixed(2)))
     } else {
       const index = bills.indexOf(bill)
       bills.splice(index, 1)
       setAction(DISABLED)
-      setSelectedAmount(selectedAmount - bill.amount)
+      const value = selectedAmount - bill.amount
+      setSelectedAmount(parseFloat(value.toFixed(2)))
     }
     setSelectedBills(bills)
   }
