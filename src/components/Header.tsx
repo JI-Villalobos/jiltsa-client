@@ -1,14 +1,17 @@
-import { deleteUserCredentials } from "@/utils/appStorage";
+import { deleteUserCredentials, getMode, setAdminRole, setLocalMode } from "@/utils/appStorage";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import DemoMode from "./shared/DemoMode";
 
 export default function Header(): JSX.Element {
   const router = useRouter()
+  const mode = getMode()
 
   const handleLogout = () => {
     deleteUserCredentials()
     router.push("/")
   }
+
 
   return (
     <div className='flex flex-row bg-mp-gray-soft items-center justify-between w-full'>
@@ -19,6 +22,7 @@ export default function Header(): JSX.Element {
           <p className="text-mp-dark text-sm">Manual de usuario</p>
         </div>
       </a>
+      <DemoMode />
       <button onClick={handleLogout}>
         <Image src="/logout.svg" width={30} height={30} alt='mp logo' className='m-2' />
       </button>
