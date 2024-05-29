@@ -3,7 +3,7 @@ import SessionInfo from "@/components/SessionInfo"
 import Spinner from "@/components/Spinner"
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { Accounting, getAccounting } from "@/services/api/accounts"
-import { deleteAccounting, getCurrentAccounting } from "@/utils/appStorage"
+import { clearIncomesregistered, deleteAccounting, getCurrentAccounting } from "@/utils/appStorage"
 import { useEffect, useState } from "react"
 import IncomeSummary from "./IncomesSummary"
 import ExpensesSummary from "./ExpensesSummary"
@@ -33,6 +33,7 @@ export default function Summary(): JSX.Element{
 
     const handleCloseAccounting = () => {
         deleteAccounting()
+        clearIncomesregistered()
         router.push("/seller-home")
     }
 

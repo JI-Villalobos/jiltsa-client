@@ -1,8 +1,9 @@
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { IncomeType } from "@/services/api/collections"
 import { CreateIncomeRegistry, IncomeRegistry, createIncome } from "@/services/api/incomes"
-import React, { Dispatch, SetStateAction, useState } from "react"
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Spinner from "./Spinner"
+import { getIncomesRegistered, setIncomesRegistered } from "@/utils/appStorage"
 
 type Props = {
   incomeType: IncomeType,
@@ -14,6 +15,17 @@ export default function IncomeTypeItem({ incomeType, accountingId, disabled }: P
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [amount, setAmount] = useState<number>(0)
   const [incomeRegistry, setIncomeRegistry] = useState<IncomeRegistry | undefined>()
+  const [registered, setRegistered] = useState(false)
+
+
+  useEffect(() => {
+    const registered = getIncomesRegistered()
+    if (registered) {
+      if (registered.includes(incomeType.type)) {
+        setRegistered(true)
+      }
+    }
+  }, [])
 
   const handleNewIncome = async (e: React.FormEvent<HTMLButtonElement>) => {
     setStatus(pendingRequest)
@@ -29,6 +41,7 @@ export default function IncomeTypeItem({ incomeType, accountingId, disabled }: P
       .then((result) => {
         setIncomeRegistry(result)
         setStatus(successfullRequest)
+        setIncomesRegistered(incomeType.type)
         disabled(false)
       })
       .catch(() => {
@@ -39,7 +52,12 @@ export default function IncomeTypeItem({ incomeType, accountingId, disabled }: P
   return (
     <>
       {
-        status.onLoading 
+        registered ? 
+          <div className="flex flex-col m-1 justify-center items-center w-1/2 rounded-xl border border-mp-soft-dark  p-4 mt-6">
+            <strong  className="block font-medium text-mp-green">Este elemento ya esta registrado</strong  >
+            <p className="text-mp-dark m-1 text-sm">{incomeType.type}</p>
+          </div> 
+        : status.onLoading 
         ? 
           <div className="flex flex-col justify-center items-center w-1/2 m-4">
             <Spinner bgBlank />

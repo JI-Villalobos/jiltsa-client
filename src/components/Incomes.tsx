@@ -3,7 +3,7 @@ import { IncomeType, getIncomeTypes } from "@/services/api/collections"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Spinner from "./Spinner"
 import IncomeTypeItem from "./IncomeTypeItem"
-import { getCurrentAccounting } from "@/utils/appStorage"
+import { clearIncomesregistered, getCurrentAccounting, getIncomesRegistered } from "@/utils/appStorage"
 import ErrorMessage from "./ErrorMessage"
 import { STAGES } from "./Expenses"
 
@@ -20,6 +20,7 @@ export default function Incomes({ setStage }: Props): JSX.Element {
 
   useEffect(() => {
     setStatus(pendingRequest)
+    const registered = getIncomesRegistered()
     const currentAcccounting = getCurrentAccounting()
     if (currentAcccounting) {
       setAccountingId(currentAcccounting.accountingId)
@@ -28,6 +29,9 @@ export default function Incomes({ setStage }: Props): JSX.Element {
       .then((result) => {
         setIncomeTypes(result)
         setStatus(successfullRequest)
+        if (registered.length == result.length) {
+          setDisabledClose(false)
+        }
       })
       .catch(() => {
         setStatus(failedRequest)

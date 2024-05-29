@@ -176,3 +176,29 @@ export const getMode = (): string => {
 
   return mode ? mode : 'NORMAL'
 }
+
+export const setIncomesRegistered = (tag: string): void => {
+  const incomes = Cookies.get('incomes-reg')
+  const list: string[] = [tag]
+
+  if (!incomes) {
+    Cookies.set('incomes-reg', JSON.stringify(list))
+  } else {
+    const registered: string[] = JSON.parse(incomes)
+    registered.push(tag)
+    Cookies.set('incomes-reg', JSON.stringify(registered))
+  }
+}
+
+export const getIncomesRegistered = (): string[] => {
+  const registered = Cookies.get('incomes-reg')
+  if (registered) {
+    return JSON.parse(registered)
+  }
+
+  return []
+}
+
+export const clearIncomesregistered = () => {
+  Cookies.remove('incomes-reg')
+}
