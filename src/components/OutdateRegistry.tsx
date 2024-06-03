@@ -19,7 +19,7 @@ export default function OutdateRegistry(): JSX.Element {
                         className="bg-none text-mp-blue p-4 m-2" 
                         onClick={() => setStage(STAGES.NEW)}
                     >
-                             Continuar a Ingresos
+                             Registrar Ventas
                     </button>
             }
             {
