@@ -35,7 +35,7 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
 
   return (
     <div className="border w-2/4 border-mp-green rounded flex flex-col justify-center items-center mt-6">
-      <p className="text-mp-blue text-xl font-semibold m-2">Registro de Retiros</p>
+      <p className="text-mp-blue font-semibold m-2">Registro de Depositos y Otros Retiros</p>
       {
         status.onLoading ? <Spinner bgBlank /> : <p className="text-mp-green m-2">{cashWithDrawal.branch}</p>
       }

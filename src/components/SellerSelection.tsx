@@ -23,7 +23,7 @@ export default function SellerSelection() {
   }, [])
   return (
     <div className="mt-8 flex flex-col items-center w-1/2">
-      <p className="mb-4 text-xl text-mp-dark font-coda">¿Quién eres?</p>
+      <p className="mb-4 text-xl text-mp-dark font-coda">Selecciona tu turno</p>
       {
         sellers.map(seller => (
           <SellerSellectionItem seller={seller} key={`seller-id-${seller.id}`}/>

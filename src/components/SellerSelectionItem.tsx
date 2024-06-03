@@ -32,7 +32,7 @@ export default function SellerSellectionItem({ seller }: Props): JSX.Element {
   return (
     <>
       <button
-        className="m-2 border-s-4 border-mp-green bg-mp-gray-soft w-full p-4 rounded text-mp-blue text-base hover:cursor-pointer hover:text-mp-green"
+        className="m-2 border-s-4 border-mp-green bg-mp-gray-soft w-full p-4 rounded text-mp-dark text-base hover:cursor-pointer hover:text-mp-green"
         disabled={status.onLoading}
         onClick={handleAccounting}
       >

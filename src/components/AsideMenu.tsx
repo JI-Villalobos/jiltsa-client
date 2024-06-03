@@ -52,7 +52,7 @@ export default function AsideMenu(): JSX.Element {
         : <>
             <LinkItem path="/seller-home" icon="/home.svg" name="Movimientos" />
             <LinkItem path="/operation" icon="/casher.svg" name="Registro de Gastos" />
-            <LinkItem path="/cash-registry" icon="/withdrawal.svg" name="Retiros" />
+            <LinkItem path="/cash-registry" icon="/withdrawal.svg" name="Depositos" />
           </>
       }
 
