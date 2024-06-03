@@ -9,7 +9,8 @@ export enum STAGES {
   NEW = 1,
   SUCCESS = 2,
   FAILED = 3,
-  LOADING = 4
+  LOADING = 4,
+  CONFIRM = 5
 }
 
 export default function Expenses(): JSX.Element {

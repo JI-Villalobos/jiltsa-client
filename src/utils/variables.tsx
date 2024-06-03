@@ -9,3 +9,8 @@ export enum Income {
 }
 
 export const conceptList = ["Cobro con tarjeta", "BBVA", "COPPEL", "HSBC", "BANORTE", "BANREGIO", "OTROS"]
+
+export enum Defaults {
+  PRONTIPAGOS = 1,
+  MEDICAMENTO = 2
+}

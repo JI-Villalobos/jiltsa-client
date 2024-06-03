@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { Role } from "./variables";
 import { Bill } from "@/services/api/billing";
 import { ExpenseRegistry } from "@/services/api/expenses";
+import { IncomeRegistry } from "@/services/api/incomes";
 
 export type CurrentAccounting = {
   accountingId: number,
@@ -177,26 +178,20 @@ export const getMode = (): string => {
   return mode ? mode : 'NORMAL'
 }
 
-export const setIncomesRegistered = (tag: string): void => {
-  const incomes = Cookies.get('incomes-reg')
-  const list: string[] = [tag]
+export const setIncomesRegistered = (incomes: IncomeRegistry[]): void => {
+  const incomeRegs = Cookies.get('incomes-reg')
 
-  if (!incomes) {
-    Cookies.set('incomes-reg', JSON.stringify(list))
-  } else {
-    const registered: string[] = JSON.parse(incomes)
-    registered.push(tag)
-    Cookies.set('incomes-reg', JSON.stringify(registered))
-  }
+  if (!incomeRegs) {
+    Cookies.set('incomes-reg', JSON.stringify(incomes))
+  } 
 }
 
-export const getIncomesRegistered = (): string[] => {
+export const getIncomesRegistered = (): IncomeRegistry[] | undefined => {
   const registered = Cookies.get('incomes-reg')
+  
   if (registered) {
     return JSON.parse(registered)
   }
-
-  return []
 }
 
 export const clearIncomesregistered = () => {
