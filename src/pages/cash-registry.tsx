@@ -1,6 +1,7 @@
 import ConfirmCashRegistry from "@/components/ConfirmCahsRegistry";
 import NewCashRegistry from "@/components/NewCashRegistry";
 import SessionInfo from "@/components/SessionInfo";
+import CloseOperationButton from "@/components/shared/CloseOperationButton";
 import Layout from "@/layouts/Layout";
 import { CreateCashWithdrawalDto } from "@/services/api/withdrawals";
 import { getCurrentAccounting, isAuth } from "@/utils/appStorage";
@@ -28,6 +29,7 @@ export default function CashRegistry() {
     <Layout>
       <>
         <SessionInfo />
+        <CloseOperationButton />
         {
           confirmationStage ?
             <ConfirmCashRegistry

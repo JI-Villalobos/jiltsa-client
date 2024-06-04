@@ -3,6 +3,7 @@ import Spinner from "./Spinner"
 import NewExpense from "./NewExpense"
 import SuccessExpenseRegistry from "./SuccessExpenseRegistry"
 import ErrorMessage from "./ErrorMessage"
+import CloseOperationButton from "./shared/CloseOperationButton"
 
 export enum STAGES {
   DEFAULT = 0,
@@ -28,11 +29,14 @@ export default function Expenses(): JSX.Element {
       <div className="w-full flex items-center justify-center">
         {
           stages == STAGES.DEFAULT
-            ? <button className="bg-mp-dark text-mp-gray-soft rounded border-none hover:cursor-pointer p-4" 
+            ? <div className="flex flex-row w-full justify-center">
+                <button className="bg-mp-dark text-mp-gray-soft rounded border-none hover:cursor-pointer p-2   mr-6" 
                 onClick={nextStage}
               >
                 +Nuevo Gasto
               </button>
+              <CloseOperationButton />
+            </div>
           : stages == STAGES.NEW 
             ? <NewExpense setStage={setStages}/>
           : stages == STAGES.SUCCESS

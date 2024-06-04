@@ -2,6 +2,7 @@ import Error from "@/components/Error";
 import SessionInfo from "@/components/SessionInfo";
 import Skeleton from "@/components/Skeleton";
 import TableReport from "@/components/TableReport";
+import CloseOperationButton from "@/components/shared/CloseOperationButton";
 import Layout from "@/layouts/Layout";
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { Accounting, getLatestRegistries } from "@/services/api/accounts";
@@ -40,14 +41,7 @@ export default function SellerHome(): JSX.Element {
         <SessionInfo />
         <div className="w-1/2 flex flex-row justify-end">
           {
-            getCurrentAccounting() 
-              && 
-                <Link href="/close-operation" className="bg-mp-blue flex flex-row p-2 rounded text-mp-gray-soft">
-                  <Image src="/casher.svg" alt="cashier icon" width={20} height={20}/>
-                  <span className="ml-1"></span>
-                    Cerrar Turno
-                </Link>
-                 
+            getCurrentAccounting() && <CloseOperationButton />   
           }
         </div>
         <p className='mt-2 text-xl text-mp-dark'>Actividad Reciente:</p>

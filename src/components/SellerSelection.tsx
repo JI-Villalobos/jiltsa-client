@@ -3,6 +3,7 @@ import { Seller, getSellerByBranch } from "@/services/api/sellers"
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
 import SellerSellectionItem from "./SellerSelectionItem"
+import Spinner from "./Spinner"
 
 export default function SellerSelection() {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
@@ -25,7 +26,8 @@ export default function SellerSelection() {
     <div className="mt-8 flex flex-col items-center w-1/2">
       <p className="mb-4 text-xl text-mp-dark font-coda">Selecciona tu turno</p>
       {
-        sellers.map(seller => (
+        status.onLoading ? <Spinner bgBlank /> 
+        : sellers.map(seller => (
           <SellerSellectionItem seller={seller} key={`seller-id-${seller.id}`}/>
         ))
       }
