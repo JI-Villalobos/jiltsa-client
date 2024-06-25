@@ -1,5 +1,4 @@
 import { STAGES } from "@/components/Expenses";
-import Incomes from "@/components/Incomes";
 import Layout from "@/layouts/Layout";
 import { useState } from "react";
 import Summary from "./components/Summary";

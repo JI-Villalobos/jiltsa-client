@@ -11,6 +11,12 @@ interface Props {
   setStage: Dispatch<SetStateAction<number>>
 }
 
+/**
+ * 
+ * @deprecated
+ * this component is a candidate to be removed in future versions
+ * 
+ */
 export default function Incomes({ setStage }: Props): JSX.Element {
   const [incomeTypes, setIncomeTypes] = useState<IncomeType[]>([])
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
@@ -20,7 +26,6 @@ export default function Incomes({ setStage }: Props): JSX.Element {
 
   useEffect(() => {
     setStatus(pendingRequest)
-    const registered = getIncomesRegistered()
     const currentAcccounting = getCurrentAccounting()
     if (currentAcccounting) {
       setAccountingId(currentAcccounting.accountingId)

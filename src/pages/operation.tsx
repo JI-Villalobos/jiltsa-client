@@ -1,5 +1,4 @@
 import Expenses from "@/components/Expenses";
-import Incomes from "@/components/Incomes";
 import OpenAccounting from "@/components/OpenAccounting";
 import SessionInfo from "@/components/SessionInfo";
 import Layout from "@/layouts/Layout";
