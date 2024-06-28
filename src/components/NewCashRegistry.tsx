@@ -10,11 +10,12 @@ import { conceptList } from "@/utils/variables"
 type Props = {
   setCashWithdrawal: Dispatch<SetStateAction<CreateCashWithdrawalDto>>
   cashWithDrawal: CreateCashWithdrawalDto
-  conformationstage: Dispatch<SetStateAction<boolean>>
+  confirmationstage: Dispatch<SetStateAction<boolean>>
 }
 
-export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, conformationstage }: Props): JSX.Element {
+export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, confirmationstage }: Props): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
+  const [isValid, setIsValid] = useState(true)
   const [concept, setConcept] = useState('')
 
   useEffect(() => {
@@ -32,6 +33,15 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
         })
     }
   }, [])
+
+  const handleconfirmationStage = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    if (cashWithDrawal.amount > 0 && cashWithDrawal.concept != "Selecciona el concepto") {
+      confirmationstage(true)
+    } else {
+      setIsValid(false)
+    }
+  }
 
   return (
     <div className="border w-2/4 border-mp-green rounded flex flex-col justify-center items-center mt-6">
@@ -65,7 +75,7 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
             placeholder="Especifica concepto del retiro"
             className="rounded-lg w-1/3 p-2 border border-mp-gray-soft m-2 text-center text-mp-dark"
             onChange={(e: React.FormEvent<HTMLInputElement>) => {
-              setCashWithdrawal({ ...cashWithDrawal, concept: e.currentTarget.value})
+              setCashWithdrawal({ ...cashWithDrawal, concept: e.currentTarget.value })
             }}
           />
         )
@@ -84,7 +94,7 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
           : (
             <button
               className="bg-mp-green rounded text-mp-gray-soft text-sm p-2 w-1/3 m-2"
-              onClick={() => conformationstage(true)}
+              onClick={handleconfirmationStage}
               disabled={status.onLoading}
             >
               Registrar
@@ -92,9 +102,12 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
           )
       }
       <div className="p-2">
-        <Link href={`withdrawals/${cashWithDrawal.branch}`} className="text-mp-blue text-xs underline">
-          Ver Registros
-        </Link>
+        {
+          isValid ? <Link href={`withdrawals/${cashWithDrawal.branch}`} className="text-mp-blue text-xs underline">
+                Ver Registros
+              </Link>
+          : <p className="text-sm text-center text-mp-error">Selecciona un concepto y monto válidos</p>
+        }
       </div>
     </div>
   )

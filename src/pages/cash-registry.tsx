@@ -40,7 +40,7 @@ export default function CashRegistry() {
             : <NewCashRegistry
               setCashWithdrawal={setCashWithdrawal}
               cashWithDrawal={cashWithDrawal}
-              conformationstage={setConfirmationStage}
+              confirmationstage={setConfirmationStage}
             />
         }
       </>
