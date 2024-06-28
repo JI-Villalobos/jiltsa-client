@@ -18,15 +18,23 @@ type Sales = {
     total: number
 }
 
+const clearedSales = {
+    products: 0, others: 0, total: 0 
+}
+
 export default function IncomesRegistry({ setStage }: Props): JSX.Element {
     const [confirmation, setConfirmation] = useState(false)
-    const [sales, setSales] = useState<Sales>({ products: 0, others: 0, total: 0 })
+    const [sales, setSales] = useState<Sales>(clearedSales)
     const [status, setStatus] = useState<RequestStatus>(initialStatus)
 
-    const handleCompleteSales = () => {
-        const total = sales.total - sales.others
-        setSales({ ...sales, products: total })
-        setConfirmation(true)
+    const handleCompleteSales = () => {        
+        if (sales.total > sales.others ) {
+            const total = sales.total - sales.others
+            setSales({ ...sales, products: total })
+            setConfirmation(true)
+        } else {
+            setStatus(failedRequest)
+        }
     }
 
     const handleIncomeRegistries = async (e: React.FormEvent<HTMLButtonElement>) => {
@@ -50,6 +58,7 @@ export default function IncomesRegistry({ setStage }: Props): JSX.Element {
                 }
             ]
 
+
             await createIncomes(incomes)
                 .then((result) => {
                     setStatus(successfullRequest)
@@ -60,12 +69,11 @@ export default function IncomesRegistry({ setStage }: Props): JSX.Element {
                     setStatus(failedRequest)
                     setStage(STAGES.FAILED)
                 })
+
         }
     }
 
     if (getIncomesRegistered()) {
-        console.log("call");
-
         return (
             <div className="flex flex-col items-center justify-center">
                 <ErrorMessage
@@ -118,7 +126,11 @@ export default function IncomesRegistry({ setStage }: Props): JSX.Element {
                         <div className="flex flex-row w-full justify-center mt-4">
                             <button
                                 className="p-2 bg-mp-soft-dark text-mp-white m-4 w-1/4 rounded"
-                                onClick={() => setConfirmation(false)}
+                                onClick={() => {
+                                    setConfirmation(false)
+                                    setSales(clearedSales)
+                                    setStatus(initialStatus)
+                                }}
                                 disabled={status.onLoading}
                             >
                                 Regresar
@@ -158,6 +170,7 @@ export default function IncomesRegistry({ setStage }: Props): JSX.Element {
                         >
                             Continuar
                         </button>
+                        {status.onError && <p className="text-sm text-center text-mp-error">El monto total no debe ser menor al monto vendido en Prontipagos</p>}
                     </div>
             }
         </div>
