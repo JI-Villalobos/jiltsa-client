@@ -12,6 +12,7 @@ export default function NewOutDateAccounting(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [sellers, setSellers] = useState<Seller[]>([])
   const [accounting, setAccounting] = useState<CustomAccounting>({ branchId: 0, sellerId: 0, date: '' })
+  const [sellerName, setSellerName] = useState('Extemporáneo');
 
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function NewOutDateAccounting(): JSX.Element {
     setStatus({ ...status, onLoading: true })
     await newCustomAccounting(accounting)
       .then((result) => {
-        setCurrentAccounting({ accountingId: result.id, seller: 'Extemporáneo', date: result.date })
+        setCurrentAccounting({ accountingId: result.id, seller: sellerName, date: result.date })
         setStatus({ ...status, onLoading: false })
         setAccountingRegSuccess(true)
       })
@@ -64,7 +65,10 @@ export default function NewOutDateAccounting(): JSX.Element {
                   (
                     <select
                       className="w-1/3 h-8 m-2 text-sm text-center text-mp-blue border rounded border-mp-soft-dark"
-                      onChange={(e: React.FormEvent<HTMLSelectElement>) => setAccounting({ ...accounting, sellerId: parseInt(e.currentTarget.value) })}
+                      onChange={(e: React.FormEvent<HTMLSelectElement>) => {
+                        setAccounting({ ...accounting, sellerId: parseInt(e.currentTarget.value) })
+                        setSellerName(e.currentTarget.value)
+                      }}
                     >
                       <option>--Selecciona</option>
                       {
