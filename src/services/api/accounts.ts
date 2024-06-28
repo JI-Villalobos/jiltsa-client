@@ -8,7 +8,7 @@ export interface Accounting {
   id: number,
   sellerId: number,
   branchId: number,
-  date?: string,
+  date: string,
   expenseRegistries: ExpenseRegistry[],
   incomeRegistries: IncomeRegistry[]
 }

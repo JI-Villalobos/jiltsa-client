@@ -19,7 +19,7 @@ export default function SellerSellectionItem({ seller }: Props): JSX.Element {
     e.preventDefault()
     await newAccounting({ sellerId: seller.id, branchId: seller.branchId, })
       .then((result) => {
-        setCurrentAccounting({ accountingId: result.id, seller: seller.fullName })
+        setCurrentAccounting({ accountingId: result.id, seller: seller.fullName, date: result.date })
         setStatus(successfullRequest)
         router.reload()
       })

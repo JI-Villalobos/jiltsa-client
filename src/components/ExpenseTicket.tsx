@@ -7,7 +7,7 @@ type Props = {
   expense: CreateExpenseRegistry,
 }
 export default function ExpenseTicket(props: Props): JSX.Element {
-  const [currentAccounting, setCurrentAcccounting] = useState<CurrentAccounting>({accountingId: 0, seller: ''})
+  const [currentAccounting, setCurrentAcccounting] = useState<CurrentAccounting>({accountingId: 0, seller: '', date: ''})
 
   return (
     <div className="flex flex-col items-center justify-center w-1/3">

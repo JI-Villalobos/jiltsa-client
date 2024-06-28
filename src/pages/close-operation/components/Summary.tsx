@@ -8,8 +8,8 @@ import { useEffect, useState } from "react"
 import IncomeSummary from "./IncomesSummary"
 import ExpensesSummary from "./ExpensesSummary"
 import { useRouter } from "next/router"
-import CashRegistry from "@/pages/cash-registry"
 import CashWSummary from "./CashWSummary"
+import DateFormat from "@/utils/DateFormat"
 
 export default function Summary(): JSX.Element{
     const [accounting, setAccounting] = useState<Accounting>()
@@ -38,15 +38,13 @@ export default function Summary(): JSX.Element{
     }
 
     if (accounting == undefined) {
-        return <ErrorMessage 
-            title="Error de turno"
-            description="No fue posible cargar los detalles de cierre de turno, por favor contacta con el administrador"      
-        />
+        return <></>
     }
 
     return(
         <div className="flex flex-col">
             <SessionInfo />
+            <p className="text-center text-2xl p-2 text-mp-green">Corte de día: {DateFormat(accounting.date)}</p>
             {
                 status.onLoading && <Spinner bgBlank />   
             }

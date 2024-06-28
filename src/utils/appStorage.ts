@@ -9,24 +9,24 @@ import { IncomeRegistry } from "@/services/api/incomes";
 export type CurrentAccounting = {
   accountingId: number,
   seller: string,
+  date: string
 }
 
 export const getCurrentAccounting = (): CurrentAccounting | undefined => {
-  const accounting: string | undefined = Cookies.get('accountingId')
-  const seller: string | undefined = Cookies.get('seller')
+ 
+  const currentAccounting = Cookies.get('current-accounting')
 
-  if (typeof accounting === 'string' && typeof seller === 'string') {
-    const accountingId: number = parseInt(accounting)
-    return {
-      accountingId,
-      seller
-    }
+  if (currentAccounting) {
+    return JSON.parse(currentAccounting);
   }
 }
 
 export const setCurrentAccounting = (currentAccounting: CurrentAccounting): void => {
-  Cookies.set('accountingId', currentAccounting.accountingId.toString(), {  expires: 1 })
-  Cookies.set('seller', currentAccounting.seller, { expires: 1 })
+  Cookies.set('current-accounting', JSON.stringify(currentAccounting), { expires: 1 })
+}
+
+export const deleteAccounting = (): void => {
+  Cookies.remove('current-accounting')
 }
 
 export const setLocalBranches = (branches: Branch[]): void => {
@@ -58,11 +58,6 @@ export const getLocalBranch = ( branchId: number): Branch | undefined => {
     const branches: Branch[] = JSON.parse(storedData)
     return branches.find((branch) => branch.id === branchId)
   }
-}
-
-export const deleteAccounting = (): void => {
-  Cookies.remove('accountingId')
-  Cookies.remove('seller')
 }
 
 export const getBranchId = (): number | undefined => {

@@ -34,7 +34,7 @@ export default function NewOutDateAccounting(): JSX.Element {
     setStatus({ ...status, onLoading: true })
     await newCustomAccounting(accounting)
       .then((result) => {
-        setCurrentAccounting({ accountingId: result.id, seller: 'Extemporáneo' })
+        setCurrentAccounting({ accountingId: result.id, seller: 'Extemporáneo', date: result.date })
         setStatus({ ...status, onLoading: false })
         setAccountingRegSuccess(true)
       })

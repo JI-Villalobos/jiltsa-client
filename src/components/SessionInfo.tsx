@@ -6,7 +6,7 @@ import TotalBalanceItem from "./TotalBalanceItem"
 
 export default function SessionInfo(): JSX.Element {
   const [accountingExists, setAccountingExist] = useState<boolean>(false)
-  const [accounting, setAccounting] =  useState<CurrentAccounting>({accountingId: 0, seller: ''})
+  const [accounting, setAccounting] =  useState<CurrentAccounting>({accountingId: 0, seller: '', date: ''})
   
   useEffect(() => {
     const accounting = getCurrentAccounting()
@@ -14,7 +14,8 @@ export default function SessionInfo(): JSX.Element {
       setAccountingExist(true)
       setAccounting({
         accountingId: accounting.accountingId,
-        seller: accounting.seller
+        seller: accounting.seller,
+        date: accounting.date
       })
     }
   }, [])
