@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function NewExpense({ setStage }: Props): JSX.Element {
-  const [selectedItem, setSelectedItem] = useState<ExpenseType>({id: 0, type: ''})
+  const [selectedItem, setSelectedItem] = useState<ExpenseType>({ id: 0, type: '' })
   const [description, setDescription] = useState<string>(selectedItem.type)
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([])
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
@@ -44,7 +44,8 @@ export default function NewExpense({ setStage }: Props): JSX.Element {
       description: description
     }
 
-    await createExpense(expense)
+    if (amount > 0 && selectedItem.id > 0) {
+      await createExpense(expense)
       .then((result) => {
         setStatus(successfullRequest)
         setTimeout(() => {
@@ -56,14 +57,17 @@ export default function NewExpense({ setStage }: Props): JSX.Element {
       .catch(() => {
         setStatus(failedRequest)
       })
+    } else {
+      setStatus(failedRequest)
+    }
   }
 
   const handleSelectedExpenseType = (id: number) => {
-      const expenseType = expenseTypes.find((type) => type.id == id)
-      if(expenseType){
-        setSelectedItem(expenseType)
-        setDescription(expenseType.type)
-      }
+    const expenseType = expenseTypes.find((type) => type.id == id)
+    if (expenseType) {
+      setSelectedItem(expenseType)
+      setDescription(expenseType.type)
+    }
   }
 
   return (
@@ -75,7 +79,7 @@ export default function NewExpense({ setStage }: Props): JSX.Element {
       </p>
 
       <div className="w-full">
-      <label htmlFor="text" className="text-mp-strong-gray">Tipo de gasto</label>
+        <label htmlFor="text" className="text-mp-strong-gray">Tipo de gasto</label>
         <select
           name="expenseType"
           id="expenseType"
@@ -102,7 +106,7 @@ export default function NewExpense({ setStage }: Props): JSX.Element {
           />
 
           <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-            
+
           </span>
         </div>
       </div>
@@ -130,6 +134,12 @@ export default function NewExpense({ setStage }: Props): JSX.Element {
             : 'Registrar >>'
         }
       </button>
+      {
+        status.onError &&
+        <p className="text-center text-sm text-mp-error p-1">
+          Error al registrar el gasto: Revisa que los datos sean correctos
+        </p>
+      }
     </form>
   )
 }

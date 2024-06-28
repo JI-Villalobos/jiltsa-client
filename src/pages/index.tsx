@@ -1,23 +1,18 @@
 'use client'
 
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { NextRouter, useRouter } from 'next/router'
-import { AuthContext } from '@/context/AuthContext'
 import Header from '@/components/Header'
 import Spinner from '@/components/Spinner'
 import { getUserCredentials } from '@/utils/appStorage'
 import { Role } from '@/utils/variables'
 
 export default function Home() {
-  //const isAuth: boolean = useContext(AuthContext)
-
+  
   const router: NextRouter = useRouter()
 
   useEffect(() => {
     const creds = getUserCredentials()
-    /*if (!isAuth) {
-      router.push("/login")
-    }**/
     setTimeout(() => {
       if (creds) {
         if (creds.role === Role.USER) {
