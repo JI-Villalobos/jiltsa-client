@@ -44,6 +44,14 @@ export default function NewOutDateAccounting(): JSX.Element {
       })
   }
 
+  const getSellerName = (id: string) => {
+    const index = parseInt(id)
+    const seller =  sellers.find(seller => seller.id == index)?.fullName || 'Extemporaneo';
+    console.log(sellers.find(seller => seller.id == index));
+    
+    setSellerName(seller)
+  }
+
   return (
     <>
       {
@@ -67,7 +75,7 @@ export default function NewOutDateAccounting(): JSX.Element {
                       className="w-1/3 h-8 m-2 text-sm text-center text-mp-blue border rounded border-mp-soft-dark"
                       onChange={(e: React.FormEvent<HTMLSelectElement>) => {
                         setAccounting({ ...accounting, sellerId: parseInt(e.currentTarget.value) })
-                        setSellerName(e.currentTarget.value)
+                        getSellerName(e.currentTarget.value)
                       }}
                     >
                       <option>--Selecciona</option>
