@@ -91,7 +91,7 @@ export const endPoints ={
   creditSales: {
     getById:(creditSaleId: number) => `${API}/credit-sale/get/${creditSaleId}`,
     getAll: (branchId: number) => `${API}/credit-sale/get-all/${branchId}`,
-    getByPaymentStatus: (branchId: number, isPaid: boolean) => `${API}/credit-sale/${branchId}/${isPaid}`,
+    getByPaymentStatus: (branchId: number, isPaid: boolean) => `${API}/credit-sale/get-by-status/${branchId}/${isPaid}`,
     mutate: `${API}/credit-sale`
   },
   partialPayments: {

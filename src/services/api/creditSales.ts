@@ -45,7 +45,7 @@ export const getCreditSale = async (creditSaleId: number): Promise<CreditSale> =
 }
 
 export const getCreditSaleByStatus = async (branchId: number, isPaid: boolean): Promise<CreditSale[]> => {
-    const { data }: AxiosResponse<CreditSale[]> = await axios.get(endPoints.creditSales.getByPaymentStatus(branchId, isPaid))
+    const { data }: AxiosResponse<CreditSale[]> = await axios.get(endPoints.creditSales.getByPaymentStatus(branchId, isPaid), options)
 
     return data
 }

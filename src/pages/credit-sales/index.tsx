@@ -1,6 +1,52 @@
 import Layout from "@/layouts/Layout";
+import CreditSaleItem from "./components/CreditSaleItem";
+import { ChangeEvent, useEffect, useState } from "react";
+import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
+import { CreditSale, getCreditSaleByStatus, getCreditSales } from "@/services/api/creditSales";
+import Spinner from "@/components/Spinner";
+import ErrorMessage from "@/components/ErrorMessage";
+import { getBranchId } from "@/utils/appStorage";
+
+export enum FILTER_REQ {
+    ALL = 'ALL',
+    PAID = 'PAID',
+    PENDING = 'PENDING'
+}
 
 export default function CreditSales(): JSX.Element {
+    const [status, setStatus] = useState(initialStatus)
+    const [reqFilter, setReqFilter] = useState(FILTER_REQ.ALL.toString())
+    const [creditSales, setCreditSales] = useState<CreditSale[]>([])
+
+    useEffect(() => {
+        setStatus(pendingRequest)
+        const branchId = getBranchId()
+        if (branchId)
+            switch (reqFilter) {
+                case FILTER_REQ.PAID.toString():
+                    getCreditSaleByStatus(branchId, true)
+                        .then((result) => {
+                            setCreditSales(result)
+                            setStatus(successfullRequest)
+                        }).catch(() => { setStatus(failedRequest) })
+                    break;
+                case FILTER_REQ.PENDING.toString():
+                    getCreditSaleByStatus(branchId, false)
+                        .then((result) => {
+                            setCreditSales(result)
+                            setStatus(successfullRequest)
+                        }).catch(() => { setStatus(failedRequest) })
+                    break;
+                default:
+                    getCreditSales(branchId)
+                        .then((result) => {
+                            setCreditSales(result)
+                            setStatus(successfullRequest)
+                        }).catch(() => { setStatus(failedRequest) })
+                    break;
+            }
+    }, [reqFilter])
+
     return (
         <Layout>
             <div className="mt-10 w-full flex  flex-col justify-center items-center">
@@ -13,11 +59,12 @@ export default function CreditSales(): JSX.Element {
                             name="HeadlineAct"
                             id="HeadlineAct"
                             className="mt-1.5 w-1/2 rounded-lg border border-mp-gray-soft text-mp-soft-dark sm:text-sm"
+                            onChange={(e: ChangeEvent<HTMLSelectElement>) => setReqFilter(e.currentTarget.value)}
                         >
 
-                            <option value="AK">Todas</option>
-                            <option value="BBK">Pagadas</option>
-                            <option value="BG">Pendientes</option>
+                            <option value={FILTER_REQ.ALL.toString()}>Todas</option>
+                            <option value={FILTER_REQ.PAID.toString()}>Pagadas</option>
+                            <option value={FILTER_REQ.PENDING.toString()}>Pendientes</option>
                         </select>
                     </div>
                     <button className="bg-mp-dark flex flex-row p-2 rounded text-mp-white">
@@ -25,72 +72,12 @@ export default function CreditSales(): JSX.Element {
                         Nuevo Apartado
                     </button>
                 </div>
-
-                <div className="flex flex-row items-center w-2/4 justify-between shadow-lg p-2">
-                    <div className="bg-mp-error text-mp-white text-xs text-center rounded p-1 flex w-1/12">Pendiente</div>
-                    <div className="flex flex-row text-sm m-2">
-                        <p className="text-mp-dark mr-1">Número de Apartado:</p>
-                        <p className="text-mp-blue">1</p>
-                    </div>
-                    <div className="flex flex-col m-2">
-                        <p className="text-mp-green font-semibold">ARBOL DE NARANJO INJERT</p>
-                        <div className="flex flex-row text-sm">
-                            <p className="text-mp-dark mr-1">Fecha apartado: </p>
-                            <p className="text-mp-blue">2024-07-03</p>
-                        </div>
-                    </div>
-                    <div className="flex flex-row items-center">
-                        <p className="text-mp-green mr-1">Monto: </p>
-                        <p className="text-mp-blue">175</p>
-                    </div>
-                    <button className="bg-mp-blue flex flex-row p-2 rounded text-mp-white">
-
-                        Abonar
-                    </button>
-                </div>
-                <div className="flex flex-row items-center w-2/4 justify-between shadow-lg p-2">
-                    <div className="bg-mp-error text-mp-white text-xs text-center rounded p-1 flex w-1/12">Pendiente</div>
-                    <div className="flex flex-row text-sm m-2">
-                        <p className="text-mp-dark mr-1">Número de Apartado:</p>
-                        <p className="text-mp-blue">1</p>
-                    </div>
-                    <div className="flex flex-col m-2">
-                        <p className="text-mp-green font-semibold">ARBOL DE NARANJO INJERT</p>
-                        <div className="flex flex-row text-sm">
-                            <p className="text-mp-dark mr-1">Fecha apartado: </p>
-                            <p className="text-mp-blue">2024-07-03</p>
-                        </div>
-                    </div>
-                    <div className="flex flex-row items-center">
-                        <p className="text-mp-green mr-1">Monto: </p>
-                        <p className="text-mp-blue">175</p>
-                    </div>
-                    <button className="bg-mp-blue flex flex-row p-2 rounded text-mp-white">
-
-                        Abonar
-                    </button>
-                </div>
-                <div className="flex flex-row items-center w-2/4 justify-between shadow-lg p-2">
-                    <div className="bg-mp-light-green text-mp-white text-xs text-center rounded p-1 flex w-1/12">Pagado</div>
-                    <div className="flex flex-row text-sm m-2">
-                        <p className="text-mp-dark mr-1">Número de Apartado:</p>
-                        <p className="text-mp-blue">1</p>
-                    </div>
-                    <div className="flex flex-col m-2">
-                        <p className="text-mp-green font-semibold">ARBOL DE NARANJO INJERT</p>
-                        <div className="flex flex-row text-sm">
-                            <p className="text-mp-dark mr-1">Fecha apartado: </p>
-                            <p className="text-mp-blue">2024-07-03</p>
-                        </div>
-                    </div>
-                    <div className="flex flex-row items-center">
-                        <p className="text-mp-green mr-1">Monto: </p>
-                        <p className="text-mp-blue">175</p>
-                    </div>
-                    <button className="bg-mp-blue flex flex-row p-2 rounded text-mp-white">
-
-                        Abonar
-                    </button>
+                <div className="w-full flex flex-col items-center justify-center">
+                    {
+                        status.onLoading ? <Spinner bgBlank />
+                            : status.onError ? <ErrorMessage title="Fallo de conexión" description="No fue posible consultar la lista de apartados, intentalo más tarde" />
+                                : creditSales.map(sale => <CreditSaleItem sale={sale} key={`id-credit-${sale.id}`}/>)
+                    }
                 </div>
             </div>
         </Layout>
