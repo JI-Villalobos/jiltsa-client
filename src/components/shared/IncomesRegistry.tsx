@@ -28,7 +28,7 @@ export default function IncomesRegistry({ setStage }: Props): JSX.Element {
     const [status, setStatus] = useState<RequestStatus>(initialStatus)
 
     const handleCompleteSales = () => {        
-        if (sales.total > sales.others ) {
+        if (sales.total >= sales.others ) {
             const total = sales.total - sales.others
             setSales({ ...sales, products: total })
             setConfirmation(true)
