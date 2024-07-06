@@ -6,6 +6,7 @@ import { CreditSale, getCreditSaleByStatus, getCreditSales } from "@/services/ap
 import Spinner from "@/components/Spinner";
 import ErrorMessage from "@/components/ErrorMessage";
 import { getBranchId } from "@/utils/appStorage";
+import { useRouter } from "next/router";
 
 export enum FILTER_REQ {
     ALL = 'ALL',
@@ -17,6 +18,8 @@ export default function CreditSales(): JSX.Element {
     const [status, setStatus] = useState(initialStatus)
     const [reqFilter, setReqFilter] = useState(FILTER_REQ.ALL.toString())
     const [creditSales, setCreditSales] = useState<CreditSale[]>([])
+
+    const router = useRouter()
 
     useEffect(() => {
         setStatus(pendingRequest)
@@ -67,8 +70,10 @@ export default function CreditSales(): JSX.Element {
                             <option value={FILTER_REQ.PENDING.toString()}>Pendientes</option>
                         </select>
                     </div>
-                    <button className="bg-mp-dark flex flex-row p-2 rounded text-mp-white">
-
+                    <button 
+                        className="bg-mp-dark flex flex-row p-2 rounded text-mp-white"
+                        onClick={() => router.push('credit-sales/new')}
+                    >
                         Nuevo Apartado
                     </button>
                 </div>
