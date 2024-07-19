@@ -7,6 +7,16 @@ interface Props {
 }
 
 export default function CreditSaleItem({ sale }: Props): JSX.Element {
+   
+    if (!sale) {
+        return( 
+            <div className="mx-auto bg-white shadow-lg w-8/12 rounded-2xl">
+                <div className="h-12 p-3 overflow-hidden bg-mp-gray-soft animate-pulse rounded-2xl">
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="grid grid-cols-10 gap-1 items-center w-2/4 shadow-lg p-2 rounded">
             {
