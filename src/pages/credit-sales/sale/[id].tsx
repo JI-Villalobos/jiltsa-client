@@ -67,7 +67,7 @@ export default function CreditSaleDetail(): JSX.Element {
                         <div className="flex flex-col">
                             {
                                 creditSale.partials.map(partial =>
-                                    <div className="flex flex-row">
+                                    <div className="flex flex-row" key={`part-id-${partial.id}`}>
                                         <p className="mr-3 text-mp-green">Abonado el {DateFormat(partial.paymentDate)}</p>
                                         <p className="text-mp-blue"> Por {formatAmount(partial.amount)}</p>
                                     </div>
