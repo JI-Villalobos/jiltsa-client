@@ -5,6 +5,7 @@ import { endPoints } from ".."
 export interface CreditSale {
     id: number
     concept: string
+    client: string
     date: string
     amount: number
     branchId: number
