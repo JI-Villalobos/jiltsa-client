@@ -13,7 +13,7 @@ export interface Accounting {
   incomeRegistries: IncomeRegistry[]
 }
 
-export type CreateAccounting = Pick<Accounting, 'sellerId' | 'branchId'>
+export type CreateAccounting = Pick<Accounting, 'sellerId' | 'branchId' | 'date'>
 export type CustomAccounting = Omit<Accounting, 'expenseRegistries' | 'incomeRegistries' | 'id'>
 
 const token: string = Cookies.get('token')!

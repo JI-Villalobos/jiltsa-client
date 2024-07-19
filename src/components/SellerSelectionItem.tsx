@@ -15,9 +15,10 @@ export default function SellerSellectionItem({ seller }: Props): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
 
   const handleAccounting = async (e: React.FormEvent<HTMLButtonElement>) => {
+    const date = new Date(Date.now())
     setStatus(pendingRequest)
     e.preventDefault()
-    await newAccounting({ sellerId: seller.id, branchId: seller.branchId, })
+    await newAccounting({ sellerId: seller.id, branchId: seller.branchId, date: date.toISOString()})
       .then((result) => {
         setCurrentAccounting({ accountingId: result.id, seller: seller.fullName, date: result.date })
         setStatus(successfullRequest)
