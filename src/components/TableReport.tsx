@@ -13,8 +13,8 @@ export default function TableReport({ accounts }: Props): JSX.Element {
           <tr>
             <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Fecha</th>
             <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Vendedora</th>
-            <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Prontipagos</th>
             <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Medicamento</th>
+            <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Prontipagos</th>
             <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Total</th>
             <th className='whitespace-nowrap px-4 py-2 font-medium text-mp-dark'>Gastos</th>
           </tr>
