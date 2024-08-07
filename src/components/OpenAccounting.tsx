@@ -15,12 +15,14 @@ export default function OpenAccounting(): JSX.Element {
         <span className="h-px flex-1 bg-mp-dark"></span>
       </span>
 
-      <Link href='/outdate-accounting' className="w-1/4 mt-2">
+      {
+        //this chunk causes operational problems, not due a bad performance but due a bad use
+        /*<Link href='/outdate-accounting' className="w-1/4 mt-2">
         <button className="mt-4 border border-mp-green rounded text-mp-dark p-4 w-full"
         >
           Turno fuera de fecha
         </button>
-      </Link>
+      </Link>*/}
     </div>
   )
 }

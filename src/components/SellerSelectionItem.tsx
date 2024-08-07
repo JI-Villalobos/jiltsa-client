@@ -5,6 +5,7 @@ import { setCurrentAccounting } from "@/utils/appStorage"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Spinner from "./Spinner"
+import { getCurrentDate } from "@/utils/dateOperations"
 
 type Props = {
   seller: Seller
@@ -15,10 +16,10 @@ export default function SellerSellectionItem({ seller }: Props): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
 
   const handleAccounting = async (e: React.FormEvent<HTMLButtonElement>) => {
-    const date = new Date(Date.now())
+    const date = getCurrentDate()
     setStatus(pendingRequest)
     e.preventDefault()
-    await newAccounting({ sellerId: seller.id, branchId: seller.branchId, date: date.toISOString()})
+    await newAccounting({ sellerId: seller.id, branchId: seller.branchId, date: date})
       .then((result) => {
         setCurrentAccounting({ accountingId: result.id, seller: seller.fullName, date: result.date })
         setStatus(successfullRequest)
