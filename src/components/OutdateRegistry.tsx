@@ -16,7 +16,7 @@ export default function OutdateRegistry(): JSX.Element {
             }
             {
                 stage == STAGES.NEW ? <Incomes setStage={setStage}/>
-                : stage == STAGES.SUCCESS ? <Summary />
+                : stage == STAGES.SUCCESS ? <Summary setStage={setStage}/>
                 : <Expenses />
             }
           </div>
