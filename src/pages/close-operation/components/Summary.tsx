@@ -1,20 +1,23 @@
-import ErrorMessage from "@/components/ErrorMessage"
 import SessionInfo from "@/components/SessionInfo"
 import Spinner from "@/components/Spinner"
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { Accounting, getAccounting } from "@/services/api/accounts"
-import { clearIncomesregistered, deleteAccounting, getCurrentAccounting } from "@/utils/appStorage"
-import { useEffect, useState } from "react"
+import { getCurrentAccounting } from "@/utils/appStorage"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import IncomeSummary from "./IncomesSummary"
 import ExpensesSummary from "./ExpensesSummary"
 import { useRouter } from "next/router"
 import CashWSummary from "./CashWSummary"
 import DateFormat from "@/utils/DateFormat"
+import { STAGES } from "@/components/Expenses"
 
-export default function Summary(): JSX.Element{
+interface Props {
+    setStage: Dispatch<SetStateAction<number>>
+}
+
+export default function Summary({ setStage }: Props): JSX.Element{
     const [accounting, setAccounting] = useState<Accounting>()
     const [status, setStatus] = useState<RequestStatus>(initialStatus)
-    const router = useRouter()
 
     useEffect(() => {
        const accounting = getCurrentAccounting()
@@ -32,9 +35,7 @@ export default function Summary(): JSX.Element{
     }, [])
 
     const handleCloseAccounting = () => {
-        deleteAccounting()
-        clearIncomesregistered()
-        router.push("/seller-home")
+        setStage(STAGES.CONFIRM)
     }
 
     if (accounting == undefined) {
