@@ -19,7 +19,7 @@ type Sales = {
 }
 
 const clearedSales = {
-    products: 0, others: 0, total: 0 
+    products: 0, others: 0, total: 0
 }
 
 export default function IncomesRegistry({ setStage }: Props): JSX.Element {
@@ -27,8 +27,8 @@ export default function IncomesRegistry({ setStage }: Props): JSX.Element {
     const [sales, setSales] = useState<Sales>(clearedSales)
     const [status, setStatus] = useState<RequestStatus>(initialStatus)
 
-    const handleCompleteSales = () => {        
-        if (sales.total >= sales.others ) {
+    const handleCompleteSales = () => {
+        if (sales.total >= sales.others) {
             const total = sales.total - sales.others
             setSales({ ...sales, products: total })
             setConfirmation(true)
