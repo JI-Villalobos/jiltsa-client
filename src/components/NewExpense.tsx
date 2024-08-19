@@ -8,9 +8,10 @@ import { STAGES } from "./Expenses"
 
 interface Props {
   setStage: Dispatch<SetStateAction<number>>
+  accountingId?: number
 }
 
-export default function NewExpense({ setStage }: Props): JSX.Element {
+export default function NewExpense({ setStage, accountingId }: Props): JSX.Element {
   const [selectedItem, setSelectedItem] = useState<ExpenseType>({ id: 0, type: '' })
   const [description, setDescription] = useState<string>(selectedItem.type)
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([])
@@ -22,6 +23,8 @@ export default function NewExpense({ setStage }: Props): JSX.Element {
     const accounting = getCurrentAccounting()
     if (accounting) {
       setCurrentAccount(accounting)
+    } else if (accountingId) {
+      setCurrentAccount({...currentAccount, accountingId: accountingId})
     }
     getExpenseTypes()
       .then((result) => {

@@ -16,7 +16,7 @@ export default function Details({ seller, accounting }: Props): JSX.Element {
           <div className="rounded shadow-lg mt-6 w-1/3 flex flex-col items-center">
             <div className="flex flex-row justify-between w-8/12">
               <Image src="/mp_logo.png" width={70} height={45} alt='mp logo' className='m-2' />
-              <Link href="#" className="text-mp-blue rounded-full border  border-mp-dark border-opacity-30 items-center justify-center w-12 h-12 hover:bg-mp-white hidden">
+              <Link href={`/expense-delay/${accounting.id}`} className="text-mp-blue rounded-full border flex border-mp-blue border-opacity-30 items-center justify-center w-12 h-12 hover:bg-mp-white">
                 <BiLockOpen  size={30}/>
               </Link>
             </div>
