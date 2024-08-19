@@ -29,7 +29,7 @@ export default function Details({ seller, accounting }: Props): JSX.Element {
             <span className="mt-4 border-b-2 border-mp-strong-gray w-1/2"></span>
             <p className="text-mp-green text-xl mt-2 font-bold" >Gastos:</p>
             {
-              accounting.expenseRegistries?.map(expense => (<p key={`income-id${expense.id}`} className="text-mp-dark mb-4">{expense.description}: ${expense.amount}</p>))
+              accounting.expenseRegistries?.map(expense => (<p key={`income-id${expense.id}`} className="text-mp-dark mt-1">{expense.description}: ${expense.amount}</p>))
             }
             <Link href={"/"} className="m-6 text-mp-blue font-semibold flex flex-row items-center">
               <BiArrowBack/>
