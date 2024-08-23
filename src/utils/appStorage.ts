@@ -12,12 +12,6 @@ export type CurrentAccounting = {
   date: string
 }
 
-const base = new Date()
-const fixedDate = base.getTimezoneOffset() - 60000;
-const date = new Date(Date.now() - fixedDate)
-const expirationLimit = date.getTime() + (8 * 60 * 60 * 1000)
-const accountingExpiration = new Date(expirationLimit)
-
 export const getCurrentAccounting = (): CurrentAccounting | undefined => {
  
   const currentAccounting = Cookies.get('current-accounting')
@@ -28,7 +22,7 @@ export const getCurrentAccounting = (): CurrentAccounting | undefined => {
 }
 
 export const setCurrentAccounting = (currentAccounting: CurrentAccounting): void => {
-  Cookies.set('current-accounting', JSON.stringify(currentAccounting), { expires: accountingExpiration })
+  Cookies.set('current-accounting', JSON.stringify(currentAccounting), { expires: 1 })
 }
 
 export const deleteAccounting = (): void => {

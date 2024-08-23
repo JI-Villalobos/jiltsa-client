@@ -16,7 +16,7 @@ type Props = {
 export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, confirmationstage }: Props): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [isValid, setIsValid] = useState(true)
-  const [concept, setConcept] = useState('')
+  const [concept, setConcept] = useState("")
 
   useEffect(() => {
     const branchId = getBranchId()
@@ -35,8 +35,8 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
   }, [])
 
   const handleconfirmationStage = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    if (cashWithDrawal.amount > 0 && cashWithDrawal.concept != "Selecciona el concepto") {
+    e.preventDefault() 
+    if (cashWithDrawal.amount > 0 && concept != "") {
       confirmationstage(true)
     } else {
       setIsValid(false)
