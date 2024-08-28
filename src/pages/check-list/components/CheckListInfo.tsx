@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { BiError, BiBattery } from "react-icons/bi"
 
 export const CheckListInfo = (): JSX.Element => {
@@ -8,6 +9,7 @@ export const CheckListInfo = (): JSX.Element => {
                     <BiError color="orange" size={30} />
                     <p className="text-mp-dark text-center">Recuerda tomar captura de pantalla y compartirla en el grupo</p>
                 </div>
+                <Image src="/mp_logo.png" width={60} height={35} alt='mp logo' className='m-2'/>
                 <p className="text-2xl text-mp-soft-dark font-semibold">CHECK LIST CAMBIO DE TURNO</p>
                 <div className="flex flex-row w-3/6 p-2 shadow-sm bg-mp-strong-gray rounded items-center justify-between">
                     <select name="" id="" className="font-medium text-mp-dark w-1/3 rounded focus:border-none bg-none">
