@@ -9,7 +9,8 @@ import { IncomeRegistry } from "@/services/api/incomes";
 export type CurrentAccounting = {
   accountingId: number,
   seller: string,
-  date: string
+  date: string,
+  sellerId: number
 }
 
 export const getCurrentAccounting = (): CurrentAccounting | undefined => {

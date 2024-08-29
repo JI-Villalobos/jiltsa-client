@@ -1,4 +1,3 @@
-import { BiError } from "react-icons/bi";
 import { CheckListInfo } from "./components/CheckListInfo";
 import { CheckListForm } from "./components/CheckListForm";
 
