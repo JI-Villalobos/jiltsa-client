@@ -15,6 +15,7 @@ import { BiError, BiBattery } from "react-icons/bi"
 export const CheckListInfo = (): JSX.Element => {
     const [loadInfostatus, setLoadInfoStatus] = useState(initialStatus)
     const [submitstatus, setSubmitStatus] = useState(initialStatus)
+    const [matchedBalance, setMatchedBalance] = useState(true)
     const [currentAccounting, setCurrentAccounting] = useState<CurrentAccounting>()
     const [balance, setBalance] = useState<TotalBalance>()
     const router = useRouter()
@@ -40,9 +41,18 @@ export const CheckListInfo = (): JSX.Element => {
         }
     }, [])
 
+    const matchBalance = (counted: number): boolean => {
+        if (balance) {
+            return balance.totals == counted
+        } else {
+            return false
+        }
+    }
+
     const handleSubmit = async (event: { target: any, preventDefault: () => void }) => {
         event.preventDefault()
         setSubmitStatus(pendingRequest)
+
         const formData = new FormData(event.target)
 
         const checkType = formData.get('checkType')?.toString()!
@@ -73,13 +83,18 @@ export const CheckListInfo = (): JSX.Element => {
             accountingId: currentAccounting?.accountingId!
         }
 
-        await createCheckList(body)
+        if (matchBalance(parseInt(cashBalance))) {
+            await createCheckList(body)
             .then((res) => {
                 setSubmitStatus(successfullRequest)
             })
             .catch(() => {
-                setSubmitStatus(failedRequest)                
+                setSubmitStatus(failedRequest)
             })
+        } else {
+            setMatchedBalance(false)
+            setSubmitStatus(initialStatus)
+        }
 
     }
 
@@ -100,6 +115,16 @@ export const CheckListInfo = (): JSX.Element => {
                         <BiError color="green" size={30} />
                         <p className="text-mp-dark text-center">Tu check list se guardo exitosamente, presiona el boton de continuar para terminar tu registro.
                             Recuerda tomar captura de pantalla y compartirla en el grupo</p>
+                    </div>
+                }
+                {
+                    matchedBalance == false &&
+                    <div className="flex flex-col items-center justify-center w-1/3 text-base font-normal border border-mp-error rounded border-opacity-20 m-4 p-2">
+                        <BiError color="red" size={30} />
+                        <p className="text-mp-dark text-center">
+                            El saldo que ingresaste no coincide con el saldo que el sistema tiene registrado.
+                            Revisa que los datos sean correctos.
+                        </p>
                     </div>
                 }
                 <Image src="/mp_logo.png" width={60} height={35} alt='mp logo' className='m-2' />
@@ -222,6 +247,7 @@ export const CheckListInfo = (): JSX.Element => {
                     <button
                         className="rounded bg-mp-dark text-mp-white p-2 hover:bg-mp-soft-dark w-1/4 m-2"
                         type="submit"
+                        disabled={submitstatus.onSuccess}
                     >
                         {
                             submitstatus.onLoading ? <Spinner /> : 'Guardar'
