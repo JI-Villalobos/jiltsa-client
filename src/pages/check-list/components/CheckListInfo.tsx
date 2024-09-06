@@ -4,7 +4,7 @@ import Spinner from "@/components/Spinner"
 import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { getTotalBalance, TotalBalance } from "@/services/api/branches"
 import { CreateCheckList, createCheckList } from "@/services/api/checklist"
-import { CurrentAccounting, getCurrentAccounting, getUserCredentials } from "@/utils/appStorage"
+import { CurrentAccounting, deleteAccounting, getCurrentAccounting, getUserCredentials } from "@/utils/appStorage"
 import DateFormat from "@/utils/DateFormat"
 import localDateFormat from "@/utils/localDateTime"
 import Image from "next/image"
@@ -18,6 +18,7 @@ export const CheckListInfo = (): JSX.Element => {
     const [matchedBalance, setMatchedBalance] = useState(true)
     const [currentAccounting, setCurrentAccounting] = useState<CurrentAccounting>()
     const [balance, setBalance] = useState<TotalBalance>()
+    const [mode, setMode] = useState('CHECK_IN')
     const router = useRouter()
 
     useEffect(() => {
@@ -36,8 +37,6 @@ export const CheckListInfo = (): JSX.Element => {
                 .catch(() => {
                     setLoadInfoStatus(failedRequest)
                 })
-        } else {
-            router.push("/seller-home")
         }
     }, [])
 
@@ -47,6 +46,15 @@ export const CheckListInfo = (): JSX.Element => {
         } else {
             return false
         }
+    }
+
+    const handleRedirect = () => {
+        if(mode == "CHECK_OUT"){
+            deleteAccounting()
+            router.push("/seller-home")
+        }
+
+        router.push("/seller-home")
     }
 
     const handleSubmit = async (event: { target: any, preventDefault: () => void }) => {
@@ -85,12 +93,13 @@ export const CheckListInfo = (): JSX.Element => {
 
         if (matchBalance(parseInt(cashBalance))) {
             await createCheckList(body)
-            .then((res) => {
-                setSubmitStatus(successfullRequest)
-            })
-            .catch(() => {
-                setSubmitStatus(failedRequest)
-            })
+                .then((res) => {
+                    setSubmitStatus(successfullRequest)
+                    setMatchedBalance(true)
+                })
+                .catch(() => {
+                    setSubmitStatus(failedRequest)
+                })
         } else {
             setMatchedBalance(false)
             setSubmitStatus(initialStatus)
@@ -130,7 +139,10 @@ export const CheckListInfo = (): JSX.Element => {
                 <Image src="/mp_logo.png" width={60} height={35} alt='mp logo' className='m-2' />
                 <p className="text-2xl text-mp-soft-dark font-semibold">CHECK LIST CAMBIO DE TURNO</p>
                 <div className="flex flex-row w-3/6 p-2 shadow-sm bg-mp-strong-gray rounded items-center justify-between">
-                    <select name="checkType" id="checkType" className="font-medium text-mp-dark w-1/3 rounded focus:border-none bg-none">
+                    <select name="checkType" id="checkType" 
+                        className="font-medium text-mp-dark w-1/3 rounded focus:border-none bg-none"
+                        onChange={(e) => {setMode(e.currentTarget.value)}}
+                    >
                         <option value="CHECK_IN">ENTRADA</option>
                         <option value="CHECK_OUT">SALIDA</option>
                     </select>
@@ -257,7 +269,8 @@ export const CheckListInfo = (): JSX.Element => {
                         submitstatus.onSuccess &&
                         <button
                             className="rounded bg-mp-green text-mp-white p-2 hover:bg-mp-light-green w-1/4 m-2"
-                            type="submit"
+                            type="button"
+                            onClick={handleRedirect}
                         >
                             Continuar
                         </button>

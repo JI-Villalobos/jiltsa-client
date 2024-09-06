@@ -27,9 +27,8 @@ export default function ConfirmSummary({ setStage }: Props): JSX.Element {
                     className="bg-mp-dark text-mp-white p-2 rounded m-4 
                                 hover:bg-mp-soft-dark"
                     onClick={() => {
-                        deleteAccounting()
                         clearIncomesregistered()
-                        router.push("/seller-home")
+                        router.push("/check-list")
                     }}
                 >
                     Ya lo hice, quiero cerrar turno

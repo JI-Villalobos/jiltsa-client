@@ -23,7 +23,7 @@ export default function SellerSellectionItem({ seller }: Props): JSX.Element {
       .then((result) => {
         setCurrentAccounting({ accountingId: result.id, seller: seller.fullName, date: result.date, sellerId: result.sellerId })
         setStatus(successfullRequest)
-        router.reload()
+        router.push("/check-list")
       })
       .catch((e) => {
         setStatus(failedRequest)
