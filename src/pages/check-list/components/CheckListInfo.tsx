@@ -131,7 +131,7 @@ export const CheckListInfo = (): JSX.Element => {
                     <div className="flex flex-col items-center justify-center w-1/3 text-base font-normal border border-mp-error rounded border-opacity-20 m-4 p-2">
                         <BiError color="red" size={30} />
                         <p className="text-mp-dark text-center">
-                            El saldo que ingresaste no coincide con el saldo que el sistema tiene registrado.
+                            El saldo que ingresaste no coincide con el monto que el sistema tiene registrado.
                             Revisa que los datos sean correctos.
                         </p>
                     </div>
