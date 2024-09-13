@@ -49,7 +49,7 @@ export const CheckListInfo = (): JSX.Element => {
     }
 
     const handleRedirect = () => {
-        if(mode == "CHECK_OUT"){
+        if (mode == "CHECK_OUT") {
             deleteAccounting()
             router.push("/seller-home")
         }
@@ -138,14 +138,18 @@ export const CheckListInfo = (): JSX.Element => {
                 }
                 <Image src="/mp_logo.png" width={60} height={35} alt='mp logo' className='m-2' />
                 <p className="text-2xl text-mp-soft-dark font-semibold">CHECK LIST CAMBIO DE TURNO</p>
-                <div className="flex flex-row w-3/6 p-2 shadow-sm bg-mp-strong-gray rounded items-center justify-between">
-                    <select name="checkType" id="checkType" 
-                        className="font-medium text-mp-dark w-1/3 rounded focus:border-none bg-none"
-                        onChange={(e) => {setMode(e.currentTarget.value)}}
+                <div className="flex flex-col w-1/6 m-4 border border-mp-green rounded border-opacity-60 items-center justify-center">
+                    <label htmlFor="checkType" className="text-mp-green">Selecciona Entrado o Salida</label>
+                    <select name="checkType" id="checkType"
+                        className="font-medium text-mp-dark w-2/3 m-1 border border-mp-dark border-opacity-30 p-2 rounded focus:border-none bg-none"
+                        onChange={(e) => { setMode(e.currentTarget.value) }}
                     >
                         <option value="CHECK_IN">ENTRADA</option>
                         <option value="CHECK_OUT">SALIDA</option>
                     </select>
+                </div>
+                <div className="flex flex-row w-3/6 p-2 shadow-sm bg-mp-strong-gray rounded items-center justify-between">
+
                     <p className="w-1/6 text-mp-green font-medium">{DateFormat(currentAccounting?.date!)}</p>
                     <p className="text-mp-dark">TURNO: {currentAccounting?.seller}</p>
                 </div>
