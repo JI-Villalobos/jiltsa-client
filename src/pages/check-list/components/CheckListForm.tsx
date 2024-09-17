@@ -1,4 +1,4 @@
-export const CheckListForm = (): JSX.Element => {
+export default function CheckListForm() : JSX.Element {
     return (
         <div>
             <p>Check List cambio de turno</p>

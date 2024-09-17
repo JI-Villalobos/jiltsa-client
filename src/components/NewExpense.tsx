@@ -17,7 +17,7 @@ export default function NewExpense({ setStage, accountingId }: Props): JSX.Eleme
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([])
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [amount, setAmount] = useState<number>(0)
-  const [currentAccount, setCurrentAccount] = useState<CurrentAccounting>({ accountingId: 0, seller: '', date: '' })
+  const [currentAccount, setCurrentAccount] = useState<CurrentAccounting>({ accountingId: 0, seller: '', date: '', sellerId: 0 })
 
   useEffect(() => {
     const accounting = getCurrentAccounting()

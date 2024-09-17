@@ -12,7 +12,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { BiError, BiBattery } from "react-icons/bi"
 
-export const CheckListInfo = (): JSX.Element => {
+export default function CheckListInfo (): JSX.Element {
     const [loadInfostatus, setLoadInfoStatus] = useState(initialStatus)
     const [submitstatus, setSubmitStatus] = useState(initialStatus)
     const [matchedBalance, setMatchedBalance] = useState(true)
