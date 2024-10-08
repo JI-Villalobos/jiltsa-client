@@ -153,9 +153,9 @@ export default function CheckListInfo (): JSX.Element {
                     <p className="w-1/6 text-mp-green font-medium">{DateFormat(currentAccounting?.date!)}</p>
                     <p className="text-mp-dark">TURNO: {currentAccounting?.seller}</p>
                 </div>
-                <div className="rounded-sm shadow-sm w-3/6 flex flex-row justify-between m-2">
+                <div className="rounded-sm shadow-md w-3/6 flex flex-row justify-between m-2">
                     <div className="flex flex-row w-1/3 items-center justify-between">
-                        <p className="text-mp-dark">DINERO EN CAJA (ABAJO)</p>
+                        <p className="text-mp-dark p-1">DINERO EN CAJA (ABAJO)</p>
                         <input
                             type="number"
                             id="cashBalance"
@@ -165,7 +165,7 @@ export default function CheckListInfo (): JSX.Element {
                         />
                     </div>
                     <div className="flex flex-row w-1/3 items-center justify-between">
-                        <p className="text-mp-dark">SALDO EN PRONTIPAGOS</p>
+                        <p className="text-mp-dark p-1">SALDO EN PRONTIPAGOS</p>
                         <input
                             type="number"
                             name="tranboxBalance"
@@ -178,9 +178,9 @@ export default function CheckListInfo (): JSX.Element {
                 <div className="flex flex-row w-3/6 p-2 shadow-sm bg-mp-strong-gray rounded items-center justify-start mt-4">
                     <p className="w-4/6 font-medium text-mp-dark">CONDICIONES DE CELULAR</p>
                 </div>
-                <div className="rounded-sm shadow-sm w-3/6 flex flex-row justify-between m-2">
+                <div className="rounded-sm shadow-md w-3/6 flex flex-row justify-between m-2">
                     <div className="flex flex-row w-1/3 items-center justify-between text-mp-green">
-                        <p className="text-mp-dark">CARGA CELULAR % </p>
+                        <p className="text-mp-dark p-1">CARGA CELULAR % </p>
                         <BiBattery />
                         <input
                             type="number"
@@ -195,9 +195,9 @@ export default function CheckListInfo (): JSX.Element {
                         <p className="text-mp-green font-semibold"></p>
                     </div>
                 </div>
-                <div className="rounded-sm shadow-sm w-3/6 flex flex-row justify-between m-2">
+                <div className="rounded-sm shadow-md w-3/6 flex flex-row justify-between m-2">
                     <div className="flex flex-row w-1/3 items-center justify-between">
-                        <p className="text-mp-dark">ESTADO OK?</p>
+                        <p className="text-mp-dark p-1">ESTADO OK?</p>
                         <input
                             type="checkbox"
                             id="cellphoneCondition"
@@ -220,8 +220,8 @@ export default function CheckListInfo (): JSX.Element {
                 <div className="flex flex-row w-3/6 p-2 shadow-sm bg-mp-strong-gray rounded items-center justify-start mt-4">
                     <p className="w-4/6 font-medium text-mp-dark">CONDICIONES DEl MOBILIARIO Y EQUIPO</p>
                 </div>
-                <div className="flex flex-row w-1/2 items-center justify-between shadow-sm">
-                    <p className="text-mp-dark mr-7">LIMPIEZA (ESTANTES, VITRINAS Y PISO)</p>
+                <div className="flex flex-row w-1/2 items-center justify-between shadow-md">
+                    <p className="text-mp-dark mr-7 p-1">LIMPIEZA (ESTANTES, VITRINAS Y PISO)</p>
                     <div className="flex flex-row justify-end">
                         <>
                             <label htmlFor="" className="m-2">BIEN</label>
@@ -237,9 +237,9 @@ export default function CheckListInfo (): JSX.Element {
                         </>
                     </div>
                 </div>
-                <div className="rounded-sm shadow-sm w-3/6 flex flex-row justify-between m-2">
+                <div className="rounded-sm shadow-md w-3/6 flex flex-row justify-between m-2">
                     <div className="flex flex-row w-1/3 items-center justify-between">
-                        <p className="text-mp-dark">ESTADO OK?</p>
+                        <p className="text-mp-dark p-1">ESTADO OK?</p>
                         <input
                             type="checkbox"
                             id="installationState"
