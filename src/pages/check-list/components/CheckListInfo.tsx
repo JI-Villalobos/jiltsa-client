@@ -4,12 +4,12 @@ import Spinner from "@/components/Spinner"
 import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { getTotalBalance, TotalBalance } from "@/services/api/branches"
 import { CreateCheckList, createCheckList } from "@/services/api/checklist"
-import { CurrentAccounting, deleteAccounting, getCurrentAccounting, getUserCredentials } from "@/utils/appStorage"
+import { CurrentAccounting, deleteAccounting, getCheckMode, getCurrentAccounting, getUserCredentials, setCheckMode } from "@/utils/appStorage"
 import DateFormat from "@/utils/DateFormat"
 import localDateFormat from "@/utils/localDateTime"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { KeyboardEvent, useEffect, useState } from "react"
 import { BiError, BiBattery } from "react-icons/bi"
 
 export default function CheckListInfo (): JSX.Element {
@@ -23,6 +23,8 @@ export default function CheckListInfo (): JSX.Element {
 
     useEffect(() => {
         setLoadInfoStatus(pendingRequest)
+        const checkMode = getCheckMode()
+        setMode(checkMode)
         const current = getCurrentAccounting()
         const profile = getUserCredentials()
 
@@ -96,6 +98,7 @@ export default function CheckListInfo (): JSX.Element {
                 .then((res) => {
                     setSubmitStatus(successfullRequest)
                     setMatchedBalance(true)
+                    setCheckMode(mode)
                 })
                 .catch(() => {
                     setSubmitStatus(failedRequest)
@@ -114,6 +117,12 @@ export default function CheckListInfo (): JSX.Element {
             </div>
         )
     }
+
+    const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+        }
+      };
 
     return (
         <form action="" onSubmit={handleSubmit}>
@@ -143,6 +152,7 @@ export default function CheckListInfo (): JSX.Element {
                     <select name="checkType" id="checkType"
                         className="font-medium text-mp-dark w-2/3 m-1 border border-mp-dark border-opacity-30 p-2 rounded focus:border-none bg-none"
                         onChange={(e) => { setMode(e.currentTarget.value) }}
+                        defaultValue={mode}
                     >
                         <option value="CHECK_IN">ENTRADA</option>
                         <option value="CHECK_OUT">SALIDA</option>
@@ -203,6 +213,8 @@ export default function CheckListInfo (): JSX.Element {
                             id="cellphoneCondition"
                             name="cellphoneCondition"
                             className="rounded-lg border border-mp-dark border-opacity-40 text-mp-green font-semibold p-2 text-sm w-1/6"
+                            onKeyDown={handleKeyPress}
+                            onKeyUp={handleKeyPress}
                         />
                     </div>
                     <div className="flex flex-row w-2/3 items-center justify-center">
@@ -245,6 +257,8 @@ export default function CheckListInfo (): JSX.Element {
                             id="installationState"
                             name="installationState"
                             className="rounded-lg border border-mp-dark border-opacity-40 text-mp-green font-semibold p-2 text-sm w-1/6"
+                            onKeyDown={handleKeyPress}
+                            onKeyUp={handleKeyPress}
                         />
                     </div>
                     <div className="flex flex-row w-2/3 items-center justify-center">
