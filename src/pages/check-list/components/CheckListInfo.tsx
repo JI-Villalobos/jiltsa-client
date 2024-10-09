@@ -12,7 +12,7 @@ import { useRouter } from "next/router"
 import { KeyboardEvent, useEffect, useState } from "react"
 import { BiError, BiBattery } from "react-icons/bi"
 
-export default function CheckListInfo (): JSX.Element {
+export default function CheckListInfo(): JSX.Element {
     const [loadInfostatus, setLoadInfoStatus] = useState(initialStatus)
     const [submitstatus, setSubmitStatus] = useState(initialStatus)
     const [matchedBalance, setMatchedBalance] = useState(true)
@@ -120,9 +120,9 @@ export default function CheckListInfo (): JSX.Element {
 
     const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-          e.preventDefault();
+            e.preventDefault();
         }
-      };
+    };
 
     return (
         <form action="" onSubmit={handleSubmit}>
@@ -274,24 +274,26 @@ export default function CheckListInfo (): JSX.Element {
                     </div>
                 </div>
                 <div className="w-3/6 flex flex-row justify-center m-6">
-                    <button
-                        className="rounded bg-mp-dark text-mp-white p-2 hover:bg-mp-soft-dark w-1/4 m-2"
-                        type="submit"
-                        disabled={submitstatus.onSuccess}
-                    >
-                        {
-                            submitstatus.onLoading ? <Spinner /> : 'Guardar'
-                        }
-                    </button>
+
                     {
-                        submitstatus.onSuccess &&
-                        <button
-                            className="rounded bg-mp-green text-mp-white p-2 hover:bg-mp-light-green w-1/4 m-2"
-                            type="button"
-                            onClick={handleRedirect}
-                        >
-                            Continuar
-                        </button>
+                        submitstatus.onSuccess ?
+                            <button
+                                className="rounded bg-mp-green text-mp-white p-2 hover:bg-mp-light-green w-1/4 m-2"
+                                type="button"
+                                onClick={handleRedirect}
+                            >
+                                Continuar
+                            </button>
+                            :
+                            <button
+                                className="rounded bg-mp-dark text-mp-white p-2 hover:bg-mp-soft-dark w-1/4 m-2"
+                                type="submit"
+                                disabled={submitstatus.onSuccess}
+                            >
+                                {
+                                    submitstatus.onLoading ? <Spinner /> : 'Guardar'
+                                }
+                            </button>
                     }
                 </div>
             </div>
