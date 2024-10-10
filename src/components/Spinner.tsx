@@ -3,7 +3,7 @@ type Props = {
 }
 export default function Spinner({ bgBlank }: Props): JSX.Element {
   return (
-    <div className="flex space-x-2 animate-pulse">
+    <div className="flex space-x-2 animate-pulse p-2">
       {
         bgBlank ?
           <>

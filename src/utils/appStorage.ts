@@ -9,7 +9,8 @@ import { IncomeRegistry } from "@/services/api/incomes";
 export type CurrentAccounting = {
   accountingId: number,
   seller: string,
-  date: string
+  date: string,
+  sellerId: number
 }
 
 export const getCurrentAccounting = (): CurrentAccounting | undefined => {
@@ -191,4 +192,21 @@ export const getIncomesRegistered = (): IncomeRegistry[] | undefined => {
 
 export const clearIncomesregistered = () => {
   Cookies.remove('incomes-reg')
+}
+
+export const setCheckMode = (mode: string) => {
+  Cookies.set('check-mode', mode)
+}
+
+export const getCheckMode = (): string => {
+  const mode = Cookies.get('check-mode')
+
+  if (mode) {
+    if (mode === 'CHECK_IN') {
+      return 'CHECK_OUT'
+    } else {
+      return 'CHECK_IN'
+    }
+  } 
+  return 'CHECK_IN'
 }

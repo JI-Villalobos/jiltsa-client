@@ -8,6 +8,7 @@ interface Props {
 
 export default function RegisteredSessionInfo({ accountingId, seller }: Props): JSX.Element {
     const router = useRouter()
+    
     return(
         <div className="rounded border-s-4 border-mp-green bg-mp-gray-soft p-4 m-6 flex flex-col items-center">
             <strong className="block font-medium text-mp-green text-xl"> Información del turno actual </strong>

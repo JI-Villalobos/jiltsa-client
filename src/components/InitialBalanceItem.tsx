@@ -1,7 +1,8 @@
-import { RequestStatus } from "@/services"
-import { BranchConfig, updateBranchConfig } from "@/services/api/branches"
+import { failedRequest, initialStatus, RequestStatus } from "@/services"
+import { BranchConfig, getTotalBalance, updateBranchConfig } from "@/services/api/branches"
 import { getLocalBranch } from "@/utils/appStorage"
 import { useEffect, useState } from "react"
+import Spinner from "./Spinner"
 
 type Props = {
   branch: BranchConfig
@@ -11,9 +12,20 @@ export default function InitialBalanceItem({ branch }: Props): JSX.Element {
   const [config, setConfig] = useState<BranchConfig>()
   const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
   const [branchName, setBranchName] = useState<string>('')
+  const [balance, setBalance] = useState(0)
+  const [loadBalanceStatus, setLoadBalanceStatus] = useState(initialStatus)
 
   useEffect(() => {
     const branchStored = getLocalBranch(branch.branchId)
+    
+    getTotalBalance(branch.branchId)
+    .then((res) => {
+        setBalance(res.totals)
+    })
+    .catch(() => {
+        setLoadBalanceStatus(failedRequest)
+    })
+ 
     if (branchStored) {
       setBranchName(branchStored.name)
     }
@@ -51,6 +63,13 @@ export default function InitialBalanceItem({ branch }: Props): JSX.Element {
         <button className="ml-2 rounded bg-mp-soft-dark text-mp-gray-soft w-10" onClick={handleUpdateBranchConfig}>
           OK
         </button>
+        {
+          loadBalanceStatus.onLoading ? <Spinner bgBlank/> 
+            : 
+              <input className="w-2/6 bg-mp-strong-gray text-center text-mp-dark rounded ml-2" readOnly value={`Saldo en caja: ${balance}`}>
+                
+              </input>
+        }
       </div>
       {status.onSuccess && <p className="text-mp-green text-center text-sm">Actualizado correctamente</p>}
       {status.onError && <p className="text-mp-error text-center text-sm">Error al intentar actualizar Saldos iniciales</p>}

@@ -97,5 +97,9 @@ export const endPoints ={
   partialPayments: {
     getById: (partialId: number) => `${API}/partials/${partialId}`,
     mutate: `${API}/partials`
+  },
+  checkList: {
+    getById: (checkListId: number) => `${API}/check-list/${checkListId}`,
+    mutate: `${API}/check-list`
   }
 }
