@@ -131,7 +131,7 @@ export default function CheckListInfo(): JSX.Element {
                     submitstatus.onSuccess &&
                     <div className="flex flex-col items-center justify-center w-1/3 text-base font-normal border border-mp-dark rounded border-opacity-20 m-4 p-2">
                         <BiError color="green" size={30} />
-                        <p className="text-mp-dark text-center">Tu check list se guardo exitosamente, presiona el boton de continuar para terminar tu registro.
+                        <p className="text-mp-dark text-center" translate="no">Tu check list se guardo exitosamente, presiona el boton de continuar para terminar tu registro.
                             Recuerda tomar captura de pantalla y compartirla en el grupo</p>
                     </div>
                 }
@@ -146,7 +146,7 @@ export default function CheckListInfo(): JSX.Element {
                     </div>
                 }
                 <Image src="/mp_logo.png" width={60} height={35} alt='mp logo' className='m-2' />
-                <p className="text-2xl text-mp-soft-dark font-semibold">CHECK LIST CAMBIO DE TURNO</p>
+                <p className="text-2xl text-mp-soft-dark font-semibold" translate="no">CHECK LIST CAMBIO DE TURNO</p>
                 <div className="flex flex-col w-1/6 m-4 border border-mp-green rounded border-opacity-60 items-center justify-center">
                     <label htmlFor="checkType" className="text-mp-green">Selecciona Entrado o Salida</label>
                     <select name="checkType" id="checkType"
