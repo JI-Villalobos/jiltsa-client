@@ -1,6 +1,5 @@
 import Expenses, { STAGES } from "./Expenses";
 import SessionInfo from "./SessionInfo";
-import Incomes from "./Incomes";
 import { useState } from "react";
 import Summary from "@/pages/close-operation/components/Summary";
 
@@ -14,10 +13,8 @@ export default function OutdateRegistry(): JSX.Element {
             {
                 stage != STAGES.SUCCESS && <SessionInfo />
             }
-            {
-                //TODO: remove this
-                stage == STAGES.NEW ? <Incomes setStage={setStage}/>
-                : stage == STAGES.SUCCESS ? <Summary setStage={setStage}/>
+            { 
+                stage == STAGES.SUCCESS ? <Summary setStage={setStage}/>
                 : <Expenses />
             }
           </div>
