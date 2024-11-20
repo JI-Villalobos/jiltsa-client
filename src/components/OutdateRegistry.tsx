@@ -15,6 +15,7 @@ export default function OutdateRegistry(): JSX.Element {
                 stage != STAGES.SUCCESS && <SessionInfo />
             }
             {
+                //TODO: remove this
                 stage == STAGES.NEW ? <Incomes setStage={setStage}/>
                 : stage == STAGES.SUCCESS ? <Summary setStage={setStage}/>
                 : <Expenses />
