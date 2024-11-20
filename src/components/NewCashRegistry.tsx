@@ -35,7 +35,7 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
   }, [])
 
   const handleconfirmationStage = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault() 
+    e.preventDefault()
     if (cashWithDrawal.amount > 0 && concept != "") {
       confirmationstage(true)
     } else {
@@ -103,10 +103,11 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
       }
       <div className="p-2">
         {
-          isValid ? <Link href={`withdrawals/${cashWithDrawal.branch}`} className="text-mp-blue text-xs underline">
-                Ver Registros
-              </Link>
-          : <p className="text-sm text-center text-mp-error">Selecciona un concepto y monto válidos</p>
+          isValid ?
+            <Link href={`withdrawals/${cashWithDrawal.branch}`} className="text-mp-blue text-xs underline">
+              Ver Registros
+            </Link>
+            : <p className="text-sm text-center text-mp-error">Selecciona un concepto y monto válidos</p>
         }
       </div>
     </div>
