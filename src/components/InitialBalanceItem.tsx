@@ -4,6 +4,11 @@ import { getLocalBranch } from "@/utils/appStorage"
 import { useEffect, useState } from "react"
 import Spinner from "./Spinner"
 
+/**
+ * 
+ * @deprecated
+ * this component will be removed soon
+ */
 type Props = {
   branch: BranchConfig
 }

@@ -3,6 +3,11 @@ import { Provider, getProviders } from "@/services/api/providers"
 import { useEffect, useState } from "react"
 import Spinner from "./Spinner"
 
+/**
+ * 
+ * @deprecated
+ * this component will be removed soon
+ */
 export default function ProvidersWrapper() {
   const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
   const [providers, setProviders] = useState<Provider[]>([])

@@ -5,6 +5,11 @@ import Spinner from "./Spinner"
 import { getLocalBranches } from "@/utils/appStorage"
 import InitialBalanceItem from "./InitialBalanceItem"
 
+/**
+ * 
+ * @deprecated
+ * this component will be removed soon
+ */
 export default function BranchConfigCollection(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
   const [branches, setBranches] = useState<BranchConfig[]>([])

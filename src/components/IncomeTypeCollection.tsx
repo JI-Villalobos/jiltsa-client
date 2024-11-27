@@ -3,6 +3,11 @@ import { IncomeType, getIncomeTypes } from "@/services/api/collections"
 import { useEffect, useState } from "react"
 import Spinner from "./Spinner"
 
+/**
+ * 
+ * @deprecated
+ * this component will be removed soon
+ */
 export default function IncomeTypeCollection(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
   const [incomes, setIncomes] = useState<IncomeType[]>([])

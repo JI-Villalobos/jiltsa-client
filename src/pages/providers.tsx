@@ -4,6 +4,11 @@ import { isAuth } from "@/utils/appStorage";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
+/**
+ * 
+ * @deprecated
+ * this page will be removed soon
+ */
 export default function Providers(): JSX.Element {
   const router = useRouter()
 

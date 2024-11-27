@@ -4,6 +4,11 @@ import React, { useEffect, useState } from "react"
 import Spinner from "./Spinner"
 import { useRouter } from "next/router"
 
+/**
+ * 
+ * @deprecated
+ * this component will be removed soon
+ */
 export default function ExpenseTypeCollection(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
   const [expenses, setExpenses] = useState<ExpenseType[]>([])
