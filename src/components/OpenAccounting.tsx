@@ -1,9 +1,7 @@
-import { useState } from "react"
 import SellerSelection from "./SellerSelection"
 import Link from "next/link"
 
 export default function OpenAccounting(): JSX.Element {
-  const [open, setOpen] = useState<boolean>(false)
 
   return (
     <div className="w-1/2 flex flex-col items-center mt-10">

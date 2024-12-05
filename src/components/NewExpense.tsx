@@ -3,7 +3,7 @@ import { ExpenseType, getExpenseTypes } from "@/services/api/collections"
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import Spinner from "./Spinner"
 import { CreateExpenseRegistry, createExpense } from "@/services/api/expenses"
-import { CurrentAccounting, getCurrentAccounting, setStoredExpenseRegistry, initialExpenseRegistry } from "@/utils/appStorage"
+import { CurrentAccounting, getCurrentAccounting, setStoredExpenseRegistry } from "@/utils/appStorage"
 import { STAGES } from "./Expenses"
 
 interface Props {

@@ -1,16 +1,12 @@
 import { Bill } from "@/services/api/billing"
 import DateFormat from "@/utils/DateFormat"
-import { getBills, setBills } from "@/utils/appStorage"
 import { formatAmount } from "@/utils/formatAmount"
-import { Dispatch, SetStateAction, useState } from "react"
 
 type Props = {
   bill: Bill
 }
 
 export default function BillItem({ bill }: Props): JSX.Element {
-  const [enabled, setEnabled] = useState(true)
-
 
   if (!bill) {
     return (

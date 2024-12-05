@@ -1,7 +1,7 @@
 import Spinner from "@/components/Spinner";
 import Layout from "@/layouts/Layout";
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
-import { CashWithdrawal, PageCashWithdrawal, getCashRegistries, getLatestCashRegistries } from "@/services/api/withdrawals";
+import { PageCashWithdrawal, getLatestCashRegistries } from "@/services/api/withdrawals";
 import DateFormat from "@/utils/DateFormat";
 import { formatAmount } from "@/utils/formatAmount";
 import { conceptList } from "@/utils/variables";

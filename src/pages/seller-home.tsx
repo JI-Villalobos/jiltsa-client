@@ -7,8 +7,6 @@ import Layout from "@/layouts/Layout";
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { Accounting, getLatestRegistries } from "@/services/api/accounts";
 import { getBranchId, getCurrentAccounting, isAuth } from "@/utils/appStorage";
-import Image from "next/image";
-import Link from "next/link";
 import { NextRouter, useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
