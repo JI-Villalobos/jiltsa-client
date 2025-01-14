@@ -1,4 +1,4 @@
-import ErrorMessage from "@/components/ErrorMessage"
+import ErrorMessage from "@/components/shared/ErrorMessage"
 import { IncomeRegistry } from "@/services/api/incomes"
 import { formatAmount } from "@/utils/formatAmount"
 import { useEffect, useState } from "react"

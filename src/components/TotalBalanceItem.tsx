@@ -1,7 +1,7 @@
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { getTotalBalance } from "@/services/api/branches"
 import { useEffect, useState } from "react"
-import Spinner from "./Spinner"
+import Spinner from "./shared/Spinner"
 import Cookies from "js-cookie"
 import { formatAmount } from "@/utils/formatAmount"
 

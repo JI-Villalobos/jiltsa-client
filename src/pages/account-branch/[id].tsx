@@ -6,7 +6,7 @@ import TableReport from '@/components/TableReport'
 import { RequestStatus } from '@/services'
 import { Accounting, getLatestRegistries } from '@/services/api/accounts'
 import Skeleton from '@/components/Skeleton'
-import Error from '@/components/Error'
+import Error from '@/components/shared/Error'
 import DateSelection from '@/components/DateSelection'
 import Layout from '@/layouts/Layout'
 

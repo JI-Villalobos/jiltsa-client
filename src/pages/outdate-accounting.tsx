@@ -1,5 +1,5 @@
 import NewOutDateAccounting from "@/components/NewOutDateAccounting";
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/shared/Spinner";
 import Layout from "@/layouts/Layout";
 import { isAuth } from "@/utils/appStorage";
 import { useRouter } from "next/router";

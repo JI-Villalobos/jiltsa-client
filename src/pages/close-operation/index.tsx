@@ -2,7 +2,7 @@ import { STAGES } from "@/components/Expenses";
 import Layout from "@/layouts/Layout";
 import { useState } from "react";
 import Summary from "./components/Summary";
-import ErrorMessage from "@/components/ErrorMessage";
+import ErrorMessage from "@/components/shared/ErrorMessage";
 import IncomesRegistry from "@/components/shared/IncomesRegistry";
 import ConfirmSummary from "./components/ConfirmSummary";
 

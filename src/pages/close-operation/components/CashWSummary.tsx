@@ -1,5 +1,5 @@
-import ErrorMessage from "@/components/ErrorMessage"
-import Spinner from "@/components/Spinner"
+import ErrorMessage from "@/components/shared/ErrorMessage"
+import Spinner from "@/components/shared/Spinner"
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { CashWithdrawal, getCurrentCashRegistries } from "@/services/api/withdrawals"
 import { getBranchName } from "@/utils/appStorage"

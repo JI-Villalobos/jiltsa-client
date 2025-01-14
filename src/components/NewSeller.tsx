@@ -3,7 +3,7 @@ import { getBranches } from "@/services/api/branches"
 import { Branch } from "@/services/api/branches"
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
-import Spinner from "./Spinner"
+import Spinner from "./shared/Spinner"
 import { newSeller } from "@/services/api/sellers"
 
 export default function NewSeller(): JSX.Element {

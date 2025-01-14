@@ -1,7 +1,7 @@
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { useRouter } from "next/router"
 import { Dispatch, SetStateAction, useState } from "react"
-import Spinner from "./Spinner"
+import Spinner from "./shared/Spinner"
 import { CreateCashWithdrawalDto, createCashRegistry } from "@/services/api/withdrawals"
 
 type Props = {

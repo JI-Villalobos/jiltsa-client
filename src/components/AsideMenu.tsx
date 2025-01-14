@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { RequestStatus } from "@/services";
 import { getBranchById } from "@/services/api/branches";
 import { getUserCredentials, setBranchName } from "@/utils/appStorage";
-import Spinner from "./Spinner";
+import Spinner from "./shared/Spinner";
 import { Role } from "@/utils/variables";
 
 export default function AsideMenu(): JSX.Element {

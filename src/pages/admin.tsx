@@ -1,4 +1,4 @@
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/shared/Spinner";
 import BranchItem from "@/components/branchItem";
 import Layout from "@/layouts/Layout";
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";

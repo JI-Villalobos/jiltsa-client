@@ -18,7 +18,7 @@ export default function Header(): JSX.Element {
       <a href="https://checker-ear-0d6.notion.site/JILTSA-Manual-de-usuario-5382089db632443897a40d864dc3a903?pvs=4" target="_blank">
         <div className="flex flex-row justify-center items-center">
           <Image src="/christmas-tree.svg" width={30} height={30} alt='mp logo' className='m-2' />
-          <p className="text-mp-dark text-sm">Versión 0.8.4</p>
+          <p className="text-mp-dark text-sm">Versión 0.8.5</p>
         </div>
       </a>
       <DemoMode />

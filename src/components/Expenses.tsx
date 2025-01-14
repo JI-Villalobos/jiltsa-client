@@ -1,8 +1,8 @@
 import { useState } from "react"
-import Spinner from "./Spinner"
+import Spinner from "./shared/Spinner"
 import NewExpense from "./NewExpense"
 import SuccessExpenseRegistry from "./SuccessExpenseRegistry"
-import ErrorMessage from "./ErrorMessage"
+import ErrorMessage from "./shared/ErrorMessage"
 import CloseOperationButton from "./shared/CloseOperationButton"
 
 export enum STAGES {

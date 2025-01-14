@@ -1,7 +1,7 @@
-import ErrorMessage from "@/components/ErrorMessage"
+import ErrorMessage from "@/components/shared/ErrorMessage"
 import NewExpense from "@/components/NewExpense"
 import { BiCommentError } from "react-icons/bi";
-import Spinner from "@/components/Spinner"
+import Spinner from "@/components/shared/Spinner"
 import SuccessExpenseRegistry from "@/components/SuccessExpenseRegistry"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router";

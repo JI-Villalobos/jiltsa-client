@@ -1,4 +1,4 @@
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/shared/Spinner";
 import Layout from "@/layouts/Layout";
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { PageCashWithdrawal, getLatestCashRegistries } from "@/services/api/withdrawals";
@@ -8,7 +8,7 @@ import { conceptList } from "@/utils/variables";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Pagination from "../billing/components/Pagination";
-import ErrorMessage from "@/components/ErrorMessage";
+import ErrorMessage from "@/components/shared/ErrorMessage";
 
 export default function BranchWithdrawals(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)

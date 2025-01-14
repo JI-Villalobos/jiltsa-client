@@ -1,6 +1,6 @@
 'use client'
 
-import Spinner from "@/components/Spinner"
+import Spinner from "@/components/shared/Spinner"
 import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { getTotalBalance, TotalBalance } from "@/services/api/branches"
 import { CreateCheckList, createCheckList } from "@/services/api/checklist"

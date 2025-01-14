@@ -1,6 +1,6 @@
 import { AuthRequest, authenticate } from "@/services/api/auth"
 import React, { useState } from "react"
-import Spinner from "./Spinner"
+import Spinner from "./shared/Spinner"
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { useRouter } from "next/router"
 

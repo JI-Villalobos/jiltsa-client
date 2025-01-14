@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { NextRouter, useRouter } from 'next/router'
 import Header from '@/components/Header'
-import Spinner from '@/components/Spinner'
+import Spinner from '@/components/shared/Spinner'
 import { getUserCredentials } from '@/utils/appStorage'
 import { Role } from '@/utils/variables'
 

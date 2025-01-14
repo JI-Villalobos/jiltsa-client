@@ -1,4 +1,4 @@
-import Spinner from "@/components/Spinner"
+import Spinner from "@/components/shared/Spinner"
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { CreateBill, createNewBill } from "@/services/api/billing"
 import { Branch, getBranches } from "@/services/api/branches"

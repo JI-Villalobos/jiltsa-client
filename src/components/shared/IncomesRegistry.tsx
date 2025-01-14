@@ -5,8 +5,8 @@ import { formatAmount } from "@/utils/formatAmount"
 import { Defaults, Income } from "@/utils/variables"
 import { Dispatch, SetStateAction, useState } from "react"
 import { STAGES } from "../Expenses"
-import Spinner from "../Spinner"
-import ErrorMessage from "../ErrorMessage"
+import Spinner from "./Spinner"
+import ErrorMessage from "./ErrorMessage"
 
 interface Props {
     setStage: Dispatch<SetStateAction<number>>

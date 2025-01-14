@@ -1,5 +1,5 @@
 import SessionInfo from "@/components/SessionInfo"
-import Spinner from "@/components/Spinner"
+import Spinner from "@/components/shared/Spinner"
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { Accounting, getAccounting } from "@/services/api/accounts"
 import { getCurrentAccounting } from "@/utils/appStorage"

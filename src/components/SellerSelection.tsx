@@ -3,7 +3,7 @@ import { Seller, getSellerByBranch } from "@/services/api/sellers"
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
 import SellerSellectionItem from "./SellerSelectionItem"
-import Spinner from "./Spinner"
+import Spinner from "./shared/Spinner"
 
 export default function SellerSelection() {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)

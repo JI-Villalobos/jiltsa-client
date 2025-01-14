@@ -3,7 +3,7 @@ import { Accounting } from "@/services/api/accounts"
 import { getSeller } from "@/services/api/sellers"
 import DateFormat from "@/utils/DateFormat"
 import { useEffect, useState } from "react"
-import Spinner from "./Spinner"
+import Spinner from "./shared/Spinner"
 import { RowData, formatRowData } from "@/utils/AccountingOperations"
 import { useRouter } from "next/router"
 

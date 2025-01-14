@@ -1,7 +1,7 @@
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { getBranchById } from "@/services/api/branches"
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
-import Spinner from "./Spinner"
+import Spinner from "./shared/Spinner"
 import { getBranchId, getCurrentAccounting } from "@/utils/appStorage"
 import { CreateCashWithdrawalDto } from "@/services/api/withdrawals"
 import Link from "next/link"

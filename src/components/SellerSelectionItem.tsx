@@ -4,7 +4,7 @@ import { Seller } from "@/services/api/sellers"
 import { setCurrentAccounting } from "@/utils/appStorage"
 import { useRouter } from "next/router"
 import { useState } from "react"
-import Spinner from "./Spinner"
+import Spinner from "./shared/Spinner"
 import { getCurrentDate } from "@/utils/dateOperations"
 
 type Props = {

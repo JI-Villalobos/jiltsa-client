@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
 import { Seller, getSellerByBranch } from "@/services/api/sellers";
 import Cookies from "js-cookie";
-import Spinner from "./Spinner";
+import Spinner from "./shared/Spinner";
 import { CustomAccounting, newCustomAccounting } from "@/services/api/accounts";
 import { setCurrentAccounting } from "@/utils/appStorage";
 import OutdateRegistry from "./OutdateRegistry";

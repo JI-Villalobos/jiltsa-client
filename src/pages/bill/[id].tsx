@@ -1,4 +1,4 @@
-import Spinner from "@/components/Spinner"
+import Spinner from "@/components/shared/Spinner"
 import { RequestStatus } from "@/services"
 import { Bill, getBillById } from "@/services/api/billing"
 import DateFormat from "@/utils/DateFormat"

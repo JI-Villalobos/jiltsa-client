@@ -4,10 +4,10 @@ import RowTable from "./RowTable";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Bill, PageBill, getBills, getPendingBills } from "@/services/api/billing";
 import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/shared/Spinner";
 import { clearBillStorage } from "@/utils/appStorage";
 import Pagination from "./Pagination";
-import ErrorMessage from "@/components/ErrorMessage";
+import ErrorMessage from "@/components/shared/ErrorMessage";
 
 export interface Props {
   mode: Mode

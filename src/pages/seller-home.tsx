@@ -1,4 +1,4 @@
-import Error from "@/components/Error";
+import Error from "@/components/shared/Error";
 import SessionInfo from "@/components/SessionInfo";
 import Skeleton from "@/components/Skeleton";
 import TableReport from "@/components/TableReport";
