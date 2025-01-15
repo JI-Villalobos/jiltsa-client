@@ -145,7 +145,7 @@ export default function CheckListInfo(): JSX.Element {
                         </p>
                     </div>
                 }
-                <Image src="/bell.svg" width={60} height={35} alt='mp logo' className='m-2' />
+                <Image src="/mp_logo.png" width={60} height={35} alt='mp logo' className='m-2' />
                 <p className="text-2xl text-mp-soft-dark font-semibold" translate="no">CHECK LIST CAMBIO DE TURNO</p>
                 <div className="flex flex-col w-1/6 m-4 border border-mp-green rounded border-opacity-60 items-center justify-center">
                     <label htmlFor="checkType" className="text-mp-green">Selecciona Entrado o Salida</label>
