@@ -6,6 +6,7 @@ import { Mode } from "@/services/api/pagination";
 import { Bill } from "@/services/api/billing";
 import { useRouter } from "next/router";
 import { isAuth, setBills } from "@/utils/appStorage";
+import { BiInfoCircle } from "react-icons/bi";
 
 
 export default function Billing(): JSX.Element {
@@ -33,6 +34,12 @@ export default function Billing(): JSX.Element {
 
   return (
     <Layout>
+      <div className="w-2/5 flex flex-col items-center text-sm m-2 bg-mp-warning rounded p-2 text-mp-dark text-center">
+          <BiInfoCircle size={20} />
+          <a href="https://jiltsa-admin-client.vercel.app/" target="_blank">
+            Esta página pronto dejará de estar disponible, ya puedes ingresar a la nueva sección de cuentas por pagar del portal Administrador de JILTSA
+          </a>
+        </div>
       <div className="flex flex-col xl:justify-start items-center">
         <BillingOptions setMode={setMode} />
         <div className="mt-6 flex items-center">
