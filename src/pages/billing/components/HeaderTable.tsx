@@ -1,3 +1,7 @@
+
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function HeaderTable(): JSX.Element {
   return (
     <thead className="ltr:text-left rtl:text-right">

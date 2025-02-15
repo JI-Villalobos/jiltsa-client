@@ -5,6 +5,9 @@ type Props = {
   branch: Branch
 }
 
+/**
+ * @deprecated this component will be reoved soon 
+ */
 export default function BranchItem({ branch }: Props) {
   return (
     <Link 

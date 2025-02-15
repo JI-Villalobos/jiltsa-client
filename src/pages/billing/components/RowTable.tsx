@@ -15,6 +15,9 @@ type Props = {
 const DISABLED = 1
 const ENABLED = 2
 
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function RowTable({ bill, setSelectedBills, bills, setSelectedAmount, selectedAmount }: Props): JSX.Element {
   const [action, setAction] = useState(DISABLED)
 

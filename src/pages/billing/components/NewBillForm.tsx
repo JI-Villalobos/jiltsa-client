@@ -5,6 +5,9 @@ import { Branch, getBranches } from "@/services/api/branches"
 import { useRouter } from "next/router"
 import React, { ChangeEvent, useEffect, useRef, useState } from "react"
 
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function NewBillForm() {
   const [branches, setBranches] = useState<Branch[]>([])
   const [status, setStatus] = useState<RequestStatus>(initialStatus)

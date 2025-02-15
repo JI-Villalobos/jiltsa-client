@@ -10,6 +10,9 @@ type Props = {
   setStep: Dispatch<SetStateAction<number>>
 }
 
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function PaymentForm({ setStep }: Props): JSX.Element {
   const [date, setDate] = useState('')
   const [status, setStatus] = useState<RequestStatus>(initialStatus)

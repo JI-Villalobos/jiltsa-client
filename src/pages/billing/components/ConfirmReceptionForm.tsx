@@ -8,6 +8,9 @@ type Props = {
   setStep: Dispatch<SetStateAction<number>>
 }
 
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function ConfirmReceptionForm({ setStep }: Props): JSX.Element {
   const [date, setDate] = useState('')
   const [status, setStatus] = useState<RequestStatus>(initialStatus)

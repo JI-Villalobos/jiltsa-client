@@ -8,6 +8,9 @@ type Props = {
   setStep: Dispatch<SetStateAction<number>>
 }
 
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function BillsSelected({ setStep }: Props): JSX.Element {
   const [bills, setBills] = useState<Bill[]>([])
 

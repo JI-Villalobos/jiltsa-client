@@ -5,6 +5,9 @@ type Props = {
   setStep: Dispatch<SetStateAction<number>>
 }
 
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function StepsBar({ step, setStep }: Props): JSX.Element {
 
   return (

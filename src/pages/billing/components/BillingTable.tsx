@@ -17,6 +17,9 @@ export interface Props {
   setSelectedAmount: Dispatch<SetStateAction<number>>
 }
 
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function BillingTable({ mode, setSelectedBills, selectedBills, setSelectedAmount, selectedAmount }: Props): JSX.Element {
   const [page, setPage] = useState<PageBill>()
   const [status, setStatus] = useState<RequestStatus>(initialStatus)

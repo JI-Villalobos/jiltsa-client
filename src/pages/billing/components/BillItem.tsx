@@ -6,6 +6,9 @@ type Props = {
   bill: Bill
 }
 
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function BillItem({ bill }: Props): JSX.Element {
 
   if (!bill) {

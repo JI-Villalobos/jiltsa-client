@@ -6,6 +6,9 @@ type Props = {
   setMode: Dispatch<SetStateAction<Mode>>
 }
 
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function BillingOptions({ setMode }: Props): JSX.Element {
   const router = useRouter()
 

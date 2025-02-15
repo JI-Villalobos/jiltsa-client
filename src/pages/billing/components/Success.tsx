@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+/**
+ * @deprecated this component will be removed soon
+ */
 export default function Success(): JSX.Element {
   return (
     <div role="alert" className="rounded-xl border border-mp-soft-dark  p-4 mt-6">
