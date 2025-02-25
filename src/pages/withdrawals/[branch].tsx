@@ -7,7 +7,7 @@ import { formatAmount } from "@/utils/formatAmount";
 import { conceptList } from "@/utils/variables";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Pagination from "../billing/components/Pagination";
+//import Pagination from "../billing/components/Pagination";
 import ErrorMessage from "@/components/shared/ErrorMessage";
 
 export default function BranchWithdrawals(): JSX.Element {
@@ -76,7 +76,7 @@ export default function BranchWithdrawals(): JSX.Element {
       </div>
       <div className="m-2">
         {
-          page && <Pagination setNumberPage={setPageNumber} pages={page.totalPages} currentPage={pageNumber} />
+          //page && <Pagination setNumberPage={setPageNumber} pages={page.totalPages} currentPage={pageNumber} />
         }
       </div>
     </Layout>

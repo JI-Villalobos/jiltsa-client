@@ -18,9 +18,6 @@ export default function Home() {
         if (creds.role === Role.USER) {
           router.push('/seller-home')
         } 
-        if (creds.role === Role.ADMIN) {
-          router.push("/admin")
-        }
       } else {
         router.push('/login')
       }
