@@ -68,7 +68,7 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
         </select>
       </div>
 
-      {
+      {/** 
         concept == 'OTROS' && (
           <input
             type="text"
@@ -78,7 +78,7 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
               setCashWithdrawal({ ...cashWithDrawal, concept: e.currentTarget.value })
             }}
           />
-        )
+        )*/
       }
 
       <input
