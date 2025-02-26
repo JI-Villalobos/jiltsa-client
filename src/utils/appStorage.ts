@@ -141,8 +141,6 @@ export const initialExpenseRegistry: ExpenseRegistry = {
 
 export const setStoredExpenseRegistry = (expense: ExpenseRegistry): void => {
   Cookies.set('expense', JSON.stringify(expense))
-  console.log(expense);
-  
 }
 
 export const getStoredExpenseRegistry = (): ExpenseRegistry => {

@@ -37,9 +37,7 @@ export default function NewSeller(): JSX.Element {
         router.reload()
       })
       .catch((e) => {
-        setStatus({...status, onError: true})
-        console.log(e);
-        
+        setStatus({...status, onError: true})        
       })
   }
 

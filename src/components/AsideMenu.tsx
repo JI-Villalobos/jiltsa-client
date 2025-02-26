@@ -38,20 +38,11 @@ export default function AsideMenu(): JSX.Element {
           status.onLoading ? <Spinner /> : <p className='mt-2 text-xs xl:text-sm text-mp-gray-soft'>{branch}</p>
         }
       </div>
-      {
-        role === Role.ADMIN ? 
-          <>
-            <LinkItem path="/admin" icon="/home.svg" name="Movimientos" />
-            <LinkItem path="/billing" icon="/bill.svg" name="Cuentas x Pagar" />
-          </>
-        
-        : <>
-            <LinkItem path="/seller-home" icon="/home.svg" name="Movimientos" />
-            <LinkItem path="/operation" icon="/casher.svg" name="Registro de Gastos" />
-            <LinkItem path="/cash-registry" icon="/withdrawal.svg" name="Depositos" />
-          </>
-      }
-
+      <>
+        <LinkItem path="/seller-home" icon="/home.svg" name="Movimientos" />
+        <LinkItem path="/operation" icon="/casher.svg" name="Registro de Gastos" />
+        <LinkItem path="/cash-registry" icon="/withdrawal.svg" name="Depositos" />
+      </>
     </div>
   )
 }

@@ -8,7 +8,7 @@ export enum Income {
   MEDICAMENTO = 'MEDICAMENTO'
 }
 
-export const conceptList = ["Cobro con tarjeta", "Cobro por transferencia", "BBVA", "COPPEL", "HSBC", "BANORTE", "BANREGIO", "SCOTIABANK", "OTROS"]
+export const conceptList = ["Cobro con tarjeta", "Cobro por transferencia", "BBVA", "COPPEL", "BANORTE", "BANREGIO", "SCOTIABANK", "OTROS"]
 
 export enum Defaults {
   PRONTIPAGOS = 1,

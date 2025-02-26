@@ -15,7 +15,7 @@ export default function Home() {
     const creds = getUserCredentials()
     setTimeout(() => {
       if (creds) {
-        if (creds.role === Role.USER) {
+        if (creds.token) {
           router.push('/seller-home')
         } 
       } else {

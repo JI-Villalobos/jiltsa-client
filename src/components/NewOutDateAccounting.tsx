@@ -46,9 +46,7 @@ export default function NewOutDateAccounting(): JSX.Element {
 
   const getSellerName = (id: string) => {
     const index = parseInt(id)
-    const seller =  sellers.find(seller => seller.id == index)?.fullName || 'Extemporaneo';
-    console.log(sellers.find(seller => seller.id == index));
-    
+    const seller =  sellers.find(seller => seller.id == index)?.fullName || 'Extemporaneo'; 
     setSellerName(seller)
   }
 

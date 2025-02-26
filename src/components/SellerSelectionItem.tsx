@@ -27,7 +27,6 @@ export default function SellerSellectionItem({ seller }: Props): JSX.Element {
       })
       .catch((e) => {
         setStatus(failedRequest)
-        console.log(e);
       })
   }
 
