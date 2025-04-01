@@ -44,6 +44,7 @@ export default function ConfirmCashRegistry({ cashWithDrawal, confirmationStage 
                 <button
                   className="m-2 p-2 rounded bg-mp-dark text-mp-gray-soft text-sm w-20 flex justify-center items-center"
                   onClick={handleNewCashWithDrawal}
+                  disabled={status.onLoading}
                 >
                   {status.onLoading ? <Spinner /> : 'Confirmar'}
                 </button>
