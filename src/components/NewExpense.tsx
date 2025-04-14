@@ -130,6 +130,7 @@ export default function NewExpense({ setStage, accountingId }: Props): JSX.Eleme
         type="submit"
         className="block w-1/2 rounded-lg bg-mp-dark px-3 py-4 text-mp-gray-soft text-sm font-medium text-white"
         onClick={handleNewExpense}
+        disabled={status.onLoading}
       >
         {
           status.onLoading
