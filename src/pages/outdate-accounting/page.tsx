@@ -1,6 +1,8 @@
-import NewOutDateAccounting from "@/components/NewOutDateAccounting";
-import Spinner from "@/components/shared/Spinner";
-import Layout from "@/layouts/Layout";
+'use client'
+
+import NewOutDateAccounting from "@/app/components/NewOutDateAccounting";
+import Spinner from "@/app/components/shared/Spinner";
+import Layout from "@/app/layouts/Layout";
 import { isAuth } from "@/utils/appStorage";
 import { useRouter } from "next/router";
 import { useState } from "react";

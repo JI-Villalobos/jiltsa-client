@@ -1,7 +1,9 @@
-import Expenses from "@/components/Expenses";
-import OpenAccounting from "@/components/OpenAccounting";
-import SessionInfo from "@/components/SessionInfo";
-import Layout from "@/layouts/Layout";
+'use client'
+
+import Expenses from "@/app/components/Expenses";
+import OpenAccounting from "@/app/components/OpenAccounting";
+import SessionInfo from "@/app/components/SessionInfo";
+import Layout from "@/app/layouts/Layout";
 import { getCurrentAccounting, isAuth } from "@/utils/appStorage";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";

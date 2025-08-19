@@ -1,3 +1,5 @@
+'use client'
+
 import SessionInfo from "@/app/components/SessionInfo";
 import CloseOperationButton from "@/app/components/shared/CloseOperationButton";
 import Error from "@/app/components/shared/Error";

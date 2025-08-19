@@ -1,14 +1,16 @@
 'use client'
+
 import { Inter } from 'next/font/google'
 import { useEffect, useState } from 'react'
 import { NextRouter, useRouter } from 'next/router'
-import TableReport from '@/components/TableReport'
-import { RequestStatus } from '@/services'
-import { Accounting, getLatestRegistries } from '@/services/api/accounts'
-import Skeleton from '@/components/Skeleton'
-import Error from '@/components/shared/Error'
-import DateSelection from '@/components/DateSelection'
-import Layout from '@/layouts/Layout'
+import { RequestStatus } from '@/app/services'
+import { Accounting, getLatestRegistries } from '@/app/services/api/accounts'
+import Layout from '@/app/layouts/Layout'
+import DateSelection from '@/app/components/DateSelection'
+import Skeleton from '@/app/components/Skeleton'
+import Error from '@/app/components/shared/Error'
+import TableReport from '@/app/components/TableReport'
+
 
 const inter = Inter({ subsets: ['latin'] })
 

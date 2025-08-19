@@ -1,12 +1,14 @@
-import ErrorMessage from "@/components/shared/ErrorMessage"
-import NewExpense from "@/components/NewExpense"
-import { BiCommentError } from "react-icons/bi";
-import Spinner from "@/components/shared/Spinner"
-import SuccessExpenseRegistry from "@/components/SuccessExpenseRegistry"
+'use client'
+
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router";
-import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/services";
-import { Accounting, getAccounting } from "@/services/api/accounts";
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
+import { Accounting, getAccounting } from "@/app/services/api/accounts";
+import { BiCommentError } from "react-icons/bi";
+import Spinner from "@/app/components/shared/Spinner";
+import ErrorMessage from "@/app/components/shared/ErrorMessage";
+import NewExpense from "@/app/components/NewExpense";
+import SuccessExpenseRegistry from "@/app/components/SuccessExpenseRegistry";
 
 export enum STAGES {
     DEFAULT = 0,
@@ -50,7 +52,7 @@ export default function ExpenseDelay(): JSX.Element {
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <div className="mt-10 w-1/3 flex flex-col items-center justify-center rounded shadow-md p-2 text-mp-green">
-                <BiCommentError size={30} />
+                
                 <p className="text-2xl text-center">Registra gastos a turnos previamente cerrados.</p>
                 <p className="text-sm text-center text-mp-dark p-2">
                     Este Apartado debe usarse solo en casos especiales, al registrar el monto, el o los administradores
@@ -97,3 +99,5 @@ export default function ExpenseDelay(): JSX.Element {
         </div>
     )
 }
+
+/*<BiCommentError size={30} /> */

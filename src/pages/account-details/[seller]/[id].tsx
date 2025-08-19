@@ -1,9 +1,11 @@
-import Details from "@/components/AccountDetail";
-import SessionInfo from "@/components/SessionInfo";
-import Skeleton from "@/components/Skeleton";
-import Layout from "@/layouts/Layout";
-import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/services";
-import { Accounting, getAccounting } from "@/services/api/accounts";
+'use client'
+
+import Details from "@/app/components/AccountDetail";
+import SessionInfo from "@/app/components/SessionInfo";
+import Skeleton from "@/app/components/Skeleton";
+import Layout from "@/app/layouts/Layout";
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
+import { Accounting, getAccounting } from "@/app/services/api/accounts";
 import { getCurrentAccounting } from "@/utils/appStorage";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

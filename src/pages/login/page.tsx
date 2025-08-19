@@ -1,5 +1,5 @@
-import AsideLogin from "@/components/AsideLogin";
-import LoginForm from "@/components/LoginForm";
+import AsideLogin from "@/app/components/AsideLogin";
+import LoginForm from "@/app/components/LoginForm";
 import Image from "next/image";
 
 export default function Login(): JSX.Element{

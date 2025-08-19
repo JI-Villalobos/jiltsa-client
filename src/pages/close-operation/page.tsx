@@ -1,10 +1,12 @@
-import { STAGES } from "@/components/Expenses";
-import Layout from "@/layouts/Layout";
+'use client'
+
 import { useState } from "react";
-import Summary from "./components/Summary";
-import ErrorMessage from "@/components/shared/ErrorMessage";
-import IncomesRegistry from "@/components/shared/IncomesRegistry";
 import ConfirmSummary from "./components/ConfirmSummary";
+import { STAGES } from "@/app/components/Expenses";
+import Layout from "@/app/layouts/Layout";
+import IncomesRegistry from "@/app/components/shared/IncomesRegistry";
+import Summary from "./components/Summary";
+import ErrorMessage from "@/app/components/shared/ErrorMessage";
 
 export default function CloseOperation(): JSX.Element {
     const [stage, setStage] = useState(STAGES.DEFAULT)

@@ -1,14 +1,17 @@
-import Spinner from "@/components/shared/Spinner";
-import Layout from "@/layouts/Layout";
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
-import { PageCashWithdrawal, getLatestCashRegistries } from "@/services/api/withdrawals";
+'use client'
+
+import ErrorMessage from "@/app/components/shared/ErrorMessage";
+import Pagination from "@/app/components/shared/Pagination";
+import Spinner from "@/app/components/shared/Spinner";
+import Layout from "@/app/layouts/Layout";
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
+import { getLatestCashRegistries, PageCashWithdrawal } from "@/app/services/api/withdrawals";
 import DateFormat from "@/utils/DateFormat";
 import { formatAmount } from "@/utils/formatAmount";
 import { conceptList } from "@/utils/variables";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ErrorMessage from "@/components/shared/ErrorMessage";
-import Pagination from "@/components/shared/Pagination";
+
 
 export default function BranchWithdrawals(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)

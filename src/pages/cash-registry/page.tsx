@@ -1,9 +1,11 @@
-import ConfirmCashRegistry from "@/components/ConfirmCahsRegistry";
-import NewCashRegistry from "@/components/NewCashRegistry";
-import SessionInfo from "@/components/SessionInfo";
-import CloseOperationButton from "@/components/shared/CloseOperationButton";
-import Layout from "@/layouts/Layout";
-import { CreateCashWithdrawalDto } from "@/services/api/withdrawals";
+'use client'
+
+import ConfirmCashRegistry from "@/app/components/ConfirmCahsRegistry";
+import NewCashRegistry from "@/app/components/NewCashRegistry";
+import SessionInfo from "@/app/components/SessionInfo";
+import CloseOperationButton from "@/app/components/shared/CloseOperationButton";
+import Layout from "@/app/layouts/Layout";
+import { CreateCashWithdrawalDto } from "@/app/services/api/withdrawals";
 import { getCurrentAccounting, isAuth } from "@/utils/appStorage";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
