@@ -1,3 +1,5 @@
+'use client'
+
 export default function Skeleton(): JSX.Element {
   return (
     <div className="mx-auto bg-white shadow-lg w-8/12 rounded-2xl">

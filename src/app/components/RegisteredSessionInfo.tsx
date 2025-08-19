@@ -1,3 +1,5 @@
+'use client'
+
 import { deleteAccounting } from "@/utils/appStorage"
 import { useRouter } from "next/router"
 

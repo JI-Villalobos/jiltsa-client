@@ -1,7 +1,9 @@
-import { RequestStatus, initialStatus } from "@/services"
-import { ExpenseType } from "@/services/api/collections"
-import { CreateExpenseRegistry } from "@/services/api/expenses"
+'use cliet'
+
 import { Dispatch, SetStateAction, useState } from "react"
+import { ExpenseType } from "../services/api/collections"
+import { CreateExpenseRegistry } from "../services/api/expenses"
+import { initialStatus, RequestStatus } from "../services"
 
 type Props = {
   expenseType: ExpenseType,

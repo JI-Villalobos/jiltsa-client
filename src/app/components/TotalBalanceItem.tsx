@@ -1,9 +1,11 @@
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
-import { getTotalBalance } from "@/services/api/branches"
+'use client'
+
 import { useEffect, useState } from "react"
 import Spinner from "./shared/Spinner"
 import Cookies from "js-cookie"
 import { formatAmount } from "@/utils/formatAmount"
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { getTotalBalance } from "../services/api/branches"
 
 export default function TotalBalanceItem(): JSX.Element {
   const [totals, setTotals] = useState<string>()

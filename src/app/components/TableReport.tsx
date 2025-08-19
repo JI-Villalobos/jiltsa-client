@@ -1,4 +1,4 @@
-import { Accounting } from "@/services/api/accounts";
+import { Accounting } from "../services/api/accounts";
 import RowReport from "./RowReport";
 
 type Props = {

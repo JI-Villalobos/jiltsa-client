@@ -1,11 +1,14 @@
-import { CreateExpenseRegistry } from "@/services/api/expenses"
+'use client'
+
 import { CurrentAccounting, getCurrentAccounting } from "@/utils/appStorage"
 import { useState } from "react"
+import { CreateExpenseRegistry } from "../services/api/expenses"
 
 type Props = {
   currentAccounting: CurrentAccounting,
   expense: CreateExpenseRegistry,
 }
+
 export default function ExpenseTicket(props: Props): JSX.Element {
   const [currentAccounting, setCurrentAcccounting] = useState<CurrentAccounting>({accountingId: 0, seller: '', date: '', sellerId: 0})
 

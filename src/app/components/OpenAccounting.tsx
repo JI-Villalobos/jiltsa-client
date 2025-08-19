@@ -1,3 +1,5 @@
+'use client'
+
 import SellerSelection from "./SellerSelection"
 import Link from "next/link"
 

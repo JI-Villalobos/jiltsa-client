@@ -1,10 +1,12 @@
+'use client'
+
 import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react"
-import { ExpenseType, getExpenseTypes } from "@/services/api/collections"
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import Spinner from "./shared/Spinner"
-import { CreateExpenseRegistry, createExpense } from "@/services/api/expenses"
 import { CurrentAccounting, getCurrentAccounting, setStoredExpenseRegistry } from "@/utils/appStorage"
 import { STAGES } from "./Expenses"
+import { ExpenseType, getExpenseTypes } from "../services/api/collections"
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { createExpense, CreateExpenseRegistry } from "../services/api/expenses"
 
 interface Props {
   setStage: Dispatch<SetStateAction<number>>

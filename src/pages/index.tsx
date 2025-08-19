@@ -2,10 +2,9 @@
 
 import { useEffect } from 'react'
 import { NextRouter, useRouter } from 'next/router'
-import Header from '@/components/Header'
-import Spinner from '@/components/shared/Spinner'
 import { getUserCredentials } from '@/utils/appStorage'
-import { Role } from '@/utils/variables'
+import Header from '@/app/components/Header'
+import Spinner from '@/app/components/shared/Spinner'
 
 export default function Home() {
   

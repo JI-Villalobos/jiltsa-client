@@ -1,10 +1,11 @@
-import { RequestStatus } from "@/services"
-import { getBranches } from "@/services/api/branches"
-import { Branch } from "@/services/api/branches"
+'use client'
+
 import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import Spinner from "./shared/Spinner"
-import { newSeller } from "@/services/api/sellers"
+import { Branch, getBranches } from "../services/api/branches"
+import { RequestStatus } from "../services"
+import { newSeller } from "../services/api/sellers"
 
 export default function NewSeller(): JSX.Element {
   const [branches, setBranches] = useState<Branch[]>([])

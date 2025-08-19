@@ -1,7 +1,9 @@
-import { RequestStatus } from "@/services"
-import { Accounting, getByDate } from "@/services/api/accounts"
+'use client'
+
 import React, { Dispatch, SetStateAction, useState } from "react"
 import Spinner from "./shared/Spinner"
+import { Accounting, getByDate } from "../services/api/accounts"
+import { RequestStatus } from "../services"
 
 type Props = {
   setAccounts: Dispatch<SetStateAction<Accounting[]>>

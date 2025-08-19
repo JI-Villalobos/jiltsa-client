@@ -1,5 +1,5 @@
-import { Branch } from "@/services/api/branches"
 import Link from "next/link"
+import { Branch } from "../services/api/branches"
 
 type Props = {
   branch: Branch

@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from "react"
 import Spinner from "./shared/Spinner"
 import NewExpense from "./NewExpense"

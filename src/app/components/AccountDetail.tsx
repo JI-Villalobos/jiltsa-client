@@ -1,7 +1,9 @@
-import { Accounting } from "@/services/api/accounts"
+'use client'
+
 import { BiArrowBack, BiLockOpen } from "react-icons/bi";
 import Image from "next/image"
 import Link from "next/link";
+import { Accounting } from "../services/api/accounts";
 
 type Props = {
   seller: string,

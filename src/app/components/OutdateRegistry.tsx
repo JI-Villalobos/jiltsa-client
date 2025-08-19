@@ -1,3 +1,5 @@
+'use client'
+
 import Expenses, { STAGES } from "./Expenses";
 import SessionInfo from "./SessionInfo";
 import { useState } from "react";

@@ -1,5 +1,7 @@
-import { CreateExpenseRegistry } from "@/services/api/expenses"
+'use client'
+
 import React, { Dispatch, SetStateAction } from "react"
+import { CreateExpenseRegistry } from "../services/api/expenses"
 
 type Props = {
   expense: Dispatch<SetStateAction<CreateExpenseRegistry>>,

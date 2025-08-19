@@ -1,11 +1,13 @@
+'use client'
+
 import Image from "next/image";
 import LinkItem from "./LinkItem";
 import { useEffect, useState } from "react";
-import { RequestStatus } from "@/services";
-import { getBranchById } from "@/services/api/branches";
 import { getUserCredentials, setBranchName } from "@/utils/appStorage";
 import Spinner from "./shared/Spinner";
 import { Role } from "@/utils/variables";
+import { RequestStatus } from "../services";
+import { getBranchById } from "../services/api/branches";
 
 export default function AsideMenu(): JSX.Element {
   const [branch, setBranch] = useState<string>('')

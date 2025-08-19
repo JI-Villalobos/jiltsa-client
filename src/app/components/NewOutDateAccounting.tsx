@@ -1,11 +1,13 @@
+'use client'
+
 import React, { useEffect, useState } from "react";
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services";
-import { Seller, getSellerByBranch } from "@/services/api/sellers";
 import Cookies from "js-cookie";
 import Spinner from "./shared/Spinner";
-import { CustomAccounting, newCustomAccounting } from "@/services/api/accounts";
 import { setCurrentAccounting } from "@/utils/appStorage";
 import OutdateRegistry from "./OutdateRegistry";
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services";
+import { getSellerByBranch, Seller } from "../services/api/sellers";
+import { CustomAccounting, newCustomAccounting } from "../services/api/accounts";
 
 export default function NewOutDateAccounting(): JSX.Element {
   const [accountingRegSuccess, setAccountingRegSuccess] = useState<boolean>(false)

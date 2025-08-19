@@ -9,14 +9,14 @@ import Layout from "@/app/layouts/Layout";
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
 import { Accounting, getLatestRegistries } from "@/app/services/api/accounts";
 import { getBranchId, getCurrentAccounting, isAuth } from "@/utils/appStorage";
-import { NextRouter, useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function SellerHome(): JSX.Element {
-  const router: NextRouter = useRouter()
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [accounts, setAccounts] = useState<Accounting[]>([])
   
+  const router = useRouter()
 
   useEffect(() => {
     const branchId = getBranchId()

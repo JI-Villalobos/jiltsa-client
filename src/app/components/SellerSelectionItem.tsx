@@ -1,11 +1,13 @@
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
-import { newAccounting } from "@/services/api/accounts"
-import { Seller } from "@/services/api/sellers"
+'use client'
+
 import { setCurrentAccounting } from "@/utils/appStorage"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Spinner from "./shared/Spinner"
 import { getCurrentDate } from "@/utils/dateOperations"
+import { Seller } from "../services/api/sellers"
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { newAccounting } from "../services/api/accounts"
 
 type Props = {
   seller: Seller

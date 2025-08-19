@@ -1,6 +1,8 @@
+'use client'
+
 import { deleteUserCredentials } from "@/utils/appStorage";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { BiCode } from "react-icons/bi";
 
 export default function Header(): JSX.Element {

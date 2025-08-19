@@ -1,11 +1,13 @@
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
-import { getBranchById } from "@/services/api/branches"
+'use client'
+
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import Spinner from "./shared/Spinner"
 import { getBranchId, getCurrentAccounting } from "@/utils/appStorage"
-import { CreateCashWithdrawalDto } from "@/services/api/withdrawals"
 import Link from "next/link"
 import { conceptList } from "@/utils/variables"
+import { CreateCashWithdrawalDto } from "../services/api/withdrawals"
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { getBranchById } from "../services/api/branches"
 
 type Props = {
   setCashWithdrawal: Dispatch<SetStateAction<CreateCashWithdrawalDto>>

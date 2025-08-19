@@ -1,6 +1,6 @@
-import AsideMenu from "@/components/AsideMenu";
-import Header from "@/components/Header";
 import React from "react";
+import Header from "../components/Header";
+import AsideMenu from "../components/AsideMenu";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

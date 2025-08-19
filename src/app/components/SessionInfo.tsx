@@ -1,8 +1,10 @@
+'use client'
+
 import { CurrentAccounting, getCurrentAccounting } from "@/utils/appStorage"
 import { useEffect, useState } from "react"
-import NotRegisteredSessionInfo from "@/components/NotRegisteredSessionInfo"
-import RegisteredSessionInfo from "@/components/RegisteredSessionInfo"
 import TotalBalanceItem from "./TotalBalanceItem"
+import RegisteredSessionInfo from "./RegisteredSessionInfo"
+import NotRegisteredSessionInfo from "./NotRegisteredSessionInfo"
 
 export default function SessionInfo(): JSX.Element {
   const [accountingExists, setAccountingExist] = useState<boolean>(false)

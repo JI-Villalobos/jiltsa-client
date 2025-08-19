@@ -1,9 +1,11 @@
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
-import { Seller, getSellerByBranch } from "@/services/api/sellers"
+'use client'
+
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
 import SellerSellectionItem from "./SellerSelectionItem"
 import Spinner from "./shared/Spinner"
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { getSellerByBranch, Seller } from "../services/api/sellers"
 
 export default function SellerSelection() {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
@@ -22,6 +24,7 @@ export default function SellerSelection() {
       })
     }
   }, [])
+  
   return (
     <div className="mt-8 flex flex-col items-center w-1/2">
       <p className="mb-4 text-xl text-mp-dark font-coda">Selecciona tu turno</p>

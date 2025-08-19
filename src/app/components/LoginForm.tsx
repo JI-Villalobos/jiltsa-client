@@ -1,8 +1,8 @@
-import { AuthRequest, authenticate } from "@/services/api/auth"
 import React, { useState } from "react"
 import Spinner from "./shared/Spinner"
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
 import { useRouter } from "next/router"
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { authenticate, AuthRequest } from "../services/api/auth"
 
 export default function LoginForm(): JSX.Element {
   const [mail, setMail] = useState<string>('')
