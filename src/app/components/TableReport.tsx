@@ -1,3 +1,5 @@
+'use client'
+
 import { Accounting } from "../services/api/accounts";
 import RowReport from "./RowReport";
 

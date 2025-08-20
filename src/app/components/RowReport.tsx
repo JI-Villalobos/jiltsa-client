@@ -4,10 +4,10 @@ import DateFormat from "@/utils/DateFormat"
 import { useEffect, useState } from "react"
 import Spinner from "./shared/Spinner"
 import { RowData, formatRowData } from "@/utils/AccountingOperations"
-import { useRouter } from "next/router"
 import { Accounting } from "../services/api/accounts"
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
 import { getSeller } from "../services/api/sellers"
+import { useRouter } from "next/navigation"
 
 type Props = {
   account: Accounting
