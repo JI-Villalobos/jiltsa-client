@@ -1,10 +1,10 @@
 'use client'
 
-import { useRouter } from "next/router"
 import { Dispatch, SetStateAction, useState } from "react"
 import Spinner from "./shared/Spinner"
 import { createCashRegistry, CreateCashWithdrawalDto } from "../services/api/withdrawals"
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { useRouter } from "next/navigation"
 
 type Props = {
   cashWithDrawal: CreateCashWithdrawalDto
@@ -22,7 +22,7 @@ export default function ConfirmCashRegistry({ cashWithDrawal, confirmationStage 
       .then(() => {
         setStatus(successfullRequest)
         setTimeout(() => {
-          router.reload()
+          router.refresh()
         }, 1000)
       })
       .catch(() => {

@@ -7,7 +7,7 @@ import CloseOperationButton from "@/app/components/shared/CloseOperationButton";
 import Layout from "@/app/layouts/Layout";
 import { CreateCashWithdrawalDto } from "@/app/services/api/withdrawals";
 import { getCurrentAccounting, isAuth } from "@/utils/appStorage";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function CashRegistry() {

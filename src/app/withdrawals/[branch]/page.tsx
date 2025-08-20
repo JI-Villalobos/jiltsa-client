@@ -9,7 +9,7 @@ import { getLatestCashRegistries, PageCashWithdrawal } from "@/app/services/api/
 import DateFormat from "@/utils/DateFormat";
 import { formatAmount } from "@/utils/formatAmount";
 import { conceptList } from "@/utils/variables";
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
@@ -18,8 +18,9 @@ export default function BranchWithdrawals(): JSX.Element {
   const [page, setPage] = useState<PageCashWithdrawal>()
   const [pageNumber, setPageNumber] = useState(0)
 
-  const router = useRouter()
-  const { branch } = router.query
+  const params = useParams<{ branch: string }>()
+  console.log(params);
+  
 
   const match = (option: string): boolean => {
     return conceptList.includes(option)
@@ -27,8 +28,8 @@ export default function BranchWithdrawals(): JSX.Element {
 
   useEffect(() => {
     setStatus(pendingRequest)
-    if (typeof branch === 'string') {
-      getLatestCashRegistries(branch, pageNumber)
+    if (typeof params?.branch === 'string') {
+      getLatestCashRegistries(params.branch, pageNumber)
         .then((result) => {
           setPage(result)
           setStatus(successfullRequest)
@@ -42,7 +43,7 @@ export default function BranchWithdrawals(): JSX.Element {
   return (
     <Layout>
       <div className="mt-6 w-full flex flex-col items-center justify-center">
-        <p className="text-xl text-mp-green m-2 font-semibold">Registro de Retiros sucursal: <span className="text-mp-blue">{branch}</span></p>
+        <p className="text-xl text-mp-green m-2 font-semibold">Registro de Retiros sucursal: <span className="text-mp-blue">{params?.branch}</span></p>
         <div className="grid grid-cols-1 lg:grid-cols-4 w-1/2 p-1 bg-mp-green m-1 rounded text-mp-white">
           <div className="rounded-lg ">Fecha</div>
           <div className="rounded-lg ">Concepto</div>
