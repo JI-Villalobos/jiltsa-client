@@ -1,8 +1,10 @@
+'use client'
+
 import React, { useState } from "react"
 import Spinner from "./shared/Spinner"
-import { useRouter } from "next/router"
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
 import { authenticate, AuthRequest } from "../services/api/auth"
+import { useRouter } from "next/navigation"
 
 export default function LoginForm(): JSX.Element {
   const [mail, setMail] = useState<string>('')
