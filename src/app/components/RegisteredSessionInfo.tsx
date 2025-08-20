@@ -1,7 +1,7 @@
 'use client'
 
 import { deleteAccounting } from "@/utils/appStorage"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 interface Props {
     accountingId: number
@@ -24,7 +24,7 @@ export default function RegisteredSessionInfo({ accountingId, seller }: Props): 
                 className="mt-2 text-sm text-mp-green hover:text-mp-blue"
                 onClick={() => {
                     deleteAccounting()
-                    router.reload()
+                    router.refresh()
                 }}
             >¿Este no es tu turno?</button>
         </ div>

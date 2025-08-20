@@ -1,18 +1,18 @@
 'use client'
 
-import Spinner from "@/components/shared/Spinner"
-import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
-import { getTotalBalance, TotalBalance } from "@/services/api/branches"
-import { CreateCheckList, createCheckList } from "@/services/api/checklist"
+import Spinner from "@/app/components/shared/Spinner"
+import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
+import { getTotalBalance, TotalBalance } from "@/app/services/api/branches"
+import { createCheckList, CreateCheckList } from "@/app/services/api/checklist"
 import { CurrentAccounting, deleteAccounting, getCheckMode, getCurrentAccounting, getUserCredentials, setCheckMode } from "@/utils/appStorage"
 import DateFormat from "@/utils/DateFormat"
 import localDateFormat from "@/utils/localDateTime"
 import Image from "next/image"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { KeyboardEvent, useEffect, useState } from "react"
-import { BiError, BiBattery } from "react-icons/bi"
+import { BiBattery, BiError } from "react-icons/bi"
 
-export default function CheckListInfo(): JSX.Element {
+export const CheckListInfo = () =>  {
     const [loadInfostatus, setLoadInfoStatus] = useState(initialStatus)
     const [submitstatus, setSubmitStatus] = useState(initialStatus)
     const [matchedBalance, setMatchedBalance] = useState(true)
@@ -130,7 +130,7 @@ export default function CheckListInfo(): JSX.Element {
                 {
                     submitstatus.onSuccess &&
                     <div className="flex flex-col items-center justify-center w-1/3 text-base font-normal border border-mp-dark rounded border-opacity-20 m-4 p-2">
-                        <BiError color="green" size={30} />
+                        {/** <BiError color="green" size={30} />*/}
                         <p className="text-mp-dark text-center" translate="no">Tu check list se guardo exitosamente, presiona el boton de continuar para terminar tu registro.
                             Recuerda tomar captura de pantalla y compartirla en el grupo</p>
                     </div>
@@ -138,7 +138,7 @@ export default function CheckListInfo(): JSX.Element {
                 {
                     matchedBalance == false &&
                     <div className="flex flex-col items-center justify-center w-1/3 text-base font-normal border border-mp-error rounded border-opacity-20 m-4 p-2">
-                        <BiError color="red" size={30} />
+                        {/** <BiError color="red" size={30} />*/}
                         <p className="text-mp-dark text-center">
                             El saldo que ingresaste no coincide con el monto que el sistema tiene registrado.
                             Revisa que los datos sean correctos.
@@ -191,7 +191,7 @@ export default function CheckListInfo(): JSX.Element {
                 <div className="rounded-sm shadow-md w-3/6 flex flex-row justify-between m-2">
                     <div className="flex flex-row w-1/3 items-center justify-between text-mp-green">
                         <p className="text-mp-dark p-1">CARGA CELULAR % </p>
-                        <BiBattery />
+                        {/**<BiBattery /> */}
                         <input
                             type="number"
                             id="cellphoneCharge"

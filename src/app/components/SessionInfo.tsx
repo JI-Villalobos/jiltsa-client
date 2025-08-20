@@ -6,7 +6,7 @@ import TotalBalanceItem from "./TotalBalanceItem"
 import RegisteredSessionInfo from "./RegisteredSessionInfo"
 import NotRegisteredSessionInfo from "./NotRegisteredSessionInfo"
 
-export default function SessionInfo(): JSX.Element {
+export default function SessionInfo(){
   const [accountingExists, setAccountingExist] = useState<boolean>(false)
   const [accounting, setAccounting] =  useState<CurrentAccounting>({accountingId: 0, seller: '', date: '', sellerId: 0})
   
@@ -22,6 +22,7 @@ export default function SessionInfo(): JSX.Element {
       })
     }
   }, [])
+  
   return (
     <div  className="flex flex-col items-center">
       {
