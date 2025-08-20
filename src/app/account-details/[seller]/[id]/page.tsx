@@ -7,7 +7,7 @@ import Layout from "@/app/layouts/Layout";
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
 import { Accounting, getAccounting } from "@/app/services/api/accounts";
 import { getCurrentAccounting } from "@/utils/appStorage";
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function AccountDetails(): JSX.Element {
@@ -15,16 +15,16 @@ export default function AccountDetails(): JSX.Element {
   const [accounting, setAccounting] = useState<Accounting>()
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [currentAccounting, setCurrentAccounting] = useState(false)
+  const params = useParams<{ id: string, seller: string }>()
   const router = useRouter()
-  const { id, seller } = router.query
 
   useEffect(() => {
     setStatus(pendingRequest)
     const current = getCurrentAccounting() ? true : false
     setCurrentAccounting(current)
-    if (seller && typeof seller === 'string' && typeof id === 'string') {
-      setSellerName(seller)
-      const accountingId = parseInt(id)
+    if (params?.seller && typeof params.seller === 'string' && typeof params.id === 'string') {
+      setSellerName(params.seller.replace('%20', ' '))
+      const accountingId = parseInt(params.id)
       getAccounting(accountingId).then((res) => {
         setAccounting(res)
         setStatus(successfullRequest)
