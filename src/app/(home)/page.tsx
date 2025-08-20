@@ -1,14 +1,14 @@
 'use client'
 
 import { useEffect } from 'react'
-import { NextRouter, useRouter } from 'next/router'
 import { getUserCredentials } from '@/utils/appStorage'
 import Header from '@/app/components/Header'
 import Spinner from '@/app/components/shared/Spinner'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
   
-  const router: NextRouter = useRouter()
+  const router = useRouter()
 
   useEffect(() => {
     const creds = getUserCredentials()
