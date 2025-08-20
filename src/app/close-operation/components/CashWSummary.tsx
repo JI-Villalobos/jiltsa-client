@@ -1,10 +1,10 @@
-import ErrorMessage from "@/components/shared/ErrorMessage"
-import Spinner from "@/components/shared/Spinner"
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
-import { CashWithdrawal, getCurrentCashRegistries } from "@/services/api/withdrawals"
 import { getBranchName } from "@/utils/appStorage"
 import { useEffect, useState } from "react"
 import CashWSummaryItem from "./CashWsummaryItem"
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services"
+import { CashWithdrawal, getCurrentCashRegistries } from "@/app/services/api/withdrawals"
+import Spinner from "@/app/components/shared/Spinner"
+import ErrorMessage from "@/app/components/shared/ErrorMessage"
 
 export default function CashWSummary(): JSX.Element {
     const [status, setStatus] = useState<RequestStatus>(initialStatus)

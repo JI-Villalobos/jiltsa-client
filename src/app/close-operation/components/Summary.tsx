@@ -1,14 +1,14 @@
-import SessionInfo from "@/components/SessionInfo"
-import Spinner from "@/components/shared/Spinner"
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
-import { Accounting, getAccounting } from "@/services/api/accounts"
 import { getCurrentAccounting } from "@/utils/appStorage"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import IncomeSummary from "./IncomesSummary"
 import ExpensesSummary from "./ExpensesSummary"
 import CashWSummary from "./CashWSummary"
 import DateFormat from "@/utils/DateFormat"
-import { STAGES } from "@/components/Expenses"
+import { Accounting, getAccounting } from "@/app/services/api/accounts"
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services"
+import { STAGES } from "@/app/components/Expenses"
+import SessionInfo from "@/app/components/SessionInfo"
+import Spinner from "@/app/components/shared/Spinner"
 
 interface Props {
     setStage: Dispatch<SetStateAction<number>>

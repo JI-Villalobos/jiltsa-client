@@ -1,5 +1,5 @@
-import ErrorMessage from "@/components/shared/ErrorMessage"
-import { IncomeRegistry } from "@/services/api/incomes"
+import ErrorMessage from "@/app/components/shared/ErrorMessage"
+import { IncomeRegistry } from "@/app/services/api/incomes"
 import { formatAmount } from "@/utils/formatAmount"
 import { useEffect, useState } from "react"
 

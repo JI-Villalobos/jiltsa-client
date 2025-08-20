@@ -1,4 +1,4 @@
-import { CashWithdrawal } from "@/services/api/withdrawals"
+import { CashWithdrawal } from "@/app/services/api/withdrawals"
 import { formatAmount } from "@/utils/formatAmount"
 
 interface Props {

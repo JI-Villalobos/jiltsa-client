@@ -1,4 +1,4 @@
-import { STAGES } from "@/components/Expenses"
+import { STAGES } from "@/app/components/Expenses"
 import { clearIncomesregistered } from "@/utils/appStorage"
 import { useRouter } from "next/router"
 import { Dispatch, SetStateAction } from "react"
