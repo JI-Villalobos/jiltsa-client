@@ -1,5 +1,3 @@
-import { RequestStatus, failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/services"
-import { CreateIncomeRegistry, createIncomes } from "@/services/api/incomes"
 import { getCurrentAccounting, getIncomesRegistered, setIncomesRegistered } from "@/utils/appStorage"
 import { formatAmount } from "@/utils/formatAmount"
 import { Defaults, Income } from "@/utils/variables"
@@ -7,6 +5,8 @@ import { Dispatch, SetStateAction, useState } from "react"
 import { STAGES } from "../Expenses"
 import Spinner from "./Spinner"
 import ErrorMessage from "./ErrorMessage"
+import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services"
+import { CreateIncomeRegistry, createIncomes } from "@/app/services/api/incomes"
 
 interface Props {
     setStage: Dispatch<SetStateAction<number>>
