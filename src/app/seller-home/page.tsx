@@ -8,21 +8,17 @@ import TableReport from "@/app/components/TableReport";
 import Layout from "@/app/layouts/Layout";
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
 import { Accounting, getLatestRegistries } from "@/app/services/api/accounts";
-import { getBranchId, getCurrentAccounting, isAuth } from "@/utils/appStorage";
-import { useRouter } from "next/navigation";
+import { getBranchId, getCurrentAccounting } from "@/utils/appStorage";
 import { useEffect, useState } from "react";
+import { isAuth } from "../hoc/isAuth";
 
-export default function SellerHome(): JSX.Element {
+function SellerHome(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [accounts, setAccounts] = useState<Accounting[]>([])
   
-  const router = useRouter()
-
   useEffect(() => {
     const branchId = getBranchId()
-    if (!isAuth()) {
-      router.push("/login")
-    } else if(branchId){
+    if(branchId){
       setStatus(pendingRequest)
       getLatestRegistries(branchId).then((result) => {
         setAccounts(result)
@@ -30,8 +26,6 @@ export default function SellerHome(): JSX.Element {
       }).catch(() => {
         setStatus(failedRequest)
       })
-    } else {
-      router.push("/login")
     }
   }, [])
 
@@ -50,3 +44,5 @@ export default function SellerHome(): JSX.Element {
     </Layout>
   )
 }
+
+export default isAuth(SellerHome)
