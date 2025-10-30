@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom slow spin for AsideLogin squares */
+@keyframes slow-spin {
+	from { transform: rotate(0deg); }
+	to   { transform: rotate(360deg); }
+}
+
+@keyframes slow-pulse {
+	from { transform: rotate(360deg); }
+	to   { transform: rotate(0deg); }
+}
+
+.animate-slow-spin {
+	/* 6s rotation, soft easing, infinite */
+	animation: slow-spin 6s cubic-bezier(.22,.84,.36,1) infinite;
+	/* keep transform style for smoother rendering */
+	transform-origin: center;
+}
+
+.animate-slow-pulse {
+    animation: slow-pulse 6s cubic-bezier(.22,.84,.36,1) infinite;
+
+    transform-origin: center
+}
