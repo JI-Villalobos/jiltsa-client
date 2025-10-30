@@ -1,5 +1,5 @@
-import { Mode } from "@/services/api/pagination"
 import { create } from "zustand"
+import { Mode } from "../services/api/pagination"
 
 
 export type ModeState = {

@@ -1,8 +1,8 @@
-import { Accounting } from "@/services/api/accounts"
-import { ExpenseRegistry } from "@/services/api/expenses"
-import { IncomeRegistry } from "@/services/api/incomes"
 import { Income } from "./variables"
 import { formatAmount } from "./formatAmount"
+import { IncomeRegistry } from "@/app/services/api/incomes"
+import { ExpenseRegistry } from "@/app/services/api/expenses"
+import { Accounting } from "@/app/services/api/accounts"
 
 export type RowData = {
   otherIncomes: string
