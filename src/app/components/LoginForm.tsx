@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useState } from "react"
-import Spinner from "./shared/Spinner"
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
 import { authenticate, AuthRequest } from "../services/api/auth"
 import { useRouter } from "next/navigation"
+import { LuLoaderCircle } from "react-icons/lu"
 
 export default function LoginForm(): JSX.Element {
   const [mail, setMail] = useState<string>('')
@@ -31,12 +31,12 @@ export default function LoginForm(): JSX.Element {
   }
 
   return (
-    <form onSubmit={handleAuth} className="flex flex-col items-center mt-6">
-      <p className="font-medium text-xl font-coda text-mp-dark">Por favor ingresa tu usuario y contraseña</p>
+    <form onSubmit={handleAuth} className="flex flex-col items-center justify-center mt-6 shadow-lg rounded w-1/2 h-1/3">
+      <p className="font-coda text-mp-green font-semibold">Por favor ingresa tu usuario y contraseña</p>
       <input
         placeholder="Usuario"
         type="text"
-        className="m-2 border border-mp-dark/70 outline-0 focus:bg-mp-gray-soft text-mp-dark rounded text-center h-8  w-5/12"
+        className="m-2 border border-mp-dark/70 outline-0 focus:bg-mp-gray-soft text-mp-dark rounded text-center w-2/3 p-2"
         value={mail}
         onChange={(e: React.FormEvent<HTMLInputElement>): void => {
           setMail(e.currentTarget.value)
@@ -45,17 +45,19 @@ export default function LoginForm(): JSX.Element {
       <input
         placeholder="Contraseña"
         type="password"
-        className="m-2 border border-mp-dark/70 outline-0 focus:bg-mp-gray-soft text-mp-dark rounded text-center h-8  w-5/12"
+        className="m-2 border border-mp-dark/70 outline-0 focus:bg-mp-gray-soft text-mp-dark rounded text-center w-2/3 p-2"
         value={pass}
         onChange={(e: React.FormEvent<HTMLInputElement>): void => {
           setPass(e.currentTarget.value)
         }}
       />
-      <button type="submit" className="rounded bg-mp-green text-mp-gray-soft w-5/12 h-9 m-2 flex items-center justify-center">
-        {status.onLoading ? <Spinner /> : 'Iniciar Sesion'}
+      <button 
+        type="submit" 
+        className="rounded bg-gradient-to-r from-mp-green to-mp-blue transition-all text-mp-gray-soft w-2/3 m-2 flex items-center justify-center p-2">
+        {status.onLoading ? <LuLoaderCircle className="animate-spin m-1"/> : 'Iniciar Sesion'}
       </button>
       {
-        status.onError ? (<p className="text-sm text-mp-error text-center w-1/2 mt-6">
+        status.onError ? (<p className="text-sm text-mp-error text-center w-full mt-6">
           No fue posible Iniciar Sesión revisa que tus datos sean correctos
         </p>)
           : <p className="text-sm text-mp-blue text-center w-1/2 mt-6">
