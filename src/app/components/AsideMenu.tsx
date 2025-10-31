@@ -8,6 +8,7 @@ import Spinner from "./shared/Spinner";
 import { Role } from "@/utils/variables";
 import { RequestStatus } from "../services";
 import { getBranchById } from "../services/api/branches";
+import { LuLandmark, LuMenu, LuReceipt, LuWalletCards } from "react-icons/lu";
 
 export default function AsideMenu(): JSX.Element {
   const [branch, setBranch] = useState<string>('')
@@ -32,18 +33,20 @@ export default function AsideMenu(): JSX.Element {
   }, [])
 
   return (
-    <div className='flex flex-col bg-mp-dark h-screen'>
-      <Image src="/mountain.svg" alt='mountain svg' width={40} height={40} className='self-center mt-6' />
-      <p className='self-center mt-6 text-xs xl:text-sm text-mp-gray-soft'>Sucursal:</p>
+    <div className='flex flex-col items-center bg-mp-white h-screen border border-mp-green border-opacity-10 rounded w-1/12'>
+      <LuMenu className="text-mp-green mt-10"/>
+      <p className='self-center mt-6 text-xs xl:text-sm text-mp-blue'>Sucursal:</p>
       <div className="self-center">
         {
-          status.onLoading ? <Spinner /> : <p className='mt-2 text-xs xl:text-sm text-mp-gray-soft'>{branch}</p>
+          status.onLoading ? <Spinner /> : <p className='mt-2 text-xs xl:text-sm text-mp-green'>{branch}</p>
         }
       </div>
+      <div className="h-2 rounded w-11/12 shadow bg-gradient-to-r from-mp-green to-mp-blue">
+      </div>
       <>
-        <LinkItem path="/seller-home" icon="/home.svg" name="Movimientos" />
-        <LinkItem path="/operation" icon="/casher.svg" name="Registro de Gastos" />
-        <LinkItem path="/cash-registry" icon="/withdrawal.svg" name="Depositos" />
+        <LinkItem path="/seller-home" icon={<LuLandmark className="text-mp-green"/>} name="Movimientos" />
+        <LinkItem path="/operation" icon={<LuReceipt className="text-mp-green"/>} name="Gastos" />
+        <LinkItem path="/cash-registry" icon={<LuWalletCards className="text-mp-green"/>} name="Depositos" />
       </>
     </div>
   )
