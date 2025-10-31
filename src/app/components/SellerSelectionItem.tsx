@@ -8,6 +8,7 @@ import { Seller } from "../services/api/sellers"
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
 import { newAccounting } from "../services/api/accounts"
 import { useRouter } from "next/navigation"
+import { LuLoader, LuUser, LuUserRound } from "react-icons/lu"
 
 type Props = {
   seller: Seller
@@ -35,11 +36,16 @@ export default function SellerSellectionItem({ seller }: Props): JSX.Element {
   return (
     <>
       <button
-        className="m-2 border-s-4 border-mp-green bg-mp-gray-soft w-full p-4 rounded text-mp-dark text-base hover:cursor-pointer hover:text-mp-green"
+        className="w-full rounded-lg text-center align-middle 
+                  text-xs font-medium text-mp-blue transition-all 
+                  hover:bg-gradient-to-r from-mp-green to-mp-blue hover:text-mp-white p-2 flex flex-row items-center 
+                  justify-center border border-opacity-60 mb-4"
+        type="button"
         disabled={status.onLoading}
         onClick={handleAccounting}
       >
-        {status.onLoading ? <Spinner /> : `${seller.fullName}`}
+        <LuUserRound />
+       {status.onLoading ? <LuLoader className="animate-spin" /> : `${seller.fullName}`}
       </button>
       {status.onError && <p className="text-center text-mp-error text-sm">Ocurrio un erro al intentar abrir tu turno intentalo mas tarde</p>}
     </>

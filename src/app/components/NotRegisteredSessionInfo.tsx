@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Modal from "./shared/Modal"
+import { OpenAccountModal } from "../seller-home/components/OpenAccountModal"
 
 export default function NotRegisteredSessionInfo(): JSX.Element{
     const [showModal, setShowModal] = useState(false)
@@ -27,7 +28,7 @@ export default function NotRegisteredSessionInfo(): JSX.Element{
             {
                 showModal &&
                 <Modal onClose={() => setShowModal(false)}>
-                    <p></p>
+                    <OpenAccountModal />
                 </Modal>
             }
         </div>
