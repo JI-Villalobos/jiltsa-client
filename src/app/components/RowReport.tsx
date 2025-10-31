@@ -9,6 +9,7 @@ import { failedRequest, initialStatus, pendingRequest, RequestStatus, successful
 import { getSeller } from "../services/api/sellers"
 import { useRouter } from "next/navigation"
 import Modal from "./shared/Modal"
+import { AccountDetailModal } from "./shared/AccountDetailModal"
 
 type Props = {
   account: Accounting
@@ -52,62 +53,7 @@ export default function RowReport({ account }: Props): JSX.Element {
       {
         showModal &&
         <Modal onClose={() => setShowModal(false)}>
-          <div className="flex flex-col w-full items-center justify-center">
-            <label htmlFor="timestamp" className="mt-4 flex flex-col w-2/3">
-              <span className="text-sm font-medium text-mp-soft-dark"> Timestamp </span>
-
-              <input
-                type="text"
-                id="timestamp"
-                className="mt-0.5 rounded border-mp-soft-dark shadow-sm sm:text-sm p-2 text-center text-mp-dark w-full"
-                value={account.date}
-                readOnly
-              />
-            </label>
-            <label htmlFor="seller" className="mt-4 flex flex-col w-2/3">
-              <span className="text-sm font-medium text-mp-soft-dark"> Vendedor(a) </span>
-
-              <input
-                type="seller"
-                id="Email"
-                className="mt-0.5 rounded border-mp-soft-dark shadow-sm sm:text-sm p-2 text-center text-mp-dark w-full"
-                value={account.date}
-                readOnly
-              />
-            </label>
-            <div className="w-full flex flex-col items-center justify-center mb-4">
-              {
-                account.incomeRegistries.map((income) => (
-                  <label htmlFor="seller" className="mt-4 flex flex-col w-2/3" key={income.id}>
-                    <span className="text-sm font-medium text-mp-soft-dark"> {income.tag} </span>
-                    <input
-                      type="seller"
-                      id="Email"
-                      className="mt-0.5 rounded border-mp-soft-dark shadow-sm sm:text-sm p-2 text-center text-mp-dark w-full"
-                      value={income.amount}
-                      readOnly
-                    />
-                  </label>
-                ))
-              }
-            </div>
-            <div className="w-full flex flex-col items-center justify-center mb-4">
-              {
-                account.expenseRegistries.map((expense) => (
-                  <label htmlFor="seller" className="mt-4 flex flex-col w-2/3" key={expense.id}>
-                    <span className="text-sm font-medium text-mp-soft-dark"> {expense.description} </span>
-                    <input
-                      type="seller"
-                      id="Email"
-                      className="mt-0.5 rounded border-mp-soft-dark shadow-sm sm:text-sm p-2 text-center text-mp-dark w-full"
-                      value={expense.amount}
-                      readOnly
-                    />
-                  </label>
-                ))
-              }
-            </div>
-          </div>
+          <AccountDetailModal accounting={account} seller={seller}/>
         </Modal>
       }
     </>

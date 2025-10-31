@@ -6,7 +6,7 @@ import { failedRequest, initialStatus, pendingRequest, RequestStatus, successful
 import { getSellerByBranch, Seller } from "@/app/services/api/sellers"
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
-import { LuLoader, LuLoaderCircle } from "react-icons/lu"
+import { LuLoaderCircle } from "react-icons/lu"
 
 export const OpenAccountModal = () => {
     const [status, setStatus] = useState<RequestStatus>(initialStatus)
