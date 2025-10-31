@@ -25,8 +25,8 @@ const Modal = ({ children, onClose, title }: Props) => {
                     <div className="flex content-end text-sm">
                         <button 
                             onClick={handleCloseClick} 
-                            className="bg-mp-blue w-10 h-10 rounded text-mp-white text-xl 
-                                        m-2 hover:bg-mp-green"
+                            className="transition delay-150 duration-300 ease-in-out bg-gradient-to-r from-mp-green to-mp-blue w-10 h-10 rounded text-mp-white text-xl 
+                                        m-2 hover:-translate-y-1 hover:scale-110"
                         >
                             x
                         </button>
