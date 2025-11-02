@@ -12,10 +12,14 @@ import { getBranchId, getCurrentAccounting } from "@/utils/appStorage";
 import { useEffect, useState } from "react";
 import { isAuth } from "../hoc/isAuth";
 import { LuReceipt, LuWalletCards } from "react-icons/lu";
+import Modal from "../components/shared/Modal";
+import { NewExpenseModal } from "./components/NewExpenseModal";
 
 function SellerHome(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [accounts, setAccounts] = useState<Accounting[]>([])
+  const [showExpenseModal, setShowExpenseModal] = useState(false)
+  const [showCashWithdrawalModal, setShowCashWithdrawalModal] = useState(false)
 
   useEffect(() => {
     const branchId = getBranchId()
@@ -39,7 +43,10 @@ function SellerHome(): JSX.Element {
           getCurrentAccounting() &&
           <div className="w-1/2 flex flex-row justify-center gap-4">
             <CloseOperationButton />
-            <button className="rounded p-2 bg-mp-green text-mp-white text-sm flex flex-row items-center transition-all hover:bg-mp-light-green">
+            <button
+              className="rounded p-2 bg-mp-green text-mp-white text-sm flex flex-row items-center transition-all hover:bg-mp-light-green"
+              onClick={() => setShowExpenseModal(true)}
+            >
               <LuReceipt />
               Nuevo Gasto
             </button>
@@ -52,6 +59,12 @@ function SellerHome(): JSX.Element {
         <p className='mt-2 text-xl text-mp-dark'>Actividad Reciente:</p>
         {status.onLoading ? <Skeleton /> : status.onError ? <Error /> : <TableReport accounts={accounts} />}
       </>
+      {
+        showExpenseModal &&
+        <Modal onClose={() => setShowExpenseModal(false)}>
+          <NewExpenseModal />
+        </Modal>
+      }
     </Layout>
   )
 }
