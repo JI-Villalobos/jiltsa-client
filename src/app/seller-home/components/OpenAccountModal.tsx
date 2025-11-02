@@ -11,6 +11,7 @@ import { LuLoaderCircle } from "react-icons/lu"
 export const OpenAccountModal = () => {
     const [status, setStatus] = useState<RequestStatus>(initialStatus)
     const [sellers, setSellers] = useState<Seller[]>([])
+    const [message, setMessage] = useState<string>('')
 
     useEffect(() => {
         const branch = Cookies.get('branchId')
@@ -30,11 +31,16 @@ export const OpenAccountModal = () => {
         <div className="flex flex-col items-center w-1/2 p-2">
             <p className="mb-4 text-xl text-mp-green">Selecciona tu turno</p>
             {
-                status.onLoading ? <LuLoaderCircle className="animate-spin text-mp-green" size={30}/>
+                status.onLoading ? <LuLoaderCircle className="animate-spin text-mp-green" size={30} />
                     : sellers.map(seller => (
-                        <SellerSellectionItem seller={seller} key={`seller-id-${seller.id}`} />
+                        <SellerSellectionItem
+                            seller={seller}
+                            key={`seller-id-${seller.id}`}
+                            setMessage={setMessage}
+                        />
                     ))
             }
+            <p className="mt-1 text-xs animate-pulse text-mp-green text-center">{message}</p>
         </div>
     )
 }
