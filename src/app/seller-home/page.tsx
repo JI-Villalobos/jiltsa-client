@@ -11,6 +11,7 @@ import { Accounting, getLatestRegistries } from "@/app/services/api/accounts";
 import { getBranchId, getCurrentAccounting } from "@/utils/appStorage";
 import { useEffect, useState } from "react";
 import { isAuth } from "../hoc/isAuth";
+import { LuReceipt, LuWalletCards } from "react-icons/lu";
 
 function SellerHome(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
@@ -33,11 +34,21 @@ function SellerHome(): JSX.Element {
     <Layout>
       <>
         <SessionInfo />
-        <div className="w-1/2 flex flex-row justify-end">
-          {
-            getCurrentAccounting() && <CloseOperationButton />
-          }
-        </div>
+
+        {
+          getCurrentAccounting() &&
+          <div className="w-1/2 flex flex-row justify-center gap-4">
+            <CloseOperationButton />
+            <button className="rounded p-2 bg-mp-green text-mp-white text-sm flex flex-row items-center transition-all hover:bg-mp-light-green">
+              <LuReceipt />
+              Nuevo Gasto
+            </button>
+            <button className="rounded p-2 bg-mp-green text-mp-white text-sm flex flex-row items-center transition-all hover:bg-mp-light-green">
+              <LuWalletCards />
+              Nuevo Deposito
+            </button>
+          </div>
+        }
         <p className='mt-2 text-xl text-mp-dark'>Actividad Reciente:</p>
         {status.onLoading ? <Skeleton /> : status.onError ? <Error /> : <TableReport accounts={accounts} />}
       </>
