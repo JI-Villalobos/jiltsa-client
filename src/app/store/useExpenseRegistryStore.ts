@@ -19,7 +19,7 @@ const defaultExpense: CreateExpenseRegistry = {
   expenseTypeId: 0
 }
 
-const useExpenseRegistryStore = create<State & Action>((set) => ({
+export const useExpenseRegistryStore = create<State & Action>((set) => ({
   stage: ExpenseStages.SELECT_EXPENSE_TYPE,
   expense: defaultExpense,
   setStage: (stage: ExpenseStages) => set(() => ({ stage: stage })),

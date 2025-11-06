@@ -1,8 +1,12 @@
 'use client'
 
+import { useExpenseRegistryStore } from "@/app/store/useExpenseRegistryStore"
+import { ExpenseStages } from "@/utils/variables"
 import { LuHandCoins, LuHandshake, LuTicket, LuWallet } from "react-icons/lu"
 
 export const ExpenseTypeSelectionStage = () => {
+  const { setStage } = useExpenseRegistryStore()
+
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <p className="text-md text-mp-dark p-2">Selecciona el tipo de gasto</p>
@@ -13,6 +17,7 @@ export const ExpenseTypeSelectionStage = () => {
           className="flex flex-row items-center p-2 justify-center gap-2 rounded shadow-md 
                       shadow-mp-strong-gray border border-mp-blue border-opacity-5 transition-all 
                       hover:bg-mp-gray-soft w-1/2 text-mp-dark"
+          onClick={() => setStage(ExpenseStages.PROVIDER_SELECTION)}
         >
           <LuHandCoins />
           Proveedores
