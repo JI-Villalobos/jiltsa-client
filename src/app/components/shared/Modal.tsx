@@ -6,7 +6,7 @@ import ReactDOM from "react-dom"
 interface Props {
     onClose: CallableFunction
     children: React.ReactNode
-    title?: string 
+    title?: string
 }
 
 const Modal = ({ children, onClose, title }: Props) => {
@@ -23,8 +23,8 @@ const Modal = ({ children, onClose, title }: Props) => {
             <div className="w-4/5 md:w-1/3 xl:full opacity-">
                 <div className="bg-mp-white rounded">
                     <div className="flex content-end text-sm">
-                        <button 
-                            onClick={handleCloseClick} 
+                        <button
+                            onClick={handleCloseClick}
                             className="transition delay-150 duration-300 ease-in-out bg-gradient-to-r from-mp-green to-mp-blue w-10 h-10 rounded text-mp-white text-xl 
                                         m-2 hover:-translate-y-1 hover:scale-110"
                         >
