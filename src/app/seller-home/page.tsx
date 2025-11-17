@@ -8,7 +8,7 @@ import TableReport from "@/app/components/TableReport";
 import Layout from "@/app/layouts/Layout";
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
 import { Accounting, getLatestRegistries } from "@/app/services/api/accounts";
-import { getBranchId, getCurrentAccounting } from "@/utils/appStorage";
+import { CurrentAccounting, getBranchId, getCurrentAccounting } from "@/utils/appStorage";
 import { useEffect, useState } from "react";
 import { isAuth } from "../hoc/isAuth";
 import { LuReceipt, LuWalletCards } from "react-icons/lu";
@@ -19,10 +19,13 @@ function SellerHome(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [accounts, setAccounts] = useState<Accounting[]>([])
   const [showExpenseModal, setShowExpenseModal] = useState(false)
-  const [showCashWithdrawalModal, setShowCashWithdrawalModal] = useState(false)
+  const [currentAccount, setCurrentAccount] = useState<CurrentAccounting>()
+  //const [showCashWithdrawalModal, setShowCashWithdrawalModal] = useState(false)
 
   useEffect(() => {
     const branchId = getBranchId()
+    const account = getCurrentAccounting()
+    setCurrentAccount(account)
     if (branchId) {
       setStatus(pendingRequest)
       getLatestRegistries(branchId).then((result) => {
@@ -40,7 +43,7 @@ function SellerHome(): JSX.Element {
         <SessionInfo />
 
         {
-          getCurrentAccounting() &&
+          currentAccount &&
           <div className="w-1/2 flex flex-row justify-center gap-4">
             <CloseOperationButton />
             <button
