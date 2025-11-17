@@ -22,3 +22,11 @@ export enum ExpenseStages {
   NEW_EXPENSE_DETAILS = 'NEW_EXPENSE_DETAILS',
   FINALIZE_EXPENSE_REGISTRY = 'FINALIZE_EXPENSE_REGISTRY'
 }
+
+export enum ExpenseTypeId {
+  SUELDOS = 1,
+  RENTA = 2,
+  OTROS = 3,
+  SERVICIOS = 4,
+  PROVEEDORES = 5
+}

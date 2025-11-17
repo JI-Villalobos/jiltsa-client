@@ -9,7 +9,7 @@ type State = {
 
 type Action = {
   setStage: (stage: ExpenseStages) => void
-  setExpense: (expense: ExpenseRegistry) => void
+  setExpense: (expense: CreateExpenseRegistry) => void
 }
 
 const defaultExpense: CreateExpenseRegistry = {
@@ -23,7 +23,7 @@ export const useExpenseRegistryStore = create<State & Action>((set) => ({
   stage: ExpenseStages.SELECT_EXPENSE_TYPE,
   expense: defaultExpense,
   setStage: (stage: ExpenseStages) => set(() => ({ stage: stage })),
-  setExpense: (expense: ExpenseRegistry) => set(() => ({ expense: expense }))
+  setExpense: (expense: CreateExpenseRegistry) => set(() => ({ expense: expense }))
 }))
 
 
