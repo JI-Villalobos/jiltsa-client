@@ -1,11 +1,18 @@
 'use client'
 
+import { CreateExpenseRegistry } from "@/app/services/api/expenses"
 import { useExpenseRegistryStore } from "@/app/store/useExpenseRegistryStore"
 import { ExpenseStages } from "@/utils/variables"
 import { LuArrowLeftFromLine, LuCandy, LuCookie, LuFlaskRound, LuPopcorn, LuSalad } from "react-icons/lu"
 
 export const ProviderSelectionstage = () => {
-  const { setStage } = useExpenseRegistryStore()
+  const { setStage, expense, setExpense } = useExpenseRegistryStore()
+
+  const handleStage = (provider: string) => {
+    const updatedExpense: CreateExpenseRegistry = { ...expense, description: provider }
+    setExpense(updatedExpense)
+    setStage(ExpenseStages.FINALIZE_EXPENSE_REGISTRY)
+  }
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
@@ -13,42 +20,42 @@ export const ProviderSelectionstage = () => {
       <div className="grid grid-cols-3 gap-2 p-4 mb-6 mt-4">
         <button
           className="p-4 flex flex-row items-center text-mp-dark justify-center gap-2 rounded shadow-md hover:bg-gradient-to-r from-mp-green to-mp-blue hover:text-mp-white"
-          onClick={() => setStage(ExpenseStages.FINALIZE_EXPENSE_REGISTRY)}
+          onClick={() => handleStage("Sabritas")}
         >
           <LuPopcorn className="text-mp-blue" />
           Sabritas
         </button>
         <button
           className="p-4 flex flex-row items-center text-mp-dark justify-center gap-2 rounded shadow-md hover:bg-gradient-to-r from-mp-green to-mp-blue hover:text-mp-white"
-          onClick={() => setStage(ExpenseStages.FINALIZE_EXPENSE_REGISTRY)}
+          onClick={() => handleStage("Ricolino")}
         >
           <LuCandy className="text-mp-blue" />
           Ricolino
         </button>
         <button
           className="p-4 flex flex-row items-center text-mp-dark justify-center gap-2 rounded shadow-md hover:bg-gradient-to-r from-mp-green to-mp-blue hover:text-mp-white"
-          onClick={() => setStage(ExpenseStages.FINALIZE_EXPENSE_REGISTRY)}
+          onClick={() => handleStage("Botanas Leo")}
         >
           <LuSalad className="text-mp-blue" />
           B. Leo
         </button>
         <button
           className="p-4 flex flex-row items-center text-mp-dark justify-center gap-2 rounded shadow-md hover:bg-gradient-to-r from-mp-green to-mp-blue hover:text-mp-white"
-          onClick={() => setStage(ExpenseStages.FINALIZE_EXPENSE_REGISTRY)}
+          onClick={() => handleStage("Gamesa")}
         >
           <LuCookie className="text-mp-blue" />
           Gamesa
         </button>
         <button
           className="p-4 flex flex-row items-center text-mp-dark justify-center gap-2 rounded shadow-md hover:bg-gradient-to-r from-mp-green to-mp-blue hover:text-mp-white"
-          onClick={() => setStage(ExpenseStages.FINALIZE_EXPENSE_REGISTRY)}
+          onClick={() => handleStage("Pharmaceutix")}
         >
           <LuFlaskRound className="text-mp-blue" />
           Pharmaceutix
         </button>
         <button
           className="p-4 flex flex-row items-center text-mp-dark justify-center gap-2 rounded shadow-md hover:bg-gradient-to-r from-mp-green to-mp-blue hover:text-mp-white"
-          onClick={() => setStage(ExpenseStages.FINALIZE_EXPENSE_REGISTRY)}
+          onClick={() => handleStage("Barcel")}
         >
           <LuPopcorn className="text-mp-blue" />
           Barcel
