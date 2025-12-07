@@ -1,13 +1,18 @@
 'use client'
 
+import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
+import { createExpense } from "@/app/services/api/expenses"
 import { useExpenseRegistryStore } from "@/app/store/useExpenseRegistryStore"
 import { getCurrentAccounting } from "@/utils/appStorage"
 import { formatAmount } from "@/utils/formatAmount"
+import { ExpenseStages } from "@/utils/variables"
 import { useEffect, useState } from "react"
+import { LuLoader, LuLoaderCircle } from "react-icons/lu"
 
 export const FinalizeExpenseRegistry = () => {
   const [currentAccounting, setCurrentAccounting] = useState<number>()
-  const { expense, setExpense } = useExpenseRegistryStore()
+  const [expenseRegistrystatus, setExpenseRegistrystatus] = useState(initialStatus)
+  const { expense, setExpense, setStage } = useExpenseRegistryStore()
 
   useEffect(() => {
     const accounting = getCurrentAccounting()
@@ -19,7 +24,20 @@ export const FinalizeExpenseRegistry = () => {
   }, [])
 
   const handleExpenseRegistry = async () => {
-    await console.log(expense);
+    if (expense.accountingId && expense.amount > 0) {
+      setExpenseRegistrystatus(pendingRequest)
+      await createExpense(expense)
+        .then(() => {
+          setExpenseRegistrystatus(successfullRequest)
+          setTimeout(() => {
+            setStage(ExpenseStages.SELECT_EXPENSE_TYPE)
+          }, 2000)
+          setExpenseRegistrystatus(pendingRequest)
+        })
+        .catch(() => {
+          setExpenseRegistrystatus(failedRequest)
+        })
+    }
   }
 
   return (
@@ -38,10 +56,10 @@ export const FinalizeExpenseRegistry = () => {
           onChange={(e) => setExpense({ ...expense, amount: parseFloat(e.currentTarget.value) })}
         />
         <button
-          className="p-2 text-mp-white bg-gradient-to-r from-mp-green to-mp-blue mt-2 w-28 rounded shadow"
+          className="p-2 text-mp-white bg-gradient-to-r from-mp-green to-mp-blue mt-2 w-28 rounded shadow flex items-center justify-center"
           onClick={handleExpenseRegistry}
         >
-          Confirmar
+          {expenseRegistrystatus.onLoading ? <LuLoaderCircle className="animate-spin" /> : 'Confirmar'}
         </button>
       </div>
     </div>
