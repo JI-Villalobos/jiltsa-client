@@ -7,7 +7,7 @@ import { getCurrentAccounting } from "@/utils/appStorage"
 import { formatAmount } from "@/utils/formatAmount"
 import { ExpenseStages } from "@/utils/variables"
 import { useEffect, useState } from "react"
-import { LuLoader, LuLoaderCircle } from "react-icons/lu"
+import { LuLoaderCircle } from "react-icons/lu"
 
 export const FinalizeExpenseRegistry = () => {
   const [currentAccounting, setCurrentAccounting] = useState<number>()
