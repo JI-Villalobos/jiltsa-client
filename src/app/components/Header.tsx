@@ -26,11 +26,11 @@ export default function Header(): JSX.Element {
                 <ul className="space-y-6 tracking-wide font-medium text-base lg:text-sm lg:flex lg:space-y-0 flex items-center justify-center">
                   <li className="flex flex-row justify-center items-center">
                     <BiCode size={20} />
-                    <p className="text-mp-dark text-sm">Versión 1.0.0</p>
+                    <p className="text-mp-dark text-sm">Versión 1.1.0</p>
                   </li>
                   <li className="mr-6 ml-4 flex items-center justify-center">
                     <button onClick={handleLogout}>
-                     <LuLogOut className="text-mp-strong-red"/>
+                      <LuLogOut className="text-mp-strong-red" />
                     </button>
                   </li>
                 </ul>
@@ -42,16 +42,3 @@ export default function Header(): JSX.Element {
     </header>
   )
 }
-
-/**
- *  <Image src="/mp_logo.png" width={80} height={45} alt='mp logo' className='m-2' />
-      <a href="https://checker-ear-0d6.notion.site/JILTSA-Manual-de-usuario-5382089db632443897a40d864dc3a903?pvs=4" target="_blank">
-        <div className="flex flex-row justify-center items-center">
-          <BiCode size={20}/>
-          <p className="text-mp-dark text-sm">Versión 1.0.0</p>
-        </div>
-      </a>
-      <button onClick={handleLogout}>
-        <Image src="/logout.svg" width={30} height={30} alt='mp logo' className='m-2' />
-      </button>
- */
