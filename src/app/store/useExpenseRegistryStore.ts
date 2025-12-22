@@ -12,7 +12,7 @@ type Action = {
   setExpense: (expense: CreateExpenseRegistry) => void
 }
 
-const defaultExpense: CreateExpenseRegistry = {
+export const defaultExpense: CreateExpenseRegistry = {
   amount: 0,
   accountingId: 0,
   description: '',
