@@ -6,6 +6,7 @@ import { ExpenseTypeSelectionStage } from "./ExpenseTypeSelectionStage"
 import { ProviderSelectionstage } from "./ProviderSelectionStage"
 import { FinalizeExpenseRegistry } from "./FinalizeExpenseRegistry"
 import { ServiceSelectionStage } from "./ServiceSelectionStage"
+import { SalaryExpenseSelectionStage } from "./SalaryExpenseSelectionStage"
 
 export const NewExpenseModal = () => {
   const { stage } = useExpenseRegistryStore()
@@ -15,6 +16,7 @@ export const NewExpenseModal = () => {
       {stage === ExpenseStages.SELECT_EXPENSE_TYPE && <ExpenseTypeSelectionStage />}
       {stage === ExpenseStages.PROVIDER_SELECTION && <ProviderSelectionstage />}
       {stage === ExpenseStages.SERVICE_SELECTION && <ServiceSelectionStage />}
+      {stage === ExpenseStages.SELLER_SELECTION && <SalaryExpenseSelectionStage />}
       {stage === ExpenseStages.FINALIZE_EXPENSE_REGISTRY && <FinalizeExpenseRegistry />}
     </>
   )
