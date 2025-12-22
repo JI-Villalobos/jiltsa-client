@@ -2,7 +2,7 @@
 
 import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
 import { createExpense } from "@/app/services/api/expenses"
-import { useExpenseRegistryStore } from "@/app/store/useExpenseRegistryStore"
+import { defaultExpense, useExpenseRegistryStore } from "@/app/store/useExpenseRegistryStore"
 import { getCurrentAccounting } from "@/utils/appStorage"
 import { formatAmount } from "@/utils/formatAmount"
 import { ExpenseStages } from "@/utils/variables"
@@ -29,6 +29,7 @@ export const FinalizeExpenseRegistry = () => {
       await createExpense(expense)
         .then(() => {
           setExpenseRegistrystatus(successfullRequest)
+          setExpense(defaultExpense)
           setTimeout(() => {
             setStage(ExpenseStages.SELECT_EXPENSE_TYPE)
           }, 2000)
