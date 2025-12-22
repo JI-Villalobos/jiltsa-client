@@ -42,6 +42,7 @@ export const ExpenseTypeSelectionStage = () => {
           className="flex flex-row items-center p-2 justify-center gap-2 rounded shadow-md 
                       shadow-mp-strong-gray border border-mp-blue border-opacity-5 transition-all 
                       hover:bg-mp-gray-soft w-1/2 text-mp-dark"
+          onClick={() => handleStage(ExpenseStages.SELLER_SELECTION, ExpenseTypeId.SUELDOS)}
         >
           <LuWallet />
           Sueldos
