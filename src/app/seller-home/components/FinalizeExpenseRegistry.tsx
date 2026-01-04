@@ -12,7 +12,7 @@ import { LuLoaderCircle } from "react-icons/lu"
 export const FinalizeExpenseRegistry = () => {
   const [currentAccounting, setCurrentAccounting] = useState<number>()
   const [expenseRegistrystatus, setExpenseRegistrystatus] = useState(initialStatus)
-  const { expense, setExpense, setStage } = useExpenseRegistryStore()
+  const { expense, setExpense, setStage, setUpdateFlag } = useExpenseRegistryStore()
 
   useEffect(() => {
     const accounting = getCurrentAccounting()
@@ -30,6 +30,7 @@ export const FinalizeExpenseRegistry = () => {
         .then(() => {
           setExpenseRegistrystatus(successfullRequest)
           setExpense(defaultExpense)
+          setUpdateFlag()
           setTimeout(() => {
             setStage(ExpenseStages.SELECT_EXPENSE_TYPE)
           }, 2000)

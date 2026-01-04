@@ -7,7 +7,7 @@ import { useExpenseRegistryStore } from "@/app/store/useExpenseRegistryStore"
 import { ExpenseStages } from "@/utils/variables"
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
-import { LuLoaderCircle, LuUserRound } from "react-icons/lu"
+import { LuArrowLeftFromLine, LuLoaderCircle, LuUserRound } from "react-icons/lu"
 
 export const SalaryExpenseSelectionStage = () => {
   const [status, setStatus] = useState(initialStatus)
@@ -57,6 +57,15 @@ export const SalaryExpenseSelectionStage = () => {
             </button>
           ))
       }
+      <div className="w-full mb-4 flex items-center justify-center">
+        <button
+          className="flex flex-row items-center justify-center p-2 rounded shadow hover:text-mp-green text-mp-dark"
+          onClick={() => setStage(ExpenseStages.SELECT_EXPENSE_TYPE)}
+        >
+          <LuArrowLeftFromLine className="mr-2" />
+          Regresar
+        </button>
+      </div>
     </div >
   )
 }
