@@ -3,7 +3,7 @@
 import { CreateExpenseRegistry } from "@/app/services/api/expenses"
 import { useExpenseRegistryStore } from "@/app/store/useExpenseRegistryStore"
 import { ExpenseStages } from "@/utils/variables"
-import { LuDroplets, LuHouse, LuLightbulb } from "react-icons/lu"
+import { LuArrowLeftFromLine, LuDroplets, LuHouse, LuLightbulb } from "react-icons/lu"
 
 export const ServiceSelectionStage = () => {
   const { expense, setExpense, setStage } = useExpenseRegistryStore()
@@ -38,6 +38,15 @@ export const ServiceSelectionStage = () => {
         >
           <LuHouse className="text-mp-blue" />
           Renta
+        </button>
+      </div>
+      <div className="w-full mb-4 flex items-center justify-center">
+        <button
+          className="flex flex-row items-center justify-center p-2 rounded shadow hover:text-mp-green text-mp-dark"
+          onClick={() => setStage(ExpenseStages.SELECT_EXPENSE_TYPE)}
+        >
+          <LuArrowLeftFromLine className="mr-2" />
+          Regresar
         </button>
       </div>
     </div>

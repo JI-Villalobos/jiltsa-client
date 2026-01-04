@@ -7,12 +7,13 @@ import { getCurrentAccounting } from "@/utils/appStorage"
 import { formatAmount } from "@/utils/formatAmount"
 import { ExpenseStages } from "@/utils/variables"
 import { useEffect, useState } from "react"
-import { LuLoaderCircle } from "react-icons/lu"
+import { LuArrowLeftFromLine, LuLoaderCircle } from "react-icons/lu"
 
 export const OtherExpenseRegistry = () => {
   const [currentAccounting, setCurrentAccounting] = useState<number>()
-  const { expense, setExpense, setStage } = useExpenseRegistryStore()
   const [expenseRegistrystatus, setExpenseRegistrystatus] = useState(initialStatus)
+
+  const { expense, setExpense, setStage, setUpdateFlag } = useExpenseRegistryStore()
 
   useEffect(() => {
     const accounting = getCurrentAccounting()
@@ -30,6 +31,7 @@ export const OtherExpenseRegistry = () => {
         .then(() => {
           setExpenseRegistrystatus(successfullRequest)
           setExpense(defaultExpense)
+          setUpdateFlag()
           setTimeout(() => {
             setStage(ExpenseStages.SELECT_EXPENSE_TYPE)
           }, 2000)
@@ -68,6 +70,15 @@ export const OtherExpenseRegistry = () => {
           onClick={handleExpenseRegistry}
         >
           {expenseRegistrystatus.onLoading ? <LuLoaderCircle className="animate-spin" /> : 'Confirmar'}
+        </button>
+      </div>
+      <div className="w-full mb-4 flex items-center justify-center">
+        <button
+          className="flex flex-row items-center justify-center p-2 rounded shadow hover:text-mp-green text-mp-dark"
+          onClick={() => setStage(ExpenseStages.SELECT_EXPENSE_TYPE)}
+        >
+          <LuArrowLeftFromLine className="mr-2" />
+          Regresar
         </button>
       </div>
     </div>

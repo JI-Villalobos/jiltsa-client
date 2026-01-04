@@ -14,12 +14,16 @@ import { isAuth } from "../hoc/isAuth";
 import { LuReceipt, LuWalletCards } from "react-icons/lu";
 import Modal from "../components/shared/Modal";
 import { NewExpenseModal } from "./components/NewExpenseModal";
+import { defaultExpense, useExpenseRegistryStore } from "../store/useExpenseRegistryStore";
+import { ExpenseStages } from "@/utils/variables";
 
 function SellerHome(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [accounts, setAccounts] = useState<Accounting[]>([])
   const [showExpenseModal, setShowExpenseModal] = useState(false)
   const [currentAccount, setCurrentAccount] = useState<CurrentAccounting>()
+
+  const { setExpense, setStage, updateFlag } = useExpenseRegistryStore()
   //const [showCashWithdrawalModal, setShowCashWithdrawalModal] = useState(false)
 
   useEffect(() => {
@@ -35,7 +39,7 @@ function SellerHome(): JSX.Element {
         setStatus(failedRequest)
       })
     }
-  }, [])
+  }, [updateFlag])
 
   return (
     <Layout>
@@ -64,7 +68,11 @@ function SellerHome(): JSX.Element {
       </>
       {
         showExpenseModal &&
-        <Modal onClose={() => setShowExpenseModal(false)}>
+        <Modal onClose={() => {
+          setExpense(defaultExpense)
+          setStage(ExpenseStages.SELECT_EXPENSE_TYPE)
+          setShowExpenseModal(false)
+        }}>
           <NewExpenseModal />
         </Modal>
       }
