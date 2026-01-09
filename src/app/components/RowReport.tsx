@@ -10,6 +10,9 @@ import { getSeller } from "../services/api/sellers"
 import { useRouter } from "next/navigation"
 import Modal from "./shared/Modal"
 import { AccountDetailModal } from "./shared/AccountDetailModal"
+import { LuBadgeCheck } from "react-icons/lu"
+import clsx from "clsx"
+
 
 type Props = {
   account: Accounting
@@ -40,20 +43,29 @@ export default function RowReport({ account }: Props): JSX.Element {
 
   return (
     <>
-      <tr className="text-center hover:bg-mp-strong-gray hover:cursor-pointer" onClick={() => setShowModal(true)}>
-        <td className='whitespace-nowrap px-4 py-2 text-mp-soft-dark text-sm'>{DateFormat(account.date!)}</td>
-        <td className='whitespace-nowrap px-4 py-2 text-mp-dark text-sm'>
+      <tr
+        className={clsx(
+          'text-center hover:bg-mp-strong-gray hover:cursor-pointer',
+          {
+            'bg-mp-white': account.id % 2 == 0
+          }
+        )}
+        onClick={() => setShowModal(true)}
+      >
+        <td className='whitespace-nowrap px-4 py-2 text-mp-soft-dark text-xs'>{DateFormat(account.date!)}</td>
+        <td className='whitespace-nowrap px-4 py-2 text-mp-dark text-xs'>
           {status.onLoading ? <Spinner /> : `${seller}`}
         </td>
-        <td className='whitespace-nowrap px-4 py-2 text-mp-blue text-sm'>{rowData.otherIncomes}</td>
-        <td className='whitespace-nowrap px-4 py-2 text-mp-blue text-sm'>{rowData.incomes}</td>
-        <td className='whitespace-nowrap px-4 py-2 text-mp-green text-sm'>{rowData.total}</td>
-        <td className='whitespace-nowrap px-4 py-2 text-mp-blue text-sm'>{rowData.expenses}</td>
+        <td className='whitespace-nowrap px-4 py-2 text-mp-blue text-xs'>{rowData.otherIncomes}</td>
+        <td className='whitespace-nowrap px-4 py-2 text-mp-blue text-xs'>{rowData.incomes}</td>
+        <td className='whitespace-nowrap px-4 py-2 text-mp-green text-xs'>{rowData.total}</td>
+        <td className='whitespace-nowrap px-4 py-2 text-mp-blue text-xs'>{rowData.expenses}</td>
+        <td className='whitespace-nowrap px-4 py-2 text-mp-blue text-xs'><LuBadgeCheck className="text-mp-green ml-4" /></td>
       </tr>
       {
         showModal &&
         <Modal onClose={() => setShowModal(false)}>
-          <AccountDetailModal accounting={account} seller={seller}/>
+          <AccountDetailModal accounting={account} seller={seller} />
         </Modal>
       }
     </>

@@ -4,7 +4,7 @@ export enum Role {
 }
 
 export enum Income {
-  PRONTIPAGOS  = 'PRONTIPAGOS',
+  PRONTIPAGOS = 'PRONTIPAGOS',
   MEDICAMENTO = 'MEDICAMENTO'
 }
 
@@ -13,4 +13,22 @@ export const conceptList = ["Cobro con tarjeta", "Cobro por transferencia", "BBV
 export enum Defaults {
   PRONTIPAGOS = 1,
   MEDICAMENTO = 2
+}
+
+export enum ExpenseStages {
+  SELECT_EXPENSE_TYPE = 'SELECT_EXPENSE_TYPE',
+  PROVIDER_SELECTION = 'PROVIDER_SELECTION',
+  SERVICE_SELECTION = 'SERVICE_SELECTION',
+  SELLER_SELECTION = 'SELLER_SELECTION',
+  OTHER_EXPENSE_REGSTRY = 'OTHER_EXPENSE_REGSTRY',
+  NEW_EXPENSE_DETAILS = 'NEW_EXPENSE_DETAILS',
+  FINALIZE_EXPENSE_REGISTRY = 'FINALIZE_EXPENSE_REGISTRY'
+}
+
+export enum ExpenseTypeId {
+  SUELDOS = 1,
+  RENTA = 2,
+  OTROS = 3,
+  SERVICIOS = 4,
+  PROVEEDORES = 5
 }
