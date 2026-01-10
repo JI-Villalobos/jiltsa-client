@@ -8,7 +8,7 @@ export enum Income {
   MEDICAMENTO = 'MEDICAMENTO'
 }
 
-export const conceptList = ["Cobro con tarjeta", "Cobro por transferencia", "BBVA", "COPPEL", "BANORTE", "BANREGIO", "SCOTIABANK", "OTROS"]
+export const conceptList = ["Cobro con tarjeta", "Cobro por transferencia", "Retiro administrativo", "BBVA", "COPPEL", "BANORTE", "BANREGIO", "SCOTIABANK", "OTROS"]
 
 export enum Defaults {
   PRONTIPAGOS = 1,
@@ -23,6 +23,11 @@ export enum ExpenseStages {
   OTHER_EXPENSE_REGSTRY = 'OTHER_EXPENSE_REGSTRY',
   NEW_EXPENSE_DETAILS = 'NEW_EXPENSE_DETAILS',
   FINALIZE_EXPENSE_REGISTRY = 'FINALIZE_EXPENSE_REGISTRY'
+}
+
+export enum WithdrawalStages {
+  SELECT_WITHDRAWAL_STAGE = 'SELECT_WITHDRAWAL_STAGE',
+  FINALIZE_WITHDRAWAL_STAGE = 'FINALIZE_WITHDRAWAL_STAGE'
 }
 
 export enum ExpenseTypeId {

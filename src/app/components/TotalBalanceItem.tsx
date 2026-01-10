@@ -7,12 +7,14 @@ import { formatAmount } from "@/utils/formatAmount"
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
 import { getTotalBalance } from "../services/api/branches"
 import { useExpenseRegistryStore } from "../store/useExpenseRegistryStore"
+import { useWithdrawalRegistryStore } from "../store/useWithdrawalRegistryStore"
 
 export default function TotalBalanceItem(): JSX.Element {
   const [totals, setTotals] = useState<string>()
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
 
   const { updateFlag } = useExpenseRegistryStore()
+  const { updateFlag: updateWithdrawalFlag } = useWithdrawalRegistryStore()
 
   useEffect(() => {
     setStatus(pendingRequest)
@@ -26,7 +28,7 @@ export default function TotalBalanceItem(): JSX.Element {
       })
     }
 
-  }, [updateFlag])
+  }, [updateFlag, updateWithdrawalFlag])
 
   return (
     <div className="flex flex-row p-4 border border-mp-strong-gray rounded justify-center items-center m-6">
