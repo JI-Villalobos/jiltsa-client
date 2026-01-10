@@ -2,6 +2,8 @@
 
 import { deleteAccounting } from "@/utils/appStorage"
 import { useRouter } from "next/navigation"
+import { LuFolderOpen, LuUserCheck } from "react-icons/lu"
+import TotalBalanceItem from "./TotalBalanceItem"
 
 interface Props {
     accountingId: number
@@ -12,13 +14,16 @@ export default function RegisteredSessionInfo({ accountingId, seller }: Props): 
     const router = useRouter()
     
     return(
-        <div className="rounded border-s-4 border-mp-green bg-mp-gray-soft p-4 m-6 flex flex-col items-center">
-            <strong className="block font-medium text-mp-green text-xl"> Información del turno actual </strong>
-            <div className="flex flex-row">
-                <p className='mt-4 text-mp-dark font-coda text-sm mr-4'>
-                Corte Número: <span className='text-mp-blue'>{accountingId } </span>
+        <div className="rounded border-s-4 border-mp-green bg-mp-white shadow-md p-4 m-6 flex flex-col items-center">
+            <strong className="block font-medium text-mp-green text-sm"> Información del turno actual </strong>
+            <div className="flex flex-row mt-2 items-center gap-1 ">
+                <LuFolderOpen className="text-mp-green"/>
+                <p className='text-mp-dark font-coda text-sm mr-4'>
+                Corte: <span className='text-mp-blue'>{accountingId } </span>
                 </p>
-                <p className='mt-4 text-mp-dark font-coda text-sm'>Vendedora: <span className='text-mp-blue'>{seller}</span></p>
+                <LuUserCheck className="text-mp-green"/>
+                <p className='text-mp-dark font-coda text-sm'>Vendedora: <span className='text-mp-blue'>{seller}</span></p>
+                <TotalBalanceItem />
             </div>
             <button 
                 className="mt-2 text-sm text-mp-green hover:text-mp-blue"
