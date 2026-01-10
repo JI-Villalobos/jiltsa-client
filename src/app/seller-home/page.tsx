@@ -15,15 +15,20 @@ import { LuReceipt, LuWalletCards } from "react-icons/lu";
 import Modal from "../components/shared/Modal";
 import { NewExpenseModal } from "./components/NewExpenseModal";
 import { defaultExpense, useExpenseRegistryStore } from "../store/useExpenseRegistryStore";
-import { ExpenseStages } from "@/utils/variables";
+import { ExpenseStages, WithdrawalStages } from "@/utils/variables";
+import { NewCashWithdrawalModal } from "./components/NewCashWithdrawalModal";
+import { defaullWithdrawal, useWithdrawalRegistryStore } from "../store/useWithdrawalRegistryStore";
+import { WithdrawalSelectionStage } from "./components/WithdrawalSelectionStage";
 
 function SellerHome(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [accounts, setAccounts] = useState<Accounting[]>([])
   const [showExpenseModal, setShowExpenseModal] = useState(false)
+  const [showCashWithdrawalModal, setShowCashWithdrawalModal] = useState(false)
   const [currentAccount, setCurrentAccount] = useState<CurrentAccounting>()
 
   const { setExpense, setStage, updateFlag } = useExpenseRegistryStore()
+  const { setWithdrawal, setStage: setWithdrawalStage } = useWithdrawalRegistryStore()
   //const [showCashWithdrawalModal, setShowCashWithdrawalModal] = useState(false)
 
   useEffect(() => {
@@ -57,7 +62,10 @@ function SellerHome(): JSX.Element {
               <LuReceipt />
               Nuevo Gasto
             </button>
-            <button className="rounded p-2 bg-mp-green text-mp-white text-sm flex flex-row items-center transition-all hover:bg-mp-light-green">
+            <button 
+              className="rounded p-2 bg-mp-green text-mp-white text-sm flex flex-row items-center transition-all hover:bg-mp-light-green"
+              onClick={() => setShowCashWithdrawalModal(true)}
+            >
               <LuWalletCards />
               Nuevo Deposito
             </button>
@@ -74,6 +82,16 @@ function SellerHome(): JSX.Element {
           setShowExpenseModal(false)
         }}>
           <NewExpenseModal />
+        </Modal>
+      }
+      {
+        showCashWithdrawalModal &&
+        <Modal onClose={() => {
+          setWithdrawalStage(WithdrawalStages.SELECT_WITHDRAWAL_STAGE)
+          setWithdrawal(defaullWithdrawal)   
+          setShowCashWithdrawalModal(false)
+        }}>
+          <NewCashWithdrawalModal />
         </Modal>
       }
     </Layout>
