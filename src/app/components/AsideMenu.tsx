@@ -1,11 +1,9 @@
 'use client'
 
-import Image from "next/image";
 import LinkItem from "./LinkItem";
 import { useEffect, useState } from "react";
 import { getUserCredentials, setBranchName } from "@/utils/appStorage";
 import Spinner from "./shared/Spinner";
-import { Role } from "@/utils/variables";
 import { RequestStatus } from "../services";
 import { getBranchById } from "../services/api/branches";
 import { LuLandmark, LuMenu, LuReceipt, LuWalletCards } from "react-icons/lu";
@@ -13,7 +11,6 @@ import { LuLandmark, LuMenu, LuReceipt, LuWalletCards } from "react-icons/lu";
 export default function AsideMenu(): JSX.Element {
   const [branch, setBranch] = useState<string>('')
   const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
-  const [role, setRole] = useState<string>(Role.USER)
 
   useEffect(() => {
     const creds = getUserCredentials()
@@ -24,7 +21,6 @@ export default function AsideMenu(): JSX.Element {
           setBranch(result.name)
           setBranchName(result.name)
           setStatus({ ...status, onLoading: false })
-          setRole(creds.role)
         })
         .catch(() => {
           setStatus({ ...status, onError: true })
@@ -46,7 +42,7 @@ export default function AsideMenu(): JSX.Element {
       <>
         <LinkItem path="/seller-home" icon={<LuLandmark className="text-mp-green"/>} name="Movimientos" />
         <LinkItem path="/operation" icon={<LuReceipt className="text-mp-green"/>} name="Gastos" />
-        <LinkItem path="/cash-registry" icon={<LuWalletCards className="text-mp-green"/>} name="Depositos" />
+        <LinkItem path={`withdrawals/${branch}`} icon={<LuWalletCards className="text-mp-green"/>} name="Depositos" />
       </>
     </div>
   )
