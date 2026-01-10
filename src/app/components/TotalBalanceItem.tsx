@@ -8,6 +8,7 @@ import { failedRequest, initialStatus, pendingRequest, RequestStatus, successful
 import { getTotalBalance } from "../services/api/branches"
 import { useExpenseRegistryStore } from "../store/useExpenseRegistryStore"
 import { useWithdrawalRegistryStore } from "../store/useWithdrawalRegistryStore"
+import { LuWallet } from "react-icons/lu"
 
 export default function TotalBalanceItem(): JSX.Element {
   const [totals, setTotals] = useState<string>()
@@ -31,15 +32,16 @@ export default function TotalBalanceItem(): JSX.Element {
   }, [updateFlag, updateWithdrawalFlag])
 
   return (
-    <div className="flex flex-row p-4 border border-mp-strong-gray rounded justify-center items-center m-6">
+    <div className="flex flex-row  justify-center items-center ml-1 mt-1">
       {
         status.onError
           ? <p>No fue posible obtener el saldo en caja</p>
           : status.onLoading ? <Spinner bgBlank />
             : (
               <>
-                <p className="text-sm text-center text-mp-dark">Saldo en caja:</p>
-                <input value={totals} readOnly className="text-sm text-center text-mp-blue font-bold" />
+                <LuWallet className="mr-1"/>
+                <p className="text-sm text-center text-mp-dark mr-1">Saldo en caja:</p>
+                <input value={totals} readOnly className="text-sm text-center text-mp-blue font-bold bg-mp-white w-16" />
               </>
             )
       }

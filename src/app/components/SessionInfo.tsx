@@ -30,7 +30,6 @@ export default function SessionInfo(){
         ? (
             <div className="flex flex-row">
               <RegisteredSessionInfo accountingId={accounting.accountingId} seller={accounting.seller}/>
-              <TotalBalanceItem />
             </div>
           ) 
         : <NotRegisteredSessionInfo />
