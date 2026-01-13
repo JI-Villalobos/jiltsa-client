@@ -6,25 +6,26 @@ import Spinner from "@/app/components/shared/Spinner";
 import Layout from "@/app/layouts/Layout";
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
 import { getLatestCashRegistries, PageCashWithdrawal } from "@/app/services/api/withdrawals";
-import DateFormat from "@/utils/DateFormat";
-import { formatAmount } from "@/utils/formatAmount";
-import { conceptList } from "@/utils/variables";
+import { conceptList, WithdrawalStages } from "@/utils/variables";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { CashWithdrawalTable } from "../components/CashWithdrawalsTable";
+import SessionInfo from "@/app/components/SessionInfo";
+import { NewCashWithdrawalModal } from "@/app/seller-home/components/NewCashWithdrawalModal";
+import { LuWalletCards } from "react-icons/lu";
+import Modal from "@/app/components/shared/Modal";
+import { defaullWithdrawal, useWithdrawalRegistryStore } from "@/app/store/useWithdrawalRegistryStore";
 
 
 export default function BranchWithdrawals(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [page, setPage] = useState<PageCashWithdrawal>()
   const [pageNumber, setPageNumber] = useState(0)
+  const [showCashWithdrawalModal, setShowCashWithdrawalModal] = useState(false)
+
+  const { setWithdrawal, setStage: setWithdrawalStage, updateFlag } = useWithdrawalRegistryStore()
 
   const params = useParams<{ branch: string }>()
-  console.log(params);
-  
-
-  const match = (option: string): boolean => {
-    return conceptList.includes(option)
-  }
 
   useEffect(() => {
     setStatus(pendingRequest)
@@ -38,13 +39,53 @@ export default function BranchWithdrawals(): JSX.Element {
           setStatus(failedRequest)
         })
     }
-  }, [pageNumber])
+  }, [pageNumber, updateFlag])
 
   return (
     <Layout>
-      <div className="mt-6 w-full flex flex-col items-center justify-center">
-        <p className="text-xl text-mp-green m-2 font-semibold">Registro de Retiros sucursal: <span className="text-mp-blue">{params?.branch}</span></p>
-        <div className="grid grid-cols-1 lg:grid-cols-4 w-1/2 p-1 bg-mp-green m-1 rounded text-mp-white">
+      <div className="mt-2 w-full flex flex-col items-center justify-center">
+        <SessionInfo />
+        <button
+          className="rounded p-2 bg-mp-green text-mp-white text-sm flex flex-row items-center transition-all hover:bg-mp-light-green"
+          onClick={() => setShowCashWithdrawalModal(true)}
+        >
+          <LuWalletCards />
+          Nuevo Deposito
+        </button>
+        <p className="text-sm text-mp-green m-2 font-semibold">Registro de retiros y depositos sucursal: <span className="text-mp-blue">{params?.branch}</span></p>
+        {
+          status.onLoading ? <Spinner bgBlank /> :
+            status.onError ? <ErrorMessage
+              title="Error"
+              description="No fue posible cargar el registro de retiros, intentalo más tarde"
+            /> :
+              <></>
+        }
+        {
+          page && <CashWithdrawalTable page={page} />
+        }
+        <div className="m-2">
+          {
+            page && <Pagination setNumberPage={setPageNumber} pages={page.totalPages} currentPage={pageNumber} />
+          }
+        </div>
+      </div>
+      {
+        showCashWithdrawalModal &&
+        <Modal onClose={() => {
+          setWithdrawalStage(WithdrawalStages.SELECT_WITHDRAWAL_STAGE)
+          setWithdrawal(defaullWithdrawal)
+          setShowCashWithdrawalModal(false)
+        }}>
+          <NewCashWithdrawalModal />
+        </Modal>
+      }
+    </Layout>
+  )
+}
+
+/**
+<div className="grid grid-cols-1 lg:grid-cols-4 w-1/2 p-1 bg-mp-green m-1 rounded text-mp-white">
           <div className="rounded-lg ">Fecha</div>
           <div className="rounded-lg ">Concepto</div>
           <div className="rounded-lg ">Monto</div>
@@ -77,12 +118,5 @@ export default function BranchWithdrawals(): JSX.Element {
                 description="No fue posible cargar el registro de retiros, intentalo más tarde"
               />
         }
-      </div>
-      <div className="m-2">
-        {
-          page && <Pagination setNumberPage={setPageNumber} pages={page.totalPages} currentPage={pageNumber} />
-        }
-      </div>
-    </Layout>
-  )
-}
+     
+ */
