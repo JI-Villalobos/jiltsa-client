@@ -27,3 +27,9 @@ export const createExpense = async (expenseDto: CreateExpenseRegistry): Promise<
 
   return data
 }
+
+export const getExpenses = async (accountingId: number) => {
+  const { data } : AxiosResponse<ExpenseRegistry[]> = await axios.get(endPoints.expenses.getExpenses(accountingId), options)
+
+  return data
+}

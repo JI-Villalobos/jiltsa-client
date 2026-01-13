@@ -29,7 +29,7 @@ export default function RegisteredSessionInfo({ accountingId, seller }: Props): 
                 className="mt-2 text-sm text-mp-green hover:text-mp-blue"
                 onClick={() => {
                     deleteAccounting()
-                    router.refresh()
+                    router.push("/operation")
                 }}
             >¿Este no es tu turno?</button>
         </ div>
