@@ -43,16 +43,18 @@ export default function BranchWithdrawals(): JSX.Element {
 
   return (
     <Layout>
-      <div className="mt-2 w-full flex flex-col items-center justify-center">
+      <div className="mt-1 w-full flex flex-col items-center justify-center">
         <SessionInfo />
-        <button
-          className="rounded p-2 bg-mp-green text-mp-white text-sm flex flex-row items-center transition-all hover:bg-mp-light-green"
-          onClick={() => setShowCashWithdrawalModal(true)}
-        >
-          <LuWalletCards />
-          Nuevo Deposito
-        </button>
-        <p className="text-sm text-mp-green m-2 font-semibold">Registro de retiros y depositos sucursal: <span className="text-mp-blue">{params?.branch}</span></p>
+        <div className="w-full flex flex-row gap-4 justify-center items-center mb-2">
+          <p className="text-sm text-mp-green m-2 font-semibold">Registro de retiros y depositos sucursal: <span className="text-mp-blue">{params?.branch}</span></p>
+          <button
+            className="rounded p-2 bg-mp-green text-mp-white text-sm flex flex-row items-center transition-all hover:bg-mp-light-green"
+            onClick={() => setShowCashWithdrawalModal(true)}
+          >
+            <LuWalletCards />
+            Nuevo Deposito
+          </button>
+        </div>
         {
           status.onLoading ? <Spinner bgBlank /> :
             status.onError ? <ErrorMessage
