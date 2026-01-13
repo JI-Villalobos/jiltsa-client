@@ -39,7 +39,7 @@ export default function TotalBalanceItem(): JSX.Element {
           : status.onLoading ? <Spinner bgBlank />
             : (
               <>
-                <LuWallet className="mr-1"/>
+                <LuWallet className="mr-1 text-mp-green"/>
                 <p className="text-sm text-center text-mp-dark mr-1">Saldo en caja:</p>
                 <input value={totals} readOnly className="text-sm text-center text-mp-blue font-bold bg-mp-white w-16" />
               </>
