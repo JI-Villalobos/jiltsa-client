@@ -53,7 +53,8 @@ export const endPoints ={
     incomeTypes: `${API}/income-types`,
   },
   expenses: {
-    createExpense: `${API}/expenses`
+    createExpense: `${API}/expenses`,
+    getExpenses: (accountingId: number) => `${API}/expenses/${accountingId}`
   },
   incomes: {
     createIncome: `${API}/incomes`,

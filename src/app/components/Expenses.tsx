@@ -16,6 +16,9 @@ export enum STAGES {
   CONFIRM = 5
 }
 
+/***
+ * @deprecated this component will be removed in future versions
+ */
 export default function Expenses(): JSX.Element {
   const [stages, setStages] = useState<number>(STAGES.DEFAULT)
   
