@@ -1,18 +1,12 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import ConfirmSummary from "./components/ConfirmSummary";
-import { STAGES } from "@/app/components/Expenses";
 import Layout from "@/app/layouts/Layout";
-import IncomesRegistry from "@/app/components/shared/IncomesRegistry";
-import Summary from "./components/Summary";
-import ErrorMessage from "@/app/components/shared/ErrorMessage";
-import { LuCircle, LuCurrency, LuDollarSign, LuFolder, LuInbox } from "react-icons/lu";
+import { LuCircle, LuFolder, LuInbox } from "react-icons/lu";
 import DateFormat from "@/utils/DateFormat";
 import { CurrentAccounting, getCurrentAccounting } from "@/utils/appStorage";
 
 export default function CloseOperation(): JSX.Element {
-    const [stage, setStage] = useState(STAGES.DEFAULT)
     const [currentAccounting, setCurrentAccounting] = useState<CurrentAccounting>()
 
     useEffect(() => {
@@ -132,9 +126,3 @@ export default function CloseOperation(): JSX.Element {
         </Layout>
     )
 }
-
-/***
- *  <div className="grid gap-1 p-3 grid-cols-3 ">
-                            <dt className="font-medium text-mp-dark col-span-3">Retiros y depositos registrados en las últimas 24 hrs</dt>
-                        </div>
- */
