@@ -31,5 +31,12 @@ export const createIncome = async (incomeDto: CreateIncomeRegistry) => {
 export const createIncomes = async (incomes: CreateIncomeRegistry[]) => {
   const { data }: AxiosResponse<IncomeRegistry[]> = await axios.post(endPoints.incomes.createIncomes, incomes, options)
   
-  return data;
+  return data
+}
+
+export const getIncomes = async (accountingId: number) => {
+  const { data }: AxiosResponse<IncomeRegistry[]> = await axios.get(endPoints.incomes.getByAccounting(accountingId), options)
+
+  return data
+
 }

@@ -1,14 +1,18 @@
 'use client'
 
 import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
-import { CreateIncomeRegistry, createIncomes } from "@/app/services/api/incomes"
+import { CreateIncomeRegistry, createIncomes, getIncomes } from "@/app/services/api/incomes"
 import { getCurrentAccounting } from "@/utils/appStorage"
 import { Defaults, Income } from "@/utils/variables"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { LuLoaderCircle } from "react-icons/lu"
 
-export const IncomeRegistryModal = () => {
+interface Props {
+    showModal: Dispatch<SetStateAction<boolean>>
+}
+
+export const IncomeRegistryModal = ({ showModal }: Props) => {
     const [services, setServices] = useState(0)
     const [products, setProducts] = useState(0)
     const [total, setTotal] = useState(0)
@@ -16,10 +20,25 @@ export const IncomeRegistryModal = () => {
 
     const router = useRouter()
 
+    useEffect(() => {
+        const accounting = getCurrentAccounting()
+        if (!accounting) return
+
+        setIncomeStatus(pendingRequest)
+        getIncomes(accounting.accountingId)
+            .then((res) => {
+                if (res.length > 0) {
+                    router.push("/close-operation")
+                }
+            })
+            .catch(() => {
+                showModal(false)
+            })
+    }, [])
+
     const handleIncomeRegistry = async () => {
         const accounting = getCurrentAccounting()
         if (accounting) {
-            setIncomeStatus(pendingRequest)
             const id = accounting.accountingId
             const incomes: CreateIncomeRegistry[] = [
                 {
@@ -83,16 +102,16 @@ export const IncomeRegistryModal = () => {
                     }}
                 />
             </div>
-            <button 
+            <button
                 className="mb-4 w-24 rounded shadow flex flex-col items-center justify-center bg-gradient-to-r from-mp-green to-mp-blue p-2 text-mp-white"
                 onClick={handleIncomeRegistry}
             >
                 {
-                    incomeStatus.onLoading ? <LuLoaderCircle className="animate-spin"/> : 'Confirmar'
+                    incomeStatus.onLoading ? <LuLoaderCircle className="animate-spin" /> : 'Confirmar'
                 }
             </button>
             {
-                incomeStatus.onError && <p className="mb-2 text-sm text-mp-error">No fue posible registrar los ingrsos, intentalo nuevamente</p>
+                incomeStatus.onError && <p className="mb-2 text-sm text-mp-error">No fue posible registrar los ingresos, intentalo nuevamente</p>
             }
         </div>
     )

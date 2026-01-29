@@ -24,7 +24,7 @@ export default function CloseOperationButton() {
                     onClose={() => setshowCloseOperationModal(false)}
                     title="Registro de ventas"
                 >
-                    <IncomeRegistryModal />
+                    <IncomeRegistryModal showModal={setshowCloseOperationModal}/>
                 </Modal>
             }
         </>
