@@ -5,26 +5,38 @@ import Layout from "@/app/layouts/Layout";
 import { LuCircle, LuFolder, LuInbox } from "react-icons/lu";
 import DateFormat from "@/utils/DateFormat";
 import { CurrentAccounting, getCurrentAccounting } from "@/utils/appStorage";
+import { Accounting, getAccounting } from "../services/api/accounts";
+import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "../services";
+import IncomeSummary from "./components/IncomesSummary";
+import ExpensesSummary from "./components/ExpensesSummary";
+import CashWSummary from "./components/CashWSummary";
+import Modal from "../components/shared/Modal";
+import ConfirmSummary from "./components/ConfirmSummary";
 
 export default function CloseOperation(): JSX.Element {
     const [currentAccounting, setCurrentAccounting] = useState<CurrentAccounting>()
+    const [getAccountStatus, setGetAccountStatus] = useState(initialStatus)
+    const [account, setAccount] = useState<Accounting>()
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false)
 
     useEffect(() => {
         const accounting = getCurrentAccounting()
         if (!accounting) return
-        
+        setGetAccountStatus(pendingRequest)
+        getAccounting(accounting.accountingId)
+            .then((res) => {
+                setAccount(res)
+                setGetAccountStatus(successfullRequest)
+            })
+            .catch(() => {
+                setGetAccountStatus(failedRequest)
+            })
         setCurrentAccounting(accounting)
     }, [])
 
     return (
         <Layout>
             <div className="mt-10 w-full flex flex-col justify-center items-center">
-                {/*
-                   stage == STAGES.DEFAULT ? <IncomesRegistry setStage={setStage}/>
-                   : stage == STAGES.SUCCESS ? <Summary setStage={setStage}/>
-                   : stage == STAGES.CONFIRM ? <ConfirmSummary setStage={setStage} />
-                   : <ErrorMessage title="Oppss! Error inesperado" description="No te preocupes estamos trabajando para resolverlo"/>
-                */}
                 <p className="mb-2 text-mp-dark text-xl">Cierre de caja <span className="text-mp-blue">{currentAccounting ? DateFormat(currentAccounting.date) : ''}</span></p>
                 <div className="flow-root w-2/3 mb-6">
                     <dl className="divide-y divide-mp-strong-gray text-sm border border-mp-strong-gray rounded shadow">
@@ -44,85 +56,34 @@ export default function CloseOperation(): JSX.Element {
                         <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
                             <dt className="font-medium text-mp-dark">Vendedora</dt>
 
-                            <dd className="text-mp-blue sm:col-span-2">John Frusciante</dd>
+                            <dd className="text-mp-blue sm:col-span-2">{currentAccounting?.seller}</dd>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4 bg-mp-gray-soft">
-                            <dt className="font-medium text-mp-dark">Total de ventas</dt>
-
-                            <dd className="text-mp-dark sm:col-span-2">$3,450</dd>
-                        </div>
-
-                        <div className="grid grid-cols-6 grid-rows-2 gap-1 p-3 sm:gap-4">
-                            <dt className="font-medium text-mp-dark">
-                                <LuCircle className="text-mp-blue" />
-                            </dt>
-                            <dt className="font-medium text-mp-dark col-span-1 text-xs">
-                                PRONTIPAGOS
-                            </dt>
-                            <dd className="text-mp-dark col-span-1 text-xs">$1,345</dd>
-                            <dt className="font-medium text-mp-dark col-span-3">
-                            </dt>
-                            <dt className="font-medium text-mp-dark">
-                                <LuCircle className="text-mp-blue" />
-                            </dt>
-                            <dt className="font-medium text-mp-dark col-span-1 text-xs">
-                                MEDICAMENTO
-                            </dt>
-                            <dd className="text-mp-dark col-span-1 text-xs">$1,345</dd>
-                        </div>
-
-                        <div className="grid gap-1 p-3 grid-cols-6 sm:gap-4 bg-mp-gray-soft">
-                            <dt className="font-medium text-mp-dark col-span-3"></dt>
-                            <dt className="font-medium text-mp-dark">Total de gastos</dt>
-
-                            <dd className="text-mp-dark sm:col-span-1">$3,450</dd>
-                        </div>
-                        <div className="grid grid-cols-6 grid-rows-2 gap-1 p-3 sm:gap-4">
-                            <dt className="font-medium text-mp-dark col-span-2"></dt>
-                            <dt className="font-medium text-mp-dark">
-                                <LuCircle className="text-mp-error" />
-                            </dt>
-                            <dt className="font-medium text-mp-dark col-span-1 text-xs">
-                                PRONTIPAGOS
-                            </dt>
-                            <dd className="text-mp-dark col-span-1 text-xs ">$1,345</dd>
-                            <dt className="font-medium text-mp-dark col-span-2">
-                            </dt>
-                            <dt className="font-medium text-mp-dark">
-                                <LuCircle className="text-mp-error" />
-                            </dt>
-                            <dt className="font-medium text-mp-dark col-span-1 text-xs">
-                                MEDICAMENTO
-                            </dt>
-                            <dd className="text-mp-dark col-span-1 text-xs">$1,345</dd>
-                        </div>
+                        {
+                            account &&
+                            <IncomeSummary incomes={account.incomeRegistries}/>
+                        }
+                        
+                        {
+                            account && 
+                            <ExpensesSummary expenses={account.expenseRegistries}/>
+                        }
                     </dl>
                 </div>
-                <div className="flow-root w-2/3">
-                    <dl className="divide-y divide-mp-strong-gray text-sm border border-mp-strong-gray rounded shadow">
-                        <div className="grid gap-1 p-3 grid-cols-3 bg-mp-green rounded-t">
-                            <dt className="font-medium col-span-3 text-mp-gray-soft">Retiros y depositos registrados en las últimas 24 hrs</dt>
-                        </div>
-                        <div className="grid gap-1 p-3 grid-cols-4 sm:gap-6">
-                            <dt className="font-medium text-mp-dark">Ref: <span className="text-mp-strong-red">451</span></dt>
-                            <dt className="font-medium text-mp-dark">Concepto: <span className="text-mp-blue">Retiro administrativo</span></dt>
-                            <dt className="font-medium text-mp-dark">Por: <span className="text-mp-blue">John Frusciante</span></dt>
-                            <dt className="font-medium text-mp-dark">Monto: <span className="text-mp-green">$10,000</span></dt>
-                        </div>
-
-                        <div className="grid gap-1 p-3 grid-cols-4 sm:gap-6">
-                            <dt className="font-medium text-mp-dark">Ref: <span className="text-mp-strong-red">451</span></dt>
-                            <dt className="font-medium text-mp-dark">Concepto: <span className="text-mp-blue">Retiro administrativo</span></dt>
-                            <dt className="font-medium text-mp-dark">Por: <span className="text-mp-blue">John Frusciante</span></dt>
-                            <dt className="font-medium text-mp-dark">Monto: <span className="text-mp-green">$10,000</span></dt>
-                        </div>
-                    </dl>
-                </div>
-                <button className="mt-4 text-mp-white p-2 rounded shadow bg-gradient-to-r from-mp-green to-mp-blue">
+                <CashWSummary />
+                <button 
+                    className="mt-4 text-mp-white p-2 rounded shadow bg-gradient-to-r from-mp-green to-mp-blue"
+                    onClick={() => setShowConfirmationModal(true)}
+                >
                     Terminar
                 </button>
             </div>
+            {
+                showConfirmationModal &&
+                <Modal onClose={() => setShowConfirmationModal(false)}>
+                    <ConfirmSummary setShowModal={setShowConfirmationModal}/>
+                </Modal>
+            }
         </Layout>
     )
 }

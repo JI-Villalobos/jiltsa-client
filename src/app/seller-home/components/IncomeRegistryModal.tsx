@@ -1,11 +1,12 @@
 'use client'
 
-import { failedRequest, initialStatus, successfullRequest } from "@/app/services"
+import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
 import { CreateIncomeRegistry, createIncomes } from "@/app/services/api/incomes"
 import { getCurrentAccounting } from "@/utils/appStorage"
 import { Defaults, Income } from "@/utils/variables"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { LuLoader } from "react-icons/lu"
+import { LuLoaderCircle } from "react-icons/lu"
 
 export const IncomeRegistryModal = () => {
     const [services, setServices] = useState(0)
@@ -13,10 +14,12 @@ export const IncomeRegistryModal = () => {
     const [total, setTotal] = useState(0)
     const [incomeStatus, setIncomeStatus] = useState(initialStatus)
 
+    const router = useRouter()
 
     const handleIncomeRegistry = async () => {
         const accounting = getCurrentAccounting()
         if (accounting) {
+            setIncomeStatus(pendingRequest)
             const id = accounting.accountingId
             const incomes: CreateIncomeRegistry[] = [
                 {
@@ -34,7 +37,8 @@ export const IncomeRegistryModal = () => {
             ]
 
             await createIncomes(incomes)
-                .then((result) => {
+                .then(() => {
+                    router.push("/close-operation")
                     setIncomeStatus(successfullRequest)
                 })
                 .catch(() => {
@@ -84,7 +88,7 @@ export const IncomeRegistryModal = () => {
                 onClick={handleIncomeRegistry}
             >
                 {
-                    incomeStatus.onLoading ? <LuLoader className="animate-spin"/> : 'Confirmar'
+                    incomeStatus.onLoading ? <LuLoaderCircle className="animate-spin"/> : 'Confirmar'
                 }
             </button>
             {
