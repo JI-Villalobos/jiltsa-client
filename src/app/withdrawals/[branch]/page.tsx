@@ -7,7 +7,7 @@ import Layout from "@/app/layouts/Layout";
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
 import { getLatestCashRegistries, PageCashWithdrawal } from "@/app/services/api/withdrawals";
 import { conceptList, WithdrawalStages } from "@/utils/variables";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CashWithdrawalTable } from "../components/CashWithdrawalsTable";
 import SessionInfo from "@/app/components/SessionInfo";
@@ -15,6 +15,7 @@ import { NewCashWithdrawalModal } from "@/app/seller-home/components/NewCashWith
 import { LuWalletCards } from "react-icons/lu";
 import Modal from "@/app/components/shared/Modal";
 import { defaullWithdrawal, useWithdrawalRegistryStore } from "@/app/store/useWithdrawalRegistryStore";
+import { getCurrentAccounting } from "@/utils/appStorage";
 
 
 export default function BranchWithdrawals(): JSX.Element {
@@ -26,8 +27,15 @@ export default function BranchWithdrawals(): JSX.Element {
   const { setWithdrawal, setStage: setWithdrawalStage, updateFlag } = useWithdrawalRegistryStore()
 
   const params = useParams<{ branch: string }>()
+  const router = useRouter()
 
   useEffect(() => {
+    const accounting = getCurrentAccounting()
+
+    if(!accounting){
+      router.push("/seller-home")
+    }
+
     setStatus(pendingRequest)
     if (typeof params?.branch === 'string') {
       getLatestCashRegistries(params.branch, pageNumber)
