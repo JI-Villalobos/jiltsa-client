@@ -10,6 +10,10 @@ import { STAGES } from "@/app/components/Expenses"
 import SessionInfo from "@/app/components/SessionInfo"
 import Spinner from "@/app/components/shared/Spinner"
 
+/**
+ * @deprecated
+ * This component will be removed
+ */
 interface Props {
     setStage: Dispatch<SetStateAction<number>>
 }
