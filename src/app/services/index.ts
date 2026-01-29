@@ -58,7 +58,8 @@ export const endPoints ={
   },
   incomes: {
     createIncome: `${API}/incomes`,
-    createIncomes: `${API}/incomes/all`
+    createIncomes: `${API}/incomes/all`,
+    getByAccounting: (accountingId: number) => `${API}/incomes/${accountingId}`
   },
   branches: {
     branches: `${API}/branches`,
