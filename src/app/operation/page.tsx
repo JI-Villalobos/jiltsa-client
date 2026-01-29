@@ -2,7 +2,7 @@
 
 import SessionInfo from "@/app/components/SessionInfo";
 import Layout from "@/app/layouts/Layout";
-import { getCurrentAccounting, isAuth } from "@/utils/appStorage";
+import { getCurrentAccounting } from "@/utils/appStorage";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { LuReceipt } from "react-icons/lu";
@@ -17,7 +17,6 @@ import ErrorMessage from "../components/shared/ErrorMessage";
 import { formatAmount } from "@/utils/formatAmount";
 
 export default function Operation(): JSX.Element {
-  const [accountingCreated, setAccountingCreated] = useState<boolean>(false)
   const [expenses, setExpenses] = useState<ExpenseRegistry[]>([])
   const [loadExpensesStatus, setLoadExpensesStatus] = useState(initialStatus)
   const [showExpenseModal, setShowExpenseModal] = useState(false)
@@ -30,7 +29,7 @@ export default function Operation(): JSX.Element {
     const accounting = getCurrentAccounting()
 
     if (!accounting) {
-      router.push('/login')
+      router.push('/seller-home')
     } else {
       setLoadExpensesStatus(pendingRequest)
       getExpenses(accounting.accountingId)
