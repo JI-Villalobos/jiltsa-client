@@ -1,4 +1,5 @@
-import { STAGES } from "@/app/components/Expenses"
+'use client'
+
 import { clearIncomesregistered } from "@/utils/appStorage"
 import { useRouter } from "next/navigation"
 import { Dispatch, SetStateAction } from "react"

@@ -33,7 +33,7 @@ export default function ExpensesSummary({ expenses }: Props): JSX.Element {
             {
                 expenses.length > 0 &&
                 expenses.map((expense) => (
-                    < div className="grid grid-cols-6 grid-rows-2 gap-1 p-3 sm:gap-4">
+                    < div className="grid grid-cols-6 grid-rows-2 gap-1 p-3 sm:gap-4" key={expense.id}>
                         <dt className="font-medium text-mp-dark col-span-2"></dt>
                         <dt className="font-medium text-mp-dark">
                             <LuCircle className="text-mp-error" />
