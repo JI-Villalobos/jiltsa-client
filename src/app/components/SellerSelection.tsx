@@ -7,6 +7,11 @@ import Spinner from "./shared/Spinner"
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
 import { getSellerByBranch, Seller } from "../services/api/sellers"
 
+/**
+ * 
+ * @deprecated
+ * This component will be removed
+ */
 export default function SellerSelection() {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [sellers, setSellers] = useState<Seller[]>([])
@@ -31,7 +36,7 @@ export default function SellerSelection() {
       {
         status.onLoading ? <Spinner bgBlank /> 
         : sellers.map(seller => (
-          <SellerSellectionItem seller={seller} key={`seller-id-${seller.id}`}/>
+          <SellerSellectionItem seller={seller} key={`seller-id-${seller.id}`} setMessage={() => {}}/>
         ))
       }
     </div>

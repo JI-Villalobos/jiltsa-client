@@ -1,5 +1,9 @@
 'use client'
 
+/**
+ * @deprecated
+ * this component will be removed
+ */
 import SellerSelection from "./SellerSelection"
 import Link from "next/link"
 

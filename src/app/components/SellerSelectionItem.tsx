@@ -8,7 +8,7 @@ import { Seller } from "../services/api/sellers"
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
 import { newAccounting } from "../services/api/accounts"
 import { useRouter } from "next/navigation"
-import { LuLoader, LuUser, LuUserRound } from "react-icons/lu"
+import { LuLoader, LuUserRound } from "react-icons/lu"
 
 type Props = {
   seller: Seller
@@ -30,7 +30,7 @@ export default function SellerSellectionItem({ seller, setMessage }: Props): JSX
         setStatus(successfullRequest)
         router.push("/check-list")
       })
-      .catch((e) => {
+      .catch(() => {
         setStatus(failedRequest)
       })
   }
