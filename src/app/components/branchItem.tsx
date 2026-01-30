@@ -6,7 +6,7 @@ type Props = {
 }
 
 /**
- * @deprecated this component will be reoved soon 
+ * @deprecated this component will be removed soon 
  */
 export default function BranchItem({ branch }: Props) {
   return (

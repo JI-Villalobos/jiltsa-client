@@ -9,6 +9,11 @@ type Props = {
   expense: CreateExpenseRegistry,
 }
 
+/**
+ * 
+ * @deprecated
+ * this component will be removed
+ */
 export default function ExpenseTicket(props: Props): JSX.Element {
   const [currentAccounting, setCurrentAcccounting] = useState<CurrentAccounting>({accountingId: 0, seller: '', date: '', sellerId: 0})
 

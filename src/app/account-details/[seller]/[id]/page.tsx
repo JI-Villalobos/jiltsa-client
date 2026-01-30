@@ -10,6 +10,11 @@ import { getCurrentAccounting } from "@/utils/appStorage";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+/**
+ * 
+ * @deprecated
+ * This page will be removed in future versions
+ */
 export default function AccountDetails(): JSX.Element {
   const [sellerName, setSellerName] = useState<string>('')
   const [accounting, setAccounting] = useState<Accounting>()

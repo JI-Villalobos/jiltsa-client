@@ -7,6 +7,11 @@ import { Branch, getBranches } from "../services/api/branches"
 import { RequestStatus } from "../services"
 import { newSeller } from "../services/api/sellers"
 
+/**
+ * 
+ * @deprecated
+ * This component will be removed
+ */
 export default function NewSeller(): JSX.Element {
   const [branches, setBranches] = useState<Branch[]>([])
   const [branchSelected, setBranchSelected] = useState<Branch>({ id: 1, isActive: true, name: 'PENON BLANCO' })

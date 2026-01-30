@@ -9,6 +9,11 @@ import { failedRequest, initialStatus, pendingRequest, RequestStatus, successful
 import { getSellerByBranch, Seller } from "../services/api/sellers";
 import { CustomAccounting, newCustomAccounting } from "../services/api/accounts";
 
+/**
+ * 
+ * @deprecated
+ * This component will be removed
+ */
 export default function NewOutDateAccounting(): JSX.Element {
   const [accountingRegSuccess, setAccountingRegSuccess] = useState<boolean>(false)
   const [status, setStatus] = useState<RequestStatus>(initialStatus)

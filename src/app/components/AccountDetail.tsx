@@ -11,6 +11,11 @@ type Props = {
   current: boolean
 }
 
+/**
+ * 
+ * @deprecated
+ * @this component will be removed
+ */
 export default function Details({ seller, accounting, current }: Props): JSX.Element {
   return (
     <>

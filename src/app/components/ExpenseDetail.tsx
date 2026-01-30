@@ -8,6 +8,11 @@ type Props = {
   expenseDetails: CreateExpenseRegistry
 }
 
+/**
+ * 
+ * @deprecated
+ * This component will be removed
+ */
 export default function ExpenseDetail({ expense, expenseDetails }: Props): JSX.Element {
   return (
     <div className="flex flex-col items-center justify-center w-1/3  border-r-2 border-mp-strong-gray">
