@@ -30,6 +30,7 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
                 if (res.length > 0) {
                     router.push("/close-operation")
                 }
+                setIncomeStatus(successfullRequest)
             })
             .catch(() => {
                 showModal(false)
@@ -39,6 +40,7 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
     const handleIncomeRegistry = async () => {
         const accounting = getCurrentAccounting()
         if (accounting) {
+            setIncomeStatus(pendingRequest)
             const id = accounting.accountingId
             const incomes: CreateIncomeRegistry[] = [
                 {
@@ -105,6 +107,7 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
             <button
                 className="mb-4 w-24 rounded shadow flex flex-col items-center justify-center bg-gradient-to-r from-mp-green to-mp-blue p-2 text-mp-white"
                 onClick={handleIncomeRegistry}
+                disabled={incomeStatus.onLoading}
             >
                 {
                     incomeStatus.onLoading ? <LuLoaderCircle className="animate-spin" /> : 'Confirmar'
