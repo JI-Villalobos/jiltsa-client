@@ -13,6 +13,11 @@ interface Props {
   accountingId?: number
 }
 
+/**
+ * 
+ * @deprecated
+ * This component will be removed
+ */
 export default function NewExpense({ setStage, accountingId }: Props): JSX.Element {
   const [selectedItem, setSelectedItem] = useState<ExpenseType>({ id: 0, type: '' })
   const [description, setDescription] = useState<string>(selectedItem.type)

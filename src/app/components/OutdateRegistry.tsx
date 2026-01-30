@@ -6,6 +6,11 @@ import { useState } from "react";
 import Summary from "@/app/close-operation/components/Summary";
 
 //TODO: the stage component should be more clear
+/**
+ * 
+ * @deprecated
+ * This component will be removed
+ */
 export default function OutdateRegistry(): JSX.Element {
     const [stage, setStage] = useState(STAGES.DEFAULT)
 

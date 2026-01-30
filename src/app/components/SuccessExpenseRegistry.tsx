@@ -8,6 +8,11 @@ interface Props {
     setStage: Dispatch<SetStateAction<number>>
 }
 
+/**
+ * 
+ * @deprecated 
+ * This component will be removed
+ */
 export default function SuccessExpenseRegistry({ setStage }: Props): JSX.Element {
 
     const nextStage = (): void => {

@@ -10,6 +10,11 @@ import { getCurrentAccounting, isAuth } from "@/utils/appStorage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+/**
+ * 
+ * @deprecated
+ * This page will be removed in future versions
+ */
 export default function CashRegistry() {
   const [cashWithDrawal, setCashWithdrawal] = useState<CreateCashWithdrawalDto>({ amount: 0, branch: '', concept: '', sellerName: '' })
   const [confirmationStage, setConfirmationStage] = useState<boolean>(false)

@@ -13,6 +13,11 @@ type Props = {
   expenseDetails: CreateExpenseRegistry
 }
 
+/**
+ * 
+ * @deprecated
+ * @This component will be removed
+ */
 export default function ExpenseTypeItem({ expenseType, isSelected, item, expense, expenseDetails }: Props): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [expenseTypes, setExpenseTypes] = useState<ExpenseType[]>([])

@@ -15,6 +15,11 @@ type Props = {
   confirmationstage: Dispatch<SetStateAction<boolean>>
 }
 
+/**
+ * 
+ * @deprecated
+ * This component will be removed
+ */
 export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, confirmationstage }: Props): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [isValid, setIsValid] = useState(true)

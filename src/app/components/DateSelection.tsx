@@ -11,6 +11,11 @@ type Props = {
   branch: number
 }
 
+/**
+ * 
+ * @deprecated
+ * This component will be removed
+ */
 export default function DateSelection({ setDisplay, setAccounts, branch }: Props) {
   const [status, setStatus] = useState<RequestStatus>({onError: false, onLoading: false, onSuccess: false})
   const [initial, setInitial] = useState<string>('')
