@@ -61,13 +61,13 @@ export default function CloseOperation(): JSX.Element {
                                 <div className="grid gap-1 p-3 grid-cols-4 sm:gap-4 bg-mp-gray-soft font-bold">
                                     <dt className="text-mp-green flex items-center gap-1"> <LuFolder /> Corte</dt>
 
-                                    <dd className="text-mp-blue sm:col-span-1">2045</dd>
+                                    <dd className="text-mp-blue sm:col-span-1">{currentAccounting?.accountingId}</dd>
 
                                     <dt className=" text-mp-green flex items-center gap-1"><LuInbox />Saldo en caja </dt>
 
                                     <dd className="text-mp-blue sm:col-span-1">
                                         {
-                                            balanceStatus.onLoading ? <LuLoaderCircle className="animate-spin"/> : totals
+                                            balanceStatus.onLoading ? <LuLoaderCircle className="animate-spin" /> : totals
                                         }
                                     </dd>
                                 </div>
