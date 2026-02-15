@@ -17,6 +17,7 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
     const [products, setProducts] = useState(0)
     const [total, setTotal] = useState(0)
     const [incomeStatus, setIncomeStatus] = useState(initialStatus)
+    const [successMessage, setSucccessMesssage] = useState(false)
 
     const router = useRouter()
 
@@ -59,6 +60,7 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
 
             await createIncomes(incomes)
                 .then(() => {
+                    setSucccessMesssage(true)
                     router.push("/close-operation")
                     setIncomeStatus(successfullRequest)
                 })
@@ -107,7 +109,7 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
             <button
                 className="mb-4 w-24 rounded shadow flex flex-col items-center justify-center bg-gradient-to-r from-mp-green to-mp-blue p-2 text-mp-white"
                 onClick={handleIncomeRegistry}
-                disabled={incomeStatus.onLoading}
+                disabled={incomeStatus.onLoading || successMessage}
             >
                 {
                     incomeStatus.onLoading ? <LuLoaderCircle className="animate-spin" /> : 'Confirmar'
@@ -115,6 +117,12 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
             </button>
             {
                 incomeStatus.onError && <p className="mb-2 text-sm text-mp-error">No fue posible registrar los ingresos, intentalo nuevamente</p>
+            }
+            {
+                successMessage &&
+                <p className="text-mp-green text-sm p-2 border rounded border-mp-green border-opacity-25 mb-2">
+                    Las ventas se registraron exitosamente, espera un momento <span className="animate-pulse">redireccionando...</span>
+                </p>
             }
         </div>
     )
