@@ -26,7 +26,7 @@ export default function Header(): JSX.Element {
                 <ul className="space-y-6 tracking-wide font-medium text-base lg:text-sm lg:flex lg:space-y-0 flex items-center justify-center">
                   <li className="flex flex-row justify-center items-center">
                     <BiCode size={20} />
-                    <p className="text-mp-dark text-sm">Versión 1.1.0</p>
+                    <p className="text-mp-dark text-sm">Versión 1.1.1</p>
                   </li>
                   <li className="mr-6 ml-4 flex items-center justify-center">
                     <button onClick={handleLogout}>
