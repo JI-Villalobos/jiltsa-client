@@ -2,15 +2,20 @@
 
 import { CreateExpenseRegistry } from "@/app/services/api/expenses"
 import { useExpenseRegistryStore } from "@/app/store/useExpenseRegistryStore"
-import { ExpenseStages } from "@/utils/variables"
+import { ExpenseStages, ExpenseTypeId } from "@/utils/variables"
 import { LuArrowLeftFromLine, LuCandy, LuCookie, LuFlaskRound, LuPopcorn, LuSalad } from "react-icons/lu"
 
 export const ProviderSelectionstage = () => {
   const { setStage, expense, setExpense } = useExpenseRegistryStore()
 
   const handleStage = (provider: string) => {
-    const updatedExpense: CreateExpenseRegistry = { ...expense, description: provider }
-    setExpense(updatedExpense)
+    if (provider == "Pharmaceutix") {
+      const updatedExpense: CreateExpenseRegistry = { ...expense, description: provider, expenseTypeId: ExpenseTypeId.PROVEEDORES_MEDICAMENTO }
+      setExpense(updatedExpense)
+    } else {
+      const updatedExpense: CreateExpenseRegistry = { ...expense, description: provider }
+      setExpense(updatedExpense)
+    }
     setStage(ExpenseStages.FINALIZE_EXPENSE_REGISTRY)
   }
 

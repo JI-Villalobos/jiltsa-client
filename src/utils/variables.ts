@@ -35,5 +35,6 @@ export enum ExpenseTypeId {
   RENTA = 2,
   OTROS = 3,
   SERVICIOS = 4,
-  PROVEEDORES = 5
+  PROVEEDORES = 5,
+  PROVEEDORES_MEDICAMENTO = 6,
 }
