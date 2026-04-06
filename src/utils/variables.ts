@@ -31,8 +31,8 @@ export enum WithdrawalStages {
 }
 
 export enum ExpenseTypeId {
-  SUELDOS = 1,
-  RENTA = 2,
+  SUELDOS = 2,
+  RENTA = 1,
   OTROS = 3,
   SERVICIOS = 4,
   PROVEEDORES = 5,
