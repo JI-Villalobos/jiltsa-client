@@ -30,7 +30,7 @@ export const successfullRequest: RequestStatus = {
   onSuccess: true
 }
 
-export const endPoints ={
+export const endPoints = {
   auth: {
     registration: `${API}/auth/register`,
     authentication: `${API}/auth/authenticate`
@@ -44,7 +44,7 @@ export const endPoints ={
   },
   sellers: {
     getSeller: (sellerId: number) => `${API}/sellers/${sellerId}`,
-    getSellers:  `${API}/sellers`,
+    getSellers: `${API}/sellers`,
     getSellersByBranch: (branchId: number) => `${API}/sellers/branch/${branchId}`,
     newSeller: `${API}/sellers`,
   },
@@ -91,7 +91,7 @@ export const endPoints ={
     getTicket: `${API}/payments/ticket`
   },
   creditSales: {
-    getById:(creditSaleId: number) => `${API}/credit-sale/get/${creditSaleId}`,
+    getById: (creditSaleId: number) => `${API}/credit-sale/get/${creditSaleId}`,
     getAll: (branchId: number) => `${API}/credit-sale/get-all/${branchId}`,
     getByPaymentStatus: (branchId: number, isPaid: boolean) => `${API}/credit-sale/get-by-status/${branchId}/${isPaid}`,
     mutate: `${API}/credit-sale`
@@ -103,5 +103,9 @@ export const endPoints ={
   checkList: {
     getById: (checkListId: number) => `${API}/check-list/${checkListId}`,
     mutate: `${API}/check-list`
+  },
+  cashSorting: {
+    getCashSorting: (accountingId: number) => `${API}/cash-sorting/accounting/${accountingId}`,
+    mutate: `${API}/cash-sorting`
   }
 }
