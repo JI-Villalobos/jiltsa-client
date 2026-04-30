@@ -51,6 +51,9 @@ export const CheckListModal = () => {
       >
         Continuar
       </button>
+      <div>
+
+      </div>
     </div>
   )
 }

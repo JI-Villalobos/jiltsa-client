@@ -10,7 +10,12 @@ export default function CheckList() {
     const [showModal, setShowModal] = useState(false)
 
     return (
-        <div className="w-full h-72 flex flex-col items-center justify-center">
+        <CheckListInfo />
+    )
+}
+
+/**
+ *  <div className="w-full h-72 flex flex-col items-center justify-center">
             <p className="text-mp-soft-dark">Selecciona la opción de check-list</p>
             <button
                 className="bg-mp-dark text-mp-white w-32 text-sm p-2 rounded mb-2 mt-2 hover:bg-mp-soft-dark"
@@ -31,5 +36,4 @@ export default function CheckList() {
                 </Modal>
             }
         </div>
-    )
-}
+ */

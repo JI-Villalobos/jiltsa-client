@@ -1,5 +1,6 @@
 'use client'
 
+import Modal from "@/app/components/shared/Modal"
 import Spinner from "@/app/components/shared/Spinner"
 import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
 import { getTotalBalance, TotalBalance } from "@/app/services/api/branches"
@@ -11,14 +12,17 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { KeyboardEvent, useEffect, useState } from "react"
 import { BiBattery, BiError } from "react-icons/bi"
+import { CashSortingModal } from "./CashSortingModal"
 
-export const CheckListInfo = () =>  {
+export const CheckListInfo = () => {
     const [loadInfostatus, setLoadInfoStatus] = useState(initialStatus)
     const [submitstatus, setSubmitStatus] = useState(initialStatus)
     const [matchedBalance, setMatchedBalance] = useState(true)
     const [currentAccounting, setCurrentAccounting] = useState<CurrentAccounting>()
     const [balance, setBalance] = useState<TotalBalance>()
     const [mode, setMode] = useState('CHECK_IN')
+    const [showCashSortingModal, setShowCashSortingModal] = useState(false)
+
     const router = useRouter()
 
     useEffect(() => {
@@ -61,7 +65,8 @@ export const CheckListInfo = () =>  {
 
     const handleSubmit = async (event: { target: any, preventDefault: () => void }) => {
         event.preventDefault()
-        setSubmitStatus(pendingRequest)
+        setShowCashSortingModal(true)
+        /*setSubmitStatus(pendingRequest)
 
         const formData = new FormData(event.target)
 
@@ -107,6 +112,7 @@ export const CheckListInfo = () =>  {
             setMatchedBalance(false)
             setSubmitStatus(initialStatus)
         }
+            */
 
     }
 
@@ -297,6 +303,12 @@ export const CheckListInfo = () =>  {
                     }
                 </div>
             </div>
+            {
+                showCashSortingModal &&
+                <Modal onClose={() => setShowCashSortingModal(false)}>
+                    <CashSortingModal mode={'CHECK_IN'} />
+                </Modal>
+            }
         </form>
     )
 }
