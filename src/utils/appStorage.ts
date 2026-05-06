@@ -171,11 +171,11 @@ export const getCheckMode = (): string => {
 }
 
 //starting at this point i'll start using loca-storage instead of cookiesjs
-export const setCashSorting = (cs: CashSorting) => {
+export const storeCashSorting = (cs: CashSorting) => {
   localStorage.setItem('cs', JSON.stringify(cs))
 }
 
-export const getCashSorting = () => {
+export const getStoredCashSorting = (): CashSorting | undefined => {
   const cs = localStorage.getItem('cs')
 
 

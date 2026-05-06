@@ -22,6 +22,7 @@ export const CheckListInfo = () => {
     const [balance, setBalance] = useState<TotalBalance>()
     const [mode, setMode] = useState('CHECK_IN')
     const [showCashSortingModal, setShowCashSortingModal] = useState(false)
+    const [showContinueButton, setShowContinueButton] = useState(false)
 
     const router = useRouter()
 
@@ -65,8 +66,7 @@ export const CheckListInfo = () => {
 
     const handleSubmit = async (event: { target: any, preventDefault: () => void }) => {
         event.preventDefault()
-        setShowCashSortingModal(true)
-        /*setSubmitStatus(pendingRequest)
+        setSubmitStatus(pendingRequest)
 
         const formData = new FormData(event.target)
 
@@ -112,8 +112,6 @@ export const CheckListInfo = () => {
             setMatchedBalance(false)
             setSubmitStatus(initialStatus)
         }
-            */
-
     }
 
     if (loadInfostatus.onLoading) {
@@ -286,27 +284,41 @@ export const CheckListInfo = () => {
                             <button
                                 className="rounded bg-mp-green text-mp-white p-2 hover:bg-mp-light-green w-1/4 m-2"
                                 type="button"
-                                onClick={handleRedirect}
+                                onClick={() => setShowCashSortingModal(true)}
                             >
-                                Continuar
+                                Arqueo de caja
                             </button>
-                            :
-                            <button
-                                className="rounded bg-mp-dark text-mp-white p-2 hover:bg-mp-soft-dark w-1/4 m-2"
-                                type="submit"
-                                disabled={submitstatus.onSuccess}
-                            >
-                                {
-                                    submitstatus.onLoading ? <Spinner /> : 'Guardar'
-                                }
-                            </button>
+                            : showContinueButton ?
+                                <button
+                                    className="rounded bg-mp-green text-mp-white p-2 hover:bg-mp-light-green w-1/4 m-2"
+                                    type="button"
+                                    onClick={handleRedirect}
+                                >
+                                    Continuar
+                                </button>
+                                :
+                                <button
+                                    className="rounded bg-mp-dark text-mp-white p-2 hover:bg-mp-soft-dark w-1/4 m-2"
+                                    type="submit"
+                                    disabled={submitstatus.onSuccess}
+                                >
+                                    {
+                                        submitstatus.onLoading ? <Spinner /> : 'Guardar'
+                                    }
+                                </button>
                     }
                 </div>
             </div>
             {
                 showCashSortingModal &&
                 <Modal onClose={() => setShowCashSortingModal(false)}>
-                    <CashSortingModal mode={'CHECK_IN'} />
+                    <CashSortingModal
+                        mode={mode as 'CHECK_IN' | 'CHECK_OUT'}
+                        accountingId={currentAccounting!.accountingId}
+                        showContinueButton={setShowContinueButton}
+                        showModal={setShowCashSortingModal}
+                        continueButton={showContinueButton}
+                    />
                 </Modal>
             }
         </form>
