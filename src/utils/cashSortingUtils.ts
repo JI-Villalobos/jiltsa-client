@@ -18,3 +18,22 @@ export const compare = (a: CashSorting, b: CashSorting): boolean => {
     a.bls2 === b.bls2 &&
     a.bls1 === b.bls1
 }
+
+export const calculateTotalAmount = (cashSorting: CashSorting): number => {
+  return (cashSorting.bt1000 * 1000) +
+    (cashSorting.bt500 * 500) +
+    (cashSorting.bt200 * 200) +
+    (cashSorting.bt100 * 100) +
+    (cashSorting.bt50 * 50) +
+    (cashSorting.bt20 * 20) +
+    (cashSorting.md20 * 20) +
+    (cashSorting.md10 * 10) +
+    (cashSorting.md5 * 5) +
+    (cashSorting.md2 * 2) +
+    (cashSorting.md1 * 1) +
+    (cashSorting.md005 * 0.5) +
+    (cashSorting.bls10 * 500) +
+    (cashSorting.bls5 * 500) +
+    (cashSorting.bls2 * 200) +
+    (cashSorting.bls1 * 100)
+}
