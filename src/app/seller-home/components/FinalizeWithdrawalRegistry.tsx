@@ -44,6 +44,7 @@ export const FinalizeWithdrawalRegistry = () => {
                 <button
                     className="p-2 text-mp-white bg-gradient-to-r from-mp-green to-mp-blue mt-2 w-28 rounded shadow flex items-center justify-center"
                     onClick={handleWithdrawalRegistry}
+                    disabled={withdrawalRegistryStatus.onLoading}
                 >
                     {withdrawalRegistryStatus.onLoading ? <LuLoaderCircle className="animate-spin" /> : 'Confirmar'}
                 </button>
