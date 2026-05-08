@@ -9,10 +9,13 @@ import { getTotalBalance } from "../services/api/branches"
 import { useExpenseRegistryStore } from "../store/useExpenseRegistryStore"
 import { useWithdrawalRegistryStore } from "../store/useWithdrawalRegistryStore"
 import { LuWallet } from "react-icons/lu"
+import Modal from "./shared/Modal"
+import { CashSortingViewModal } from "../seller-home/components/CashSortingViewModal"
 
 export default function TotalBalanceItem(): JSX.Element {
-  const [totals, setTotals] = useState<string>()
+  const [totals, setTotals] = useState<number>()
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
+  const [showCashSortingDetails, setShowCashSortingDetails] = useState(false)
 
   const { updateFlag } = useExpenseRegistryStore()
   const { updateFlag: updateWithdrawalFlag } = useWithdrawalRegistryStore()
@@ -22,7 +25,7 @@ export default function TotalBalanceItem(): JSX.Element {
     const branchId = Cookies.get('branchId')
     if (branchId) {
       getTotalBalance(parseInt(branchId)).then((result) => {
-        setTotals(formatAmount(result.totals))
+        setTotals(result.totals)
         setStatus(successfullRequest)
       }).catch(() => {
         setStatus(failedRequest)
@@ -39,11 +42,24 @@ export default function TotalBalanceItem(): JSX.Element {
           : status.onLoading ? <Spinner bgBlank />
             : (
               <>
-                <LuWallet className="mr-1 text-mp-green"/>
+                <button
+                  onClick={() => setShowCashSortingDetails(true)}
+                >
+                  <LuWallet className="mr-1 text-mp-green" />
+                </button>
                 <p className="text-sm text-center text-mp-dark mr-1">Saldo en caja:</p>
-                <input value={totals} readOnly className="text-sm text-center text-mp-blue font-bold bg-mp-white w-16" />
+                {
+                  totals &&
+                  <input value={formatAmount(totals)} readOnly className="text-sm text-center text-mp-blue font-bold bg-mp-white w-16" />
+                }
               </>
             )
+      }
+      {
+        showCashSortingDetails &&
+        <Modal onClose={() => setShowCashSortingDetails(false)}>
+          <CashSortingViewModal balance={totals} />
+        </Modal>
       }
     </div>
   )

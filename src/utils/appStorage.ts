@@ -5,6 +5,7 @@ import { AuthResponse } from "@/app/services/api/auth";
 import { Bill } from "@/app/services/api/billing";
 import { ExpenseRegistry } from "@/app/services/api/expenses";
 import { IncomeRegistry } from "@/app/services/api/incomes";
+import { CashSorting } from "@/app/services/api/cashSorting";
 
 export type CurrentAccounting = {
   accountingId: number,
@@ -14,7 +15,7 @@ export type CurrentAccounting = {
 }
 
 export const getCurrentAccounting = (): CurrentAccounting | undefined => {
- 
+
   const currentAccounting = Cookies.get('current-accounting')
 
   if (currentAccounting) {
@@ -46,7 +47,7 @@ export const getBranchName = (): string | undefined => {
 
 export const getBranchId = (): number | undefined => {
   const branch: string | undefined = Cookies.get('branchId')
-  if(typeof branch === 'string'){
+  if (typeof branch === 'string') {
     return parseInt(branch)
   }
 }
@@ -67,7 +68,7 @@ export const getUserCredentials = (): AuthResponse | undefined => {
 
     return {
       token,
-      role, 
+      role,
       branchId
     }
   }
@@ -137,12 +138,12 @@ export const setIncomesRegistered = (incomes: IncomeRegistry[]): void => {
 
   if (!incomeRegs) {
     Cookies.set('incomes-reg', JSON.stringify(incomes))
-  } 
+  }
 }
 
 export const getIncomesRegistered = (): IncomeRegistry[] | undefined => {
   const registered = Cookies.get('incomes-reg')
-  
+
   if (registered) {
     return JSON.parse(registered)
   }
@@ -165,6 +166,19 @@ export const getCheckMode = (): string => {
     } else {
       return 'CHECK_IN'
     }
-  } 
+  }
   return 'CHECK_IN'
+}
+
+//starting at this point i'll start using loca-storage instead of cookiesjs
+export const storeCashSorting = (cs: CashSorting) => {
+  localStorage.setItem('cs', JSON.stringify(cs))
+}
+
+export const getStoredCashSorting = (): CashSorting | undefined => {
+  const cs = localStorage.getItem('cs')
+
+
+  if (!cs) return undefined
+  return JSON.parse(cs)
 }

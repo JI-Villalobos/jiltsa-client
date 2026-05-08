@@ -41,7 +41,6 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
     const handleIncomeRegistry = async () => {
         const accounting = getCurrentAccounting()
         if (accounting) {
-            setIncomeStatus(pendingRequest)
             const id = accounting.accountingId
             const incomes: CreateIncomeRegistry[] = [
                 {
@@ -58,15 +57,18 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
                 }
             ]
 
-            await createIncomes(incomes)
-                .then(() => {
-                    setSucccessMesssage(true)
-                    router.push("/close-operation")
-                    setIncomeStatus(successfullRequest)
-                })
-                .catch(() => {
-                    setIncomeStatus(failedRequest)
-                })
+            if (products > 0 && services > 0) {
+                setIncomeStatus(pendingRequest)
+                await createIncomes(incomes)
+                    .then(() => {
+                        setSucccessMesssage(true)
+                        router.push("/close-operation")
+                        setIncomeStatus(successfullRequest)
+                    })
+                    .catch(() => {
+                        setIncomeStatus(failedRequest)
+                    })
+            }
         }
     }
 

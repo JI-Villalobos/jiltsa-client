@@ -1,5 +1,6 @@
 'use client'
 
+import Modal from "@/app/components/shared/Modal"
 import Spinner from "@/app/components/shared/Spinner"
 import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
 import { getTotalBalance, TotalBalance } from "@/app/services/api/branches"
@@ -11,14 +12,18 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { KeyboardEvent, useEffect, useState } from "react"
 import { BiBattery, BiError } from "react-icons/bi"
+import { CashSortingModal } from "./CashSortingModal"
 
-export const CheckListInfo = () =>  {
+export const CheckListInfo = () => {
     const [loadInfostatus, setLoadInfoStatus] = useState(initialStatus)
     const [submitstatus, setSubmitStatus] = useState(initialStatus)
     const [matchedBalance, setMatchedBalance] = useState(true)
     const [currentAccounting, setCurrentAccounting] = useState<CurrentAccounting>()
     const [balance, setBalance] = useState<TotalBalance>()
     const [mode, setMode] = useState('CHECK_IN')
+    const [showCashSortingModal, setShowCashSortingModal] = useState(false)
+    const [showContinueButton, setShowContinueButton] = useState(false)
+
     const router = useRouter()
 
     useEffect(() => {
@@ -107,7 +112,6 @@ export const CheckListInfo = () =>  {
             setMatchedBalance(false)
             setSubmitStatus(initialStatus)
         }
-
     }
 
     if (loadInfostatus.onLoading) {
@@ -280,23 +284,43 @@ export const CheckListInfo = () =>  {
                             <button
                                 className="rounded bg-mp-green text-mp-white p-2 hover:bg-mp-light-green w-1/4 m-2"
                                 type="button"
-                                onClick={handleRedirect}
+                                onClick={() => setShowCashSortingModal(true)}
                             >
-                                Continuar
+                                Arqueo de caja
                             </button>
-                            :
-                            <button
-                                className="rounded bg-mp-dark text-mp-white p-2 hover:bg-mp-soft-dark w-1/4 m-2"
-                                type="submit"
-                                disabled={submitstatus.onSuccess}
-                            >
-                                {
-                                    submitstatus.onLoading ? <Spinner /> : 'Guardar'
-                                }
-                            </button>
+                            : showContinueButton ?
+                                <button
+                                    className="rounded bg-mp-green text-mp-white p-2 hover:bg-mp-light-green w-1/4 m-2"
+                                    type="button"
+                                    onClick={handleRedirect}
+                                >
+                                    Continuar
+                                </button>
+                                :
+                                <button
+                                    className="rounded bg-mp-dark text-mp-white p-2 hover:bg-mp-soft-dark w-1/4 m-2"
+                                    type="submit"
+                                    disabled={submitstatus.onSuccess}
+                                >
+                                    {
+                                        submitstatus.onLoading ? <Spinner /> : 'Guardar'
+                                    }
+                                </button>
                     }
                 </div>
             </div>
+            {
+                showCashSortingModal &&
+                <Modal onClose={() => setShowCashSortingModal(false)}>
+                    <CashSortingModal
+                        mode={mode as 'CHECK_IN' | 'CHECK_OUT'}
+                        accountingId={currentAccounting!.accountingId}
+                        showContinueButton={setShowContinueButton}
+                        showModal={setShowCashSortingModal}
+                        continueButton={showContinueButton}
+                    />
+                </Modal>
+            }
         </form>
     )
 }
