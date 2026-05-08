@@ -1,5 +1,7 @@
 import { CashSorting } from "@/app/services/api/cashSorting"
 
+export const PUBLIC_WORD_PLACEHOLDER = "jiltsa2026"
+
 export const compare = (a: CashSorting, b: CashSorting): boolean => {
   return a.bt1000 === b.bt1000 &&
     a.bt500 === b.bt500 &&
@@ -36,4 +38,8 @@ export const calculateTotalAmount = (cashSorting: CashSorting): number => {
     (cashSorting.bls5 * 500) +
     (cashSorting.bls2 * 200) +
     (cashSorting.bls1 * 100)
+}
+
+export const checkPlaceholderWord = (word: string): boolean => {
+  return word === PUBLIC_WORD_PLACEHOLDER
 }

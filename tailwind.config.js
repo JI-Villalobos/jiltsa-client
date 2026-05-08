@@ -18,7 +18,8 @@ module.exports = {
       'mp-strong-gray': '#DDDDDD',
       'mp-soft-dark': '#5B596A',
       'mp-white': '#F8FAFC',
-      'mp-warning': '#FEF3C7'
+      'mp-warning': '#FEF3C7',
+      'mp-transparent': 'transparent',
     },
     extend: {
       backgroundImage: {
