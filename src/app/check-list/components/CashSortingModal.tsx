@@ -3,8 +3,9 @@
 import { failedRequest, initialStatus, pendingRequest } from "@/app/services"
 import { CashSorting, saveCashSorting } from "@/app/services/api/cashSorting"
 import { deleteAccounting, getBranchId, getStoredCashSorting, storeCashSorting } from "@/utils/appStorage"
-import { compare } from "@/utils/cashSortingUtils"
+import { calculateTotalAmount, compare } from "@/utils/cashSortingUtils"
 import { getCurrentDate } from "@/utils/dateOperations"
+import { formatAmount } from "@/utils/formatAmount"
 import { useRouter } from "next/navigation"
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { LuLoader, LuLoaderCircle, LuRefreshCcw } from "react-icons/lu"
@@ -15,6 +16,7 @@ interface Props {
   showContinueButton: Dispatch<SetStateAction<boolean>>
   showModal: Dispatch<SetStateAction<boolean>>
   continueButton: boolean
+  balance: number | undefined
 }
 
 const defaultCashSorting: CashSorting = {
@@ -28,11 +30,13 @@ const defaultCashSorting: CashSorting = {
 }
 
 
-export const CashSortingModal = ({ mode, accountingId, showContinueButton, showModal, continueButton }: Props) => {
+export const CashSortingModal = ({ mode, accountingId, showContinueButton, showModal, continueButton, balance }: Props) => {
   const [cashSorting, setCashSorting] = useState<CashSorting>(defaultCashSorting)
   const [storedCashSorting, setStoredCashSorting] = useState<CashSorting>()
   const [submitStatus, setSubmitStatus] = useState(initialStatus)
   const [isCachSortingMatched, setIsCashSortingMatched] = useState(true)
+  const [counted, setCounted] = useState(0)
+  const [unmatch, setUnmatch] = useState(false)
 
   const router = useRouter()
 
@@ -55,41 +59,48 @@ export const CashSortingModal = ({ mode, accountingId, showContinueButton, showM
   }
 
   const handleSubmit = async () => {
-    setSubmitStatus(pendingRequest)
-    if (mode == 'CHECK_OUT') {
-      await saveCashSorting(cashSorting)
-        .then((res) => {
-          setStoredCashSorting(res)
-          storeCashSorting(res)
-          setSubmitStatus(initialStatus)
-          showContinueButton(!continueButton)
-          handleRedirect()
-          showModal(false)
-        })
-        .catch(() => {
-          setSubmitStatus(failedRequest)
-        })
-    } else {
-      if (storedCashSorting) {
-        const isMatched = compare(cashSorting, storedCashSorting)
-        setIsCashSortingMatched(isMatched)
+    setCounted(calculateTotalAmount(cashSorting))
+    setUnmatch(counted != balance)
 
-        if (isMatched) {
-          await saveCashSorting(cashSorting)
-            .then((res) => {
-              console.log(res);
-              storeCashSorting(res)
-              setStoredCashSorting(res)
-              setSubmitStatus(initialStatus)
-              showContinueButton(!continueButton)
-              handleRedirect()
-              showModal(false)
-            })
-            .catch(() => {
-              setSubmitStatus(failedRequest)
-            })
-        } else {
-          setSubmitStatus(failedRequest)
+    if (counted == balance) {
+      setSubmitStatus(pendingRequest)
+      if (mode == 'CHECK_OUT') {
+        await saveCashSorting(cashSorting)
+          .then((res) => {
+            setStoredCashSorting(res)
+            storeCashSorting(res)
+            setSubmitStatus(initialStatus)
+            showContinueButton(!continueButton)
+            handleRedirect()
+            showModal(false)
+          })
+          .catch((e) => {
+            console.log(e);
+
+            setSubmitStatus(failedRequest)
+          })
+      } else {
+        if (storedCashSorting) {
+          const isMatched = compare(cashSorting, storedCashSorting)
+          setIsCashSortingMatched(isMatched)
+
+          if (isMatched) {
+            await saveCashSorting(cashSorting)
+              .then((res) => {
+                console.log(res);
+                storeCashSorting(res)
+                setStoredCashSorting(res)
+                setSubmitStatus(initialStatus)
+                showContinueButton(!continueButton)
+                handleRedirect()
+                showModal(false)
+              })
+              .catch(() => {
+                setSubmitStatus(failedRequest)
+              })
+          } else {
+            setSubmitStatus(failedRequest)
+          }
         }
       }
     }
@@ -252,6 +263,9 @@ export const CashSortingModal = ({ mode, accountingId, showContinueButton, showM
         </button>
         {
           submitStatus.onError && <p className="text-mp-error text-sm">Error al guardar el conteo de efectivo, intenta de nuevo</p>
+        }
+        {
+          unmatch && <p className="text-mp-error text-sm mb-2">El monto contado no coincide con el total, contado: {formatAmount(counted)}</p>
         }
       </form>
     </div>

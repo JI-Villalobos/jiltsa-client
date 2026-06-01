@@ -311,13 +311,14 @@ export const CheckListInfo = () => {
             </div>
             {
                 showCashSortingModal &&
-                <Modal onClose={() => setShowCashSortingModal(false)}>
+                <Modal onClose={() => { }}>
                     <CashSortingModal
                         mode={mode as 'CHECK_IN' | 'CHECK_OUT'}
                         accountingId={currentAccounting!.accountingId}
                         showContinueButton={setShowContinueButton}
                         showModal={setShowCashSortingModal}
                         continueButton={showContinueButton}
+                        balance={balance?.totals}
                     />
                 </Modal>
             }
