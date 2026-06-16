@@ -60,9 +60,9 @@ export const CashSortingModal = ({ mode, accountingId, showContinueButton, showM
 
   const handleSubmit = async () => {
     setCounted(calculateTotalAmount(cashSorting))
-    setUnmatch(counted != balance)
+    setUnmatch(counted != Math.ceil(balance))
 
-    if (counted == balance) {
+    if (counted == Math.ceil(balance)) {
       setSubmitStatus(pendingRequest)
       if (mode == 'CHECK_OUT') {
         await saveCashSorting(cashSorting)
