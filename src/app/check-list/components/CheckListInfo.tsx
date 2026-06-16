@@ -48,6 +48,7 @@ export const CheckListInfo = () => {
     }, [])
 
     const matchBalance = (counted: number): boolean => {
+        console.log(counted, "==", balance)
         if (balance) {
             return balance.totals == counted
         } else {
@@ -98,6 +99,8 @@ export const CheckListInfo = () => {
             accountingId: currentAccounting?.accountingId!
         }
 
+        console.log("from submit ", cashBalance)
+        
         if (matchBalance(parseInt(cashBalance))) {
             await createCheckList(body)
                 .then((res) => {
