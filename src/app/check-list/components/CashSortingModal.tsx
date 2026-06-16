@@ -60,7 +60,7 @@ export const CashSortingModal = ({ mode, accountingId, showContinueButton, showM
 
   const handleSubmit = async () => {
     setCounted(calculateTotalAmount(cashSorting))
-    const fixedBalance: number = counted ? Math.ceil(balance) : 0 
+    const fixedBalance: number = balance ? Math.ceil(balance) : 0 
     setUnmatch(counted != fixedBalance)
 
     if (counted == fixedBalance) {
