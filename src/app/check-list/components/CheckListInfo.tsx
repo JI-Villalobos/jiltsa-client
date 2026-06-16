@@ -48,9 +48,9 @@ export const CheckListInfo = () => {
     }, [])
 
     const matchBalance = (counted: number): boolean => {
-        console.log(counted, "==", balance)
+        console.log(balance, "==", balance.totals)
         if (balance) {
-            return balance.totals == counted
+            return Math.ceil(balance.totals) == counted
         } else {
             return false
         }
