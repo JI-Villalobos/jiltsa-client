@@ -43,7 +43,7 @@ export default function AsideMenu(): JSX.Element {
         <LinkItem path="/seller-home" icon={<LuLandmark className="text-mp-green" />} name="Movimientos" />
         <LinkItem path="/operation" icon={<LuReceipt className="text-mp-green" />} name="Gastos" />
         <LinkItem path={`withdrawals/${branch}`} icon={<LuWalletCards className="text-mp-green" />} name="Depositos" />
-        <LinkItem path={`orders/${branch}`} icon={<LuShoppingBag className="text-mp-green" />} name="Compras" />
+        <LinkItem path={`/orders`} icon={<LuShoppingBag className="text-mp-green" />} name="Compras" />
       </>
     </div>
   )
