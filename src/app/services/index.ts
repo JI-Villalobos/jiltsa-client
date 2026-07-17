@@ -107,5 +107,13 @@ export const endPoints = {
   cashSorting: {
     getCashSorting: (accountingId: number) => `${API}/cash-sorting/accounting/${accountingId}`,
     mutate: `${API}/cash-sorting`
+  },
+  orders: {
+    mutate: `${API}/orders`,
+    getById: (orderId: number) => `${API}/orders/${orderId}`
+  },
+  orderItems: {
+    base: `${API}/order-items`,
+    saveAll: `${API}/order-items/save-all`
   }
 }
