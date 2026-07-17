@@ -110,7 +110,8 @@ export const endPoints = {
   },
   orders: {
     mutate: `${API}/orders`,
-    getById: (orderId: number) => `${API}/orders/${orderId}`
+    getById: (orderId: number) => `${API}/orders/${orderId}`,
+    getOrders: (branchId: number) => `${API}/orders/by-branch/${branchId}`
   },
   orderItems: {
     base: `${API}/order-items`,
