@@ -5,14 +5,18 @@ import Layout from "../layouts/Layout";
 import Modal from "../components/shared/Modal";
 import { CreatePurchaseForm } from "./components/CreatePurchaseForm";
 import { getOrders, Order } from "../services/api/orders";
+import { getProviders } from "../services/api/providers";
 import { failedRequest, initialStatus, pendingRequest } from "../services";
 import { getBranchId } from "@/utils/appStorage";
 import { Purchase } from "./components/Purchase";
+import { useProviderStore } from "../hooks/useProviderStore";
 
 export default function Orders() {
   const [showModal, setShowModal] = useState(false)
   const [orders, setOrders] = useState<Order[]>([])
   const [status, setStatus] = useState(initialStatus)
+  const [provStatus, setProvStatus] = useState(initialStatus)
+  const { setProviders } = useProviderStore()
 
   useEffect(() => {
     const branchId = getBranchId()
@@ -27,7 +31,17 @@ export default function Orders() {
           setStatus(failedRequest)
         })
     }
-  }, [])
+
+    setProvStatus(pendingRequest)
+    getProviders()
+      .then((providers) => {
+        setProviders(providers)
+        setProvStatus(initialStatus)
+      })
+      .catch(() => {
+        setProvStatus(failedRequest)
+      })
+  }, [setProviders])
 
   return (
     <Layout>
