@@ -15,6 +15,7 @@ import { DateTime } from "luxon"
 import { LuLoaderCircle } from "react-icons/lu"
 import { getBranchId } from "@/utils/appStorage"
 import ErrorMessage from "@/app/components/shared/ErrorMessage"
+import { useRouter } from "next/navigation"
 
 const newOrder: CreateOrder = {
   branchId: 0,
@@ -31,6 +32,8 @@ export const CreatePurchaseForm = () => {
   const [submitStatus, setSubmitStatus] = useState(initialStatus)
   const [providers, setProviders] = useState<Provider[]>([])
   const [order, setOrder] = useState<CreateOrder>(newOrder)
+
+  const router = useRouter()
 
   useEffect(() => {
     setLoadProvidersStatus(pendingRequest)
@@ -55,13 +58,12 @@ export const CreatePurchaseForm = () => {
   }, [])
 
   const handleNewOrder = async () => {
-    console.log('order: ', order);
-
     setSubmitStatus(pendingRequest)
     await saveOrder(order)
       .then((res) => {
-        setSubmitStatus(initialStatus)
         setOrder(res)
+        router.push(`/orders/${res.id}`)
+        setSubmitStatus(initialStatus)
       })
       .catch(() => {
         setSubmitStatus(failedRequest)
@@ -95,6 +97,7 @@ export const CreatePurchaseForm = () => {
                     focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none 
                     disabled:opacity-50 mb-4"
         onClick={handleNewOrder}
+        disabled={order.providerId == 0}
       >
         {submitStatus.onLoading ? <Spinner /> : 'Registrar'}
       </button>
