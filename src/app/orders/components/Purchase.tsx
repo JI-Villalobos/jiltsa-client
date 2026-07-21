@@ -1,11 +1,10 @@
 'use client'
 
 import { Order } from "@/app/services/api/orders"
-import { Provider } from "@/app/services/api/providers"
+import { useProviderStore } from "@/app/hooks/useProviderStore"
 import { formatAmount } from "@/utils/formatAmount"
 import clsx from "clsx"
 import Link from "next/link"
-import { useEffect, useState } from "react"
 import { BiCoinStack } from "react-icons/bi"
 
 interface Props {
@@ -13,11 +12,8 @@ interface Props {
 }
 
 export const Purchase = ({ order }: Props) => {
-  const [provider, setProvider] = useState<Provider>()
-
-  useEffect(() => {
-
-  }, [])
+  const { provider: providers } = useProviderStore()
+  const provider = providers.find((item) => item.id === order.providerId)
 
   return (
     <div
@@ -25,7 +21,7 @@ export const Purchase = ({ order }: Props) => {
                         border-opacity-20 shadow hover:cursor-pointer hover:bg-mp-soft-dark/5">
       <Link href={`/purchases/${order.id}`} className="flex flex-row w-full justify-between">
         <p className="w-1/12 text-mp-dark">Orden: <span className="text-mp-green">{order.id}</span></p>
-        <p className="w-2/12">Proveedor: <span className="text-mp-blue">{/*provider.name*/}</span></p>
+        <p className="w-2/12">Proveedor: <span className="text-mp-blue">{provider?.name ?? "-"}</span></p>
         <p className="w-2/12 text-mp-green">{order.creationDate}</p>
         <p className="w-2/12 text-mp-dark">Estimado: <span className="text-mp-green">{formatAmount(order.estimatedCost)}</span></p>
         <p className="w-2/12 text-mp-dark">Real: <span className="text-mp-green">{formatAmount(order.realCost)}</span></p>
