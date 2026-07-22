@@ -95,6 +95,13 @@ export default function OrderId({
               <input
                 type="file"
                 className="h-full w-full opacity-0" name="" accept=".xlsx"
+                onChange={(e) => {
+                  const files = e.target.files
+                  if (!files || files.length === 0) return
+
+                  //setFile(files[0])
+
+                }}
               />
             </div>
           </div>
