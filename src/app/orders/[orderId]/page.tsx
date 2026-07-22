@@ -144,9 +144,9 @@ export default function OrderId({
         }
       </div>
       {
-        showItemsModal &&
+        showItemsModal && order &&
         <Modal onClose={() => setShowItemsModal(false)}>
-          <PurchaseItemsModal />
+          <PurchaseItemsModal order={order} />
         </Modal>
       }
     </Layout>

@@ -1,15 +1,33 @@
 'use client'
 
 import { useXLSXOrderItemsStore } from "@/app/hooks/useXLSXOrderItemsStore"
+import { failedRequest, initialStatus, pendingRequest } from "@/app/services"
+import { Order, saveItems } from "@/app/services/api/orders"
 import { formatAmount } from "@/utils/formatAmount"
-import { BiEdit, BiTrash } from "react-icons/bi"
+import { orderItemListMapper } from "@/utils/mapper"
+import { useState } from "react"
+import { BiTrash } from "react-icons/bi"
+import { LuLoaderCircle } from "react-icons/lu"
 
+interface Props {
+  order: Order
+}
 
-export const PurchaseItemsModal = () => {
+export const PurchaseItemsModal = ({ order }: Props) => {
+  const [status, setStatus] = useState(initialStatus)
   const { items } = useXLSXOrderItemsStore()
 
   const handleSubmitItems = async () => {
-
+    setStatus(pendingRequest)
+    const orderItems = orderItemListMapper(items, order.id!)
+    await saveItems(orderItems)
+      .then(() => {
+        window.location.reload()
+        setStatus(initialStatus)
+      })
+      .catch(() => {
+        setStatus(failedRequest)
+      })
   }
 
   return (
@@ -40,8 +58,13 @@ export const PurchaseItemsModal = () => {
           ))
         }
       </div>
-      <button className="flex items-center justify-center text-mp-white bg-gradient-to-r from-mp-green to-mp-blue rounded p-2 w-24 mt-2 mb-2 cursor-pointer">
-        Registrar
+      <button
+        className="flex items-center justify-center text-mp-white bg-gradient-to-r from-mp-green to-mp-blue rounded p-2 w-24 mt-2 mb-2 cursor-pointer"
+        onClick={() => handleSubmitItems()}
+      >
+        {
+          status.onLoading ? <LuLoaderCircle className="animate-spin" /> : 'Registrar'
+        }
       </button>
     </div>
   )
