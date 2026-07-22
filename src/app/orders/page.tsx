@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import { LuLoaderCircle } from "react-icons/lu";
 import Layout from "../layouts/Layout";
 import Modal from "../components/shared/Modal";
 import { CreatePurchaseForm } from "./components/CreatePurchaseForm";
@@ -56,9 +57,18 @@ export default function Orders() {
         </button>
         <div className="flex flex-col items-center justify-center w-8/12 ">
           <p className="text-slate-700 mt-4 text-mp-green">Ordenes abiertas</p>
-          {
+          {status.onLoading ? (
+            <div className="mt-6 flex items-center gap-2 text-mp-green">
+              <LuLoaderCircle className="animate-spin" size={20} />
+              <span>Cargando órdenes...</span>
+            </div>
+          ) : status.onError ? (
+            <p className="mt-6 text-sm text-mp-error">
+              No se pudieron cargar las órdenes. Intenta nuevamente más tarde.
+            </p>
+          ) : (
             orders.map((order) => <Purchase key={`id-key-${order.id}`} order={order} />)
-          }
+          )}
         </div>
       </div>
       {
