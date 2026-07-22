@@ -12,6 +12,8 @@ import { generateTemplate, ORDER_ITEM_SCHEMA, xlsxReader } from "@/utils/xlsx-ut
 import { PurchaseItem } from "../components/PurchaseItem"
 import { mapPurchaseItems } from "@/utils/mapper"
 import { useXLSXOrderItemsStore } from "@/app/hooks/useXLSXOrderItemsStore"
+import Modal from "@/app/components/shared/Modal"
+import { PurchaseItemsModal } from "../components/PurchaseItemsModal"
 
 export default function OrderId({
   params,
@@ -20,6 +22,7 @@ export default function OrderId({
 }) {
   const [order, setOrder] = useState<Order>()
   const [status, setStatus] = useState(initialStatus)
+  const [showItemsModal, setShowItemsModal] = useState(false)
 
   const { setItems } = useXLSXOrderItemsStore()
 
@@ -42,6 +45,7 @@ export default function OrderId({
       .then(data => {
         const items = mapPurchaseItems(data)
         setItems(items)
+        setShowItemsModal(true)
       })
   }
 
@@ -139,6 +143,12 @@ export default function OrderId({
           </div>
         }
       </div>
+      {
+        showItemsModal &&
+        <Modal onClose={() => setShowItemsModal(false)}>
+          <PurchaseItemsModal />
+        </Modal>
+      }
     </Layout>
   )
 }
