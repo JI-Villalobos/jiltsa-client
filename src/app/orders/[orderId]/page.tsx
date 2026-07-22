@@ -10,6 +10,8 @@ import { use, useEffect, useState } from "react"
 import { LuFolder } from "react-icons/lu"
 import { generateTemplate, ORDER_ITEM_SCHEMA, xlsxReader } from "@/utils/xlsx-utils"
 import { PurchaseItem } from "../components/PurchaseItem"
+import { mapPurchaseItems } from "@/utils/mapper"
+import { useXLSXOrderItemsStore } from "@/app/hooks/useXLSXOrderItemsStore"
 
 export default function OrderId({
   params,
@@ -18,6 +20,8 @@ export default function OrderId({
 }) {
   const [order, setOrder] = useState<Order>()
   const [status, setStatus] = useState(initialStatus)
+
+  const { setItems } = useXLSXOrderItemsStore()
 
   const { orderId } = use(params)
 
@@ -36,10 +40,8 @@ export default function OrderId({
   const handleReadOrder = async (file: File) => {
     await xlsxReader(file)
       .then(data => {
-        //const LoadedCompanies = mapCompanies(data)
-        //setCompanies(LoadedCompanies)
-        //setShowReadCompanies(true)
-        console.log(data);
+        const items = mapPurchaseItems(data)
+        setItems(items)
       })
   }
 
