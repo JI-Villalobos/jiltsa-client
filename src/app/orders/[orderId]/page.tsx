@@ -9,6 +9,7 @@ import { formatAmount } from "@/utils/formatAmount"
 import { use, useEffect, useState } from "react"
 import { LuFolder } from "react-icons/lu"
 import { generateTemplate, ORDER_ITEM_SCHEMA } from "@/utils/xlsx-utils"
+import { PurchaseItem } from "../components/PurchaseItem"
 
 export default function OrderId({
   params,
@@ -34,7 +35,7 @@ export default function OrderId({
 
   return (
     <Layout>
-      <div className="w-10/12 flex flex-col justify-center items-center py-8">
+      <div className="w-10/12 flex flex-col justify-center items-center py-4">
         {status.onLoading && <Skeleton />}
         {status.onError && <Error />}
         {order && !status.onLoading && !status.onError && (
@@ -98,6 +99,23 @@ export default function OrderId({
             </div>
           </div>
         }
+        <div className="mt-6">
+          <div className="w-full p-1 grid grid-cols-20 gap-1 text-xs rounded bg-gradient-to-r from-mp-green to-mp-blue text-mp-white">
+            <p className="col-span-6 overflow-hidden">Artículo</p>
+            <p className="col-span-1 overflow-hidden">Sol.</p>
+            <p className="col-span-1 overflow-hidden">Surt.</p>
+            <p className="col-span-1 overflow-hidden">Faltan</p>
+            <p className="col-span-1 overflow-hidden">Precio</p>
+            <p className="col-span-2 overflow-hidden">Precio final</p>
+            <p className="col-span-2 overflow-hidden">Total</p>
+            <p className="col-span-2 overflow-hidden">Tot Real</p>
+            <p className="col-span-2 overflow-hidden">Dif.</p>
+            <p className="col-span-2 overflow-hidden">Estatus</p>
+          </div>
+          {
+            order?.items.map((item) => <PurchaseItem item={item} key={item.id} />)
+          }
+        </div>
       </div>
     </Layout>
   )
