@@ -7,6 +7,7 @@ import { failedRequest, initialStatus, pendingRequest } from "@/app/services"
 import { getOrder, Order } from "@/app/services/api/orders"
 import { formatAmount } from "@/utils/formatAmount"
 import { use, useEffect, useState } from "react"
+import { LuFolder } from "react-icons/lu"
 
 export default function OrderId({
   params,
@@ -67,6 +68,30 @@ export default function OrderId({
             </div>
           </div>
         )}
+        {
+          order && order.items.length == 0 &&
+          <div className="flex flex-col items-center justify-center mt-6 w-8/12">
+            <p className="text-mp-soft-dark">No hay elementos</p>
+            <button className="text-mp-green underline text-sm p-2 hover:text-mp-light-green">Descargar Plantilla</button>
+            <div className="relative h-48 w-8/12 rounded-lg border-dashed border-2 border-mp-dark/25 bg-mp-dark/5
+                            flex justify-center items-center"
+            >
+
+              <div className="absolute">
+
+                <div className="flex flex-col items-center">
+                  <LuFolder size={60} className="text-mp-dark/25" />
+                  <span className="block text-mp-dark/25 font-normal">Agrega tu orden de compra</span>
+                </div>
+              </div>
+
+              <input
+                type="file"
+                className="h-full w-full opacity-0" name="" accept=".xlsx"
+              />
+            </div>
+          </div>
+        }
       </div>
     </Layout>
   )
