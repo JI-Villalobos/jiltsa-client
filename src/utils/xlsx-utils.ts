@@ -12,3 +12,11 @@ export const generateTemplate = (schema: unknown[]) => {
 
   XLSX.writeFile(workbook, "template.xlsx", { compression: true });
 }
+
+export const xlsxReader = async (file: File) => {
+  const ab = await file.arrayBuffer()
+  const wb = XLSX.read(ab)
+  const ws = wb.Sheets[wb.SheetNames[0]]
+
+  return XLSX.utils.sheet_to_json(ws, { header: 1 }) as any[][]
+}
