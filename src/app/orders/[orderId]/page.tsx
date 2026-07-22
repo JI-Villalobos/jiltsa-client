@@ -8,6 +8,7 @@ import { getOrder, Order } from "@/app/services/api/orders"
 import { formatAmount } from "@/utils/formatAmount"
 import { use, useEffect, useState } from "react"
 import { LuFolder } from "react-icons/lu"
+import { generateTemplate, ORDER_ITEM_SCHEMA } from "@/utils/xlsx-utils"
 
 export default function OrderId({
   params,
@@ -72,7 +73,12 @@ export default function OrderId({
           order && order.items.length == 0 &&
           <div className="flex flex-col items-center justify-center mt-6 w-8/12">
             <p className="text-mp-soft-dark">No hay elementos</p>
-            <button className="text-mp-green underline text-sm p-2 hover:text-mp-light-green">Descargar Plantilla</button>
+            <button
+              className="text-mp-green underline text-sm p-2 hover:text-mp-light-green"
+              onClick={() => generateTemplate(ORDER_ITEM_SCHEMA)}
+            >
+              Descargar Plantilla
+            </button>
             <div className="relative h-48 w-8/12 rounded-lg border-dashed border-2 border-mp-dark/25 bg-mp-dark/5
                             flex justify-center items-center"
             >
