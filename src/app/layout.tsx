@@ -8,7 +8,7 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: "JJV Manager",
+  title: "Mi Pueblito Farm.",
   description: "A manager platform for client/process management",
 };
 
