@@ -8,7 +8,7 @@ import { getOrder, Order } from "@/app/services/api/orders"
 import { formatAmount } from "@/utils/formatAmount"
 import { use, useEffect, useState } from "react"
 import { LuFolder } from "react-icons/lu"
-import { generateTemplate, ORDER_ITEM_SCHEMA } from "@/utils/xlsx-utils"
+import { generateTemplate, ORDER_ITEM_SCHEMA, xlsxReader } from "@/utils/xlsx-utils"
 import { PurchaseItem } from "../components/PurchaseItem"
 
 export default function OrderId({
@@ -32,6 +32,16 @@ export default function OrderId({
         setStatus(failedRequest)
       })
   }, [orderId])
+
+  const handleReadOrder = async (file: File) => {
+    await xlsxReader(file)
+      .then(data => {
+        //const LoadedCompanies = mapCompanies(data)
+        //setCompanies(LoadedCompanies)
+        //setShowReadCompanies(true)
+        console.log(data);
+      })
+  }
 
   return (
     <Layout>
@@ -99,7 +109,7 @@ export default function OrderId({
                   const files = e.target.files
                   if (!files || files.length === 0) return
 
-                  //setFile(files[0])
+                  handleReadOrder(files[0])
 
                 }}
               />
