@@ -29,6 +29,7 @@ export interface OrderItem {
 }
 
 export type CreateOrder = Omit<Order, 'id' | 'items'>
+export type UpdateOrder = Omit<Order, 'items'>
 
 const token: string = Cookies.get('token')!
 
@@ -41,6 +42,12 @@ const options = {
 
 export const saveOrder = async (order: CreateOrder) => {
   const { data } = await axios.post<Order>(endPoints.orders.mutate, order, options)
+
+  return data
+}
+
+export const updateOrder = async (order: UpdateOrder) => {
+  const { data } = await axios.put(endPoints.orders.mutate, order, options)
 
   return data
 }
