@@ -2,7 +2,7 @@
 
 import { useXLSXOrderItemsStore } from "@/app/hooks/useXLSXOrderItemsStore"
 import { failedRequest, initialStatus, pendingRequest } from "@/app/services"
-import { Order, saveItems } from "@/app/services/api/orders"
+import { Order, saveItems, updateOrder } from "@/app/services/api/orders"
 import { formatAmount } from "@/utils/formatAmount"
 import { orderItemListMapper } from "@/utils/mapper"
 import { useState } from "react"
@@ -15,10 +15,13 @@ interface Props {
 
 export const PurchaseItemsModal = ({ order }: Props) => {
   const [status, setStatus] = useState(initialStatus)
-  const { items } = useXLSXOrderItemsStore()
+  const { items, deleteItem, setTotal } = useXLSXOrderItemsStore()
 
   const handleSubmitItems = async () => {
     setStatus(pendingRequest)
+    const updatedTotal = items.reduce((acc, current) => acc + current.total, 0)
+    await updateOrder({ ...order, estimatedCost: updatedTotal })
+
     const orderItems = orderItemListMapper(items, order.id!)
     await saveItems(orderItems)
       .then(() => {
@@ -28,6 +31,11 @@ export const PurchaseItemsModal = ({ order }: Props) => {
       .catch(() => {
         setStatus(failedRequest)
       })
+  }
+
+  const handleDeleteItem = (uuid: string) => {
+    deleteItem(uuid)
+    setTotal()
   }
 
   return (
@@ -50,7 +58,7 @@ export const PurchaseItemsModal = ({ order }: Props) => {
               <p className="col-span-2">{item.itemType}</p>
               <button
                 className="col-span-1  text-mp-strong-red"
-              //onClick={() => handleDeleteItem(item.uuid)}
+                onClick={() => handleDeleteItem(item.uuid)}
               >
                 <BiTrash size={20} />
               </button>
