@@ -77,7 +77,7 @@ export const CashSortingModal = ({ mode, accountingId, showContinueButton, showM
           })
           .catch((e) => {
             console.log(e);
-
+            console.log(cashSorting);
             setSubmitStatus(failedRequest)
           })
       } else {
@@ -96,7 +96,8 @@ export const CashSortingModal = ({ mode, accountingId, showContinueButton, showM
                 handleRedirect()
                 showModal(false)
               })
-              .catch(() => {
+              .catch((e) => {
+                console.log(e);
                 setSubmitStatus(failedRequest)
               })
           } else {
