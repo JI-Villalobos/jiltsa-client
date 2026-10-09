@@ -11,9 +11,10 @@ export interface IncomeRegistry {
 }
 
 export type CreateIncomeRegistry = Omit<IncomeRegistry, 'id' | 'time'>
+export type CreatedIncomeRegistry = Omit<IncomeRegistry, 'time'>
 
 export const createIncome = async (incomeDto: CreateIncomeRegistry) => {
-  const { data }: AxiosResponse<IncomeRegistry> = await axios.post(endPoints.incomes.createIncome, incomeDto, authOptions())
+  const { data }: AxiosResponse<CreatedIncomeRegistry> = await axios.post(endPoints.incomes.createIncome, incomeDto, authOptions())
 
   return data
 }

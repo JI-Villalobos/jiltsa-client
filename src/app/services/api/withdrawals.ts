@@ -17,9 +17,10 @@ export type PageCashWithdrawal = {
 } & Page
 
 export type CreateCashWithdrawalDto = Omit<CashWithdrawal, 'id' | 'date'>
+export type CreatedCashWithdrawal = Omit<CashWithdrawal, 'date'>
 
-export const createCashRegistry = async (cashRegistry: CreateCashWithdrawalDto): Promise<CashWithdrawal> => {
-  const { data }: AxiosResponse<CashWithdrawal> = await axios.post(endPoints.cash.withdrawals, cashRegistry, authOptions())
+export const createCashRegistry = async (cashRegistry: CreateCashWithdrawalDto): Promise<CreatedCashWithdrawal> => {
+  const { data }: AxiosResponse<CreatedCashWithdrawal> = await axios.post(endPoints.cash.withdrawals, cashRegistry, authOptions())
 
   return data
 }

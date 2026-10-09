@@ -1,15 +1,18 @@
 import axios, { AxiosResponse } from "axios"
 import { authOptions, endPoints } from ".."
 
+export type CheckType = 'CHECK_IN' | 'CHECK_OUT'
+
 export interface CheckList {
-    checkType: string
+    id: number
+    checkType: CheckType
     date: string
     cashBalance: number
     tranboxBalance: number
     cellphoneCharge: number
     cellphoneCondition: boolean
     cellphoneObservation: string
-    furnitureCleanConditions: number
+    furnitureCleanConditions: string
     installationState: boolean
     installationStateObservation: string
     sellerId: number

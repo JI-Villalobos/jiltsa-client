@@ -13,6 +13,7 @@ export interface Accounting {
   incomeRegistries: IncomeRegistry[]
 }
 
+export type CreatedAccounting = Omit<Accounting, 'expenseRegistries' | 'incomeRegistries'>
 export type CreateAccounting = Pick<Accounting, 'sellerId' | 'branchId' | 'date'>
 export type PageAccounting = {
   content: Accounting[]
@@ -42,14 +43,14 @@ export const getAccounting = async (accountingId: number): Promise<Accounting> =
   return data
 }
 
-export const newAccounting = async (accounting: CreateAccounting): Promise<Accounting> => {
-  const { data }: AxiosResponse<Accounting> = await axios.post(endPoints.accountings.createAccounting, accounting, authOptions()) 
+export const newAccounting = async (accounting: CreateAccounting): Promise<CreatedAccounting> => {
+  const { data }: AxiosResponse<CreatedAccounting> = await axios.post(endPoints.accountings.createAccounting, accounting, authOptions()) 
 
   return data
 }
 
-export const newCustomAccounting =  async (accounting: CustomAccounting): Promise<Accounting> => {
-  const { data }: AxiosResponse<Accounting> = await axios.post(endPoints.accountings.createOutOfDateAccounting, accounting, authOptions())
+export const newCustomAccounting =  async (accounting: CustomAccounting): Promise<CreatedAccounting> => {
+  const { data }: AxiosResponse<CreatedAccounting> = await axios.post(endPoints.accountings.createOutOfDateAccounting, accounting, authOptions())
 
   return data
 }

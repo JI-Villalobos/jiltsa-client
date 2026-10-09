@@ -11,9 +11,10 @@ export interface ExpenseRegistry {
 }
 
 export type CreateExpenseRegistry = Omit<ExpenseRegistry, 'id' | 'time'>
+export type CreatedExpenseRegistry = Omit<ExpenseRegistry, 'time'>
 
-export const createExpense = async (expenseDto: CreateExpenseRegistry): Promise<ExpenseRegistry> => {
-  const { data }: AxiosResponse<ExpenseRegistry> = await axios.post(endPoints.expenses.createExpense, expenseDto, authOptions()) 
+export const createExpense = async (expenseDto: CreateExpenseRegistry): Promise<CreatedExpenseRegistry> => {
+  const { data }: AxiosResponse<CreatedExpenseRegistry> = await axios.post(endPoints.expenses.createExpense, expenseDto, authOptions()) 
 
   return data
 }
