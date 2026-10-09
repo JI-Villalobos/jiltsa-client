@@ -41,3 +41,5 @@ docker-compose.override.yml
 pnpm-workspace.yaml
 
 /scripts
+
+api-docs.json
