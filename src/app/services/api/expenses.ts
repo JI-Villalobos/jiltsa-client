@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import Cookies from "js-cookie"
-import { endPoints } from ".."
+import { authOptions, endPoints } from ".."
 
 export interface ExpenseRegistry {
   id: number,
@@ -13,23 +12,14 @@ export interface ExpenseRegistry {
 
 export type CreateExpenseRegistry = Omit<ExpenseRegistry, 'id' | 'time'>
 
-const token: string = Cookies.get('token')!
-
-const options = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  }
-}
-
 export const createExpense = async (expenseDto: CreateExpenseRegistry): Promise<ExpenseRegistry> => {
-  const { data }: AxiosResponse<ExpenseRegistry> = await axios.post(endPoints.expenses.createExpense, expenseDto, options) 
+  const { data }: AxiosResponse<ExpenseRegistry> = await axios.post(endPoints.expenses.createExpense, expenseDto, authOptions()) 
 
   return data
 }
 
 export const getExpenses = async (accountingId: number) => {
-  const { data } : AxiosResponse<ExpenseRegistry[]> = await axios.get(endPoints.expenses.getExpenses(accountingId), options)
+  const { data } : AxiosResponse<ExpenseRegistry[]> = await axios.get(endPoints.expenses.getExpenses(accountingId), authOptions())
 
   return data
 }

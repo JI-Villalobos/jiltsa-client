@@ -1,4 +1,4 @@
-import { getBranchName } from "@/utils/appStorage"
+import { getBranchId } from "@/utils/appStorage"
 import { useEffect, useState } from "react"
 import CashWSummaryItem from "./CashWsummaryItem"
 import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services"
@@ -12,9 +12,9 @@ export default function CashWSummary(): JSX.Element {
 
     useEffect(() => {
         setStatus(pendingRequest)
-        const branch = getBranchName()
-        if (branch) {
-            getCurrentCashRegistries(branch)
+        const branchId = getBranchId()
+        if (branchId) {
+            getCurrentCashRegistries(branchId)
                 .then((result) => {
                     setCashWithdrawals(result)
                     setStatus(successfullRequest)

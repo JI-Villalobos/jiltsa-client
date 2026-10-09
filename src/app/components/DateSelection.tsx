@@ -26,7 +26,7 @@ export default function DateSelection({ setDisplay, setAccounts, branch }: Props
     setStatus({...status, onLoading: true})
     getByDate(initial, end, branch)
       .then((result) => {
-        setAccounts(result)
+        setAccounts(result.content)
         setDisplay(true)
         setStatus({...status, onLoading: false})
       })

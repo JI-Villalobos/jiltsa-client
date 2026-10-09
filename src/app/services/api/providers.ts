@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import Cookies from "js-cookie"
-import { endPoints } from ".."
+import { authOptions, endPoints } from ".."
 
 export interface Provider {
   id: number,
@@ -10,23 +9,14 @@ export interface Provider {
 
 export type CreateProvider = Omit<Provider, 'id'>
 
-const token: string = Cookies.get('token')!
-
-const options = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  }
-}
-
 export const getProviders = async (): Promise<Provider[]> => {
-  const { data }: AxiosResponse<Provider[]> = await axios.get(endPoints.providers.op, options)
+  const { data }: AxiosResponse<Provider[]> = await axios.get(endPoints.providers.op, authOptions())
 
   return data
 }
 
 export const CreateProvider = async (provider: CreateProvider): Promise<Provider> => {
-  const { data }: AxiosResponse<Provider> = await axios.post(endPoints.providers.op, options)
+  const { data }: AxiosResponse<Provider> = await axios.post(endPoints.providers.op, provider, authOptions())
 
   return data
 }

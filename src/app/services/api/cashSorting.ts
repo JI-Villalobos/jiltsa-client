@@ -1,6 +1,5 @@
 import axios from "axios"
-import Cookies from "js-cookie"
-import { endPoints } from ".."
+import { authOptions, endPoints } from ".."
 
 export interface CashSorting {
   id?: number,
@@ -25,22 +24,14 @@ export interface CashSorting {
   bls1: number
 }
 
-const token: string = Cookies.get('token')!
-
-const options = {
-  headers: {
-    'Content-Type': 'application/json',
-  }
-}
-
 export const saveCashSorting = async (cashSorting: CashSorting) => {
-  const { data } = await axios.post(endPoints.cashSorting.mutate, cashSorting, options)
+  const { data } = await axios.post(endPoints.cashSorting.mutate, cashSorting, authOptions())
 
   return data
 }
 
 export const getCashSorting = async (accountingId: number) => {
-  const { data } = await axios.get(endPoints.cashSorting.getCashSorting(accountingId), options)
+  const { data } = await axios.get(endPoints.cashSorting.getCashSorting(accountingId), authOptions())
 
   return data
 }

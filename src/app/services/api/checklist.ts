@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import Cookies from "js-cookie"
-import { endPoints } from ".."
+import { authOptions, endPoints } from ".."
 
 export interface CheckList {
     checkType: string
@@ -19,23 +18,14 @@ export interface CheckList {
 
 export type CreateCheckList = Omit<CheckList, 'id'>
 
-const token: string  = Cookies.get('token')!
-
-const options = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  }
-}
-
 export const getCheckListById = async (id: number): Promise<CheckList> => {
-    const { data }: AxiosResponse<CheckList> = await axios.get(endPoints.checkList.getById(id), options)
+    const { data }: AxiosResponse<CheckList> = await axios.get(endPoints.checkList.getById(id), authOptions())
 
     return data
 }
 
 export const createCheckList = async (checkList: CreateCheckList): Promise<CheckList> => {
-    const { data }: AxiosResponse<CheckList> = await axios.post(endPoints.checkList.mutate, checkList, options)
+    const { data }: AxiosResponse<CheckList> = await axios.post(endPoints.checkList.mutate, checkList, authOptions())
 
     return data
 }

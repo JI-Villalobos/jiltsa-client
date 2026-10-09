@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
  * This page will be removed in future versions
  */
 export default function CashRegistry() {
-  const [cashWithDrawal, setCashWithdrawal] = useState<CreateCashWithdrawalDto>({ amount: 0, branch: '', concept: '', sellerName: '' })
+  const [cashWithDrawal, setCashWithdrawal] = useState<CreateCashWithdrawalDto>({ amount: 0, branchId: 0, branch: '', concept: '', sellerName: '' })
   const [confirmationStage, setConfirmationStage] = useState<boolean>(false)
   const router = useRouter()
 

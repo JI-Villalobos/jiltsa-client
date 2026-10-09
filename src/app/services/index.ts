@@ -1,4 +1,17 @@
+import Cookies from "js-cookie";
+
 const API = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+/**
+ * Request options with the current session token, read at call time
+ * so the header is never stale after a login/logout.
+ */
+export const authOptions = () => ({
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${Cookies.get('token')}`
+  }
+})
 
 export type RequestStatus = {
   onLoading: boolean,
@@ -37,7 +50,7 @@ export const endPoints = {
   },
   accountings: {
     getLastRegistries: (branchId: number) => `${API}/accounts/${branchId}`,
-    getByDate: (initial: string, end: string, branchId: number) => `${API}/accounts/${initial}/${end}/${branchId}`,
+    getByDate: (initial: string, end: string, branchId: number, page: number) => `${API}/accounts/range?initial=${encodeURIComponent(initial)}&end=${encodeURIComponent(end)}&branchId=${branchId}&page=${page}`,
     getAccounting: (accountingId: number) => `${API}/accounts/account/${accountingId}`,
     createAccounting: `${API}/accounts`,
     createOutOfDateAccounting: `${API}/accounts/out-of-date`
@@ -65,16 +78,16 @@ export const endPoints = {
     branches: `${API}/branches`,
     getById: (branchId: number) => `${API}/branches/${branchId}`,
     getBranchConfig: `${API}/branch-configuration`,
-    updateBranchConfig: (branchConfigId: number) => `${API}/branch-configuration/${branchConfigId}`,
+    updateBranchConfig: `${API}/branch-configuration`,
     getTotalBalance: (branchId: number) => `${API}/branches/balance/${branchId}`
   },
   cash: {
     withdrawals: `${API}/withdrawals`,
-    getCashRegistries: (branch: string) => `${API}/withdrawals/all/${branch}`,
-    getLastMonthCashwithrawalRegistries: (branch: string, page: number) => `${API}/withdrawals/last-month/${branch}?page=${page}`,
-    getCurrentCashwithdrawalRegistries: (branch: string) => `${API}/withdrawals/current/${branch}`,
-    getCashwithdrawalRegistriesByTagAndDateAfter: (branch: string, date: string, tag: string, page: number) => `${API}/withdrawals/latest/${branch}/${date}/${tag}?page=${page}`,
-    getCashwithdrawalRegistriesByDateAfer: (branch: string, date: string, page: number) => `${API}/withdrawals/${branch}/since/${date}?page=${page}`
+    getCashRegistries: (branchId: number) => `${API}/withdrawals/all/${branchId}`,
+    getLastMonthCashwithrawalRegistries: (branchId: number, page: number) => `${API}/withdrawals/last-month/${branchId}?page=${page}`,
+    getCurrentCashwithdrawalRegistries: (branchId: number) => `${API}/withdrawals/current/${branchId}`,
+    getCashwithdrawalRegistriesByTagAndDateRange: (branchId: number, start: string, finish: string, tag: string, page: number) => `${API}/withdrawals/latest/${branchId}/${start}/to/${finish}/${tag}?page=${page}`,
+    getCashwithdrawalRegistriesByDateRange: (branchId: number, start: string, finish: string, page: number) => `${API}/withdrawals/${branchId}/since/${start}/to/${finish}?page=${page}`
   },
   providers: {
     op: `${API}/providers`

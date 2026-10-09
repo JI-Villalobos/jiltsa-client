@@ -16,6 +16,7 @@ type Action = {
 
 export const defaullWithdrawal: CreateCashWithdrawalDto = {
     amount: 0,
+    branchId: 0,
     branch: '',
     concept: '',
     sellerName: ''

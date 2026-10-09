@@ -15,30 +15,33 @@ import { NewCashWithdrawalModal } from "@/app/seller-home/components/NewCashWith
 import { LuWalletCards } from "react-icons/lu";
 import Modal from "@/app/components/shared/Modal";
 import { defaullWithdrawal, useWithdrawalRegistryStore } from "@/app/store/useWithdrawalRegistryStore";
-import { getCurrentAccounting } from "@/utils/appStorage";
+import { getBranchName, getCurrentAccounting } from "@/utils/appStorage";
 
 
 export default function BranchWithdrawals(): JSX.Element {
   const [status, setStatus] = useState<RequestStatus>(initialStatus)
   const [page, setPage] = useState<PageCashWithdrawal>()
   const [pageNumber, setPageNumber] = useState(0)
+  const [branchName, setBranchName] = useState<string>()
   const [showCashWithdrawalModal, setShowCashWithdrawalModal] = useState(false)
 
   const { setWithdrawal, setStage: setWithdrawalStage, updateFlag } = useWithdrawalRegistryStore()
 
-  const params = useParams<{ branch: string }>()
+  const params = useParams<{ branchId: string }>()
   const router = useRouter()
 
   useEffect(() => {
     const accounting = getCurrentAccounting()
+    setBranchName(getBranchName())
 
     if(!accounting){
       router.push("/seller-home")
     }
 
     setStatus(pendingRequest)
-    if (typeof params?.branch === 'string') {
-      getLatestCashRegistries(params.branch, pageNumber)
+    const branchId = Number(params?.branchId)
+    if (Number.isInteger(branchId)) {
+      getLatestCashRegistries(branchId, pageNumber)
         .then((result) => {
           setPage(result)
           setStatus(successfullRequest)
@@ -54,7 +57,7 @@ export default function BranchWithdrawals(): JSX.Element {
       <div className="mt-1 w-full flex flex-col items-center justify-center">
         <SessionInfo />
         <div className="w-full flex flex-row gap-4 justify-center items-center mb-2">
-          <p className="text-sm text-mp-green m-2 font-semibold">Registro de retiros y depositos sucursal: <span className="text-mp-blue">{params?.branch}</span></p>
+          <p className="text-sm text-mp-green m-2 font-semibold">Registro de retiros y depositos sucursal: <span className="text-mp-blue">{branchName}</span></p>
           <button
             className="rounded p-2 bg-mp-green text-mp-white text-sm flex flex-row items-center transition-all hover:bg-mp-light-green"
             onClick={() => setShowCashWithdrawalModal(true)}
