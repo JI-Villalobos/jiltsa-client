@@ -129,5 +129,9 @@ export const endPoints = {
   orderItems: {
     base: `${API}/order-items`,
     saveAll: `${API}/order-items/save-all`
+  },
+  operativeExpenses: {
+    mutate: `${API}/operative-expense`,
+    getExpenses: (branchId: number, date: string) => `${API}/operative-expense/get-expenses?branchId=${branchId}&date=${encodeURIComponent(date)}`
   }
 }

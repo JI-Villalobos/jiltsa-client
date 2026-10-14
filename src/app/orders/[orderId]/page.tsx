@@ -14,6 +14,7 @@ import { mapPurchaseItems } from "@/utils/mapper"
 import { useXLSXOrderItemsStore } from "@/app/hooks/useXLSXOrderItemsStore"
 import Modal from "@/app/components/shared/Modal"
 import { PurchaseItemsModal } from "../components/PurchaseItemsModal"
+import { CloseOrderModal } from "../components/CloseOrderModal"
 
 export default function OrderId({
   params,
@@ -23,6 +24,7 @@ export default function OrderId({
   const [order, setOrder] = useState<Order>()
   const [status, setStatus] = useState(initialStatus)
   const [showItemsModal, setShowItemsModal] = useState(false)
+  const [showCloseModal, setShowCloseModal] = useState(false)
 
   const { setItems } = useXLSXOrderItemsStore()
 
@@ -61,9 +63,19 @@ export default function OrderId({
                 <p className="text-mp-dark">Orden</p>
                 <h2 className="font-semibold text-mp-green">#{order.id}</h2>
               </div>
-              <span className="rounded-full bg-mp-green/10 px-3 py-1 text-sm text-mp-green">
-                {order.isOpen ? 'Abierta' : 'Cerrada'}
-              </span>
+              <div className="flex flex-row items-center gap-2">
+                {order.isOpen && (
+                  <button
+                    className="rounded bg-gradient-to-r from-mp-green to-mp-blue px-3 py-1 text-sm text-mp-white"
+                    onClick={() => setShowCloseModal(true)}
+                  >
+                    Cerrar orden
+                  </button>
+                )}
+                <span className="rounded-full bg-mp-green/10 px-3 py-1 text-sm text-mp-green">
+                  {order.isOpen ? 'Abierta' : 'Cerrada'}
+                </span>
+              </div>
             </div>
 
             <div className="mt-6 grid gap-4 md:grid-cols-4">
@@ -147,6 +159,12 @@ export default function OrderId({
         showItemsModal && order &&
         <Modal onClose={() => setShowItemsModal(false)}>
           <PurchaseItemsModal order={order} />
+        </Modal>
+      }
+      {
+        showCloseModal && order &&
+        <Modal onClose={() => setShowCloseModal(false)}>
+          <CloseOrderModal order={order} />
         </Modal>
       }
     </Layout>
