@@ -10,12 +10,14 @@ import { LuLandmark, LuMenu, LuReceipt, LuShoppingBag, LuWalletCards } from "rea
 
 export default function AsideMenu(): JSX.Element {
   const [branch, setBranch] = useState<string>('')
+  const [branchId, setBranchId] = useState<number>()
   const [status, setStatus] = useState<RequestStatus>({ onError: false, onLoading: false, onSuccess: false })
 
   useEffect(() => {
     const creds = getUserCredentials()
     setStatus({ ...status, onLoading: true })
     if (creds) {
+      setBranchId(creds.branchId)
       getBranchById(creds.branchId)
         .then((result) => {
           setBranch(result.name)
@@ -42,7 +44,7 @@ export default function AsideMenu(): JSX.Element {
       <>
         <LinkItem path="/seller-home" icon={<LuLandmark className="text-mp-green" />} name="Movimientos" />
         <LinkItem path="/operation" icon={<LuReceipt className="text-mp-green" />} name="Gastos" />
-        <LinkItem path={`withdrawals/${branch}`} icon={<LuWalletCards className="text-mp-green" />} name="Depositos" />
+        <LinkItem path={`/withdrawals/${branchId}`} icon={<LuWalletCards className="text-mp-green" />} name="Depositos" />
         <LinkItem path={`/orders`} icon={<LuShoppingBag className="text-mp-green" />} name="Compras" />
       </>
     </div>

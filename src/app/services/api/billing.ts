@@ -1,6 +1,5 @@
-import Cookies from "js-cookie"
 import axios, { AxiosResponse } from "axios"
-import { endPoints } from ".."
+import { authOptions, endPoints } from ".."
 import { Page } from "./pagination"
 
 export interface Bill {
@@ -24,41 +23,32 @@ export type PageBill = {
   content: Bill[]
 } & Page
 
-const token: string  = Cookies.get('token')!
-
-const options = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  }
-}
-
 export const getBills = async (page: number): Promise<PageBill> => {
-  const { data }: AxiosResponse<PageBill> = await axios.get(endPoints.billing.all(page), options)
+  const { data }: AxiosResponse<PageBill> = await axios.get(endPoints.billing.all(page), authOptions())
 
   return data
 }
 
 export const getPendingBills = async (page: number): Promise<PageBill> => {
-  const { data }: AxiosResponse<PageBill> = await axios.get(endPoints.billing.pending(page), options)
+  const { data }: AxiosResponse<PageBill> = await axios.get(endPoints.billing.pending(page), authOptions())
 
   return data
 }
 
 export const getBillById = async (id: number): Promise<Bill> => {
-  const { data }: AxiosResponse<Bill> = await axios.get(endPoints.billing.getById(id), options)
+  const { data }: AxiosResponse<Bill> = await axios.get(endPoints.billing.getById(id), authOptions())
 
   return data
 }
 
 export const createNewBill = async (bill: CreateBill): Promise<Bill> => {
-  const { data }: AxiosResponse<Bill> = await axios.post(endPoints.billing.bills, bill, options)
+  const { data }: AxiosResponse<Bill> = await axios.post(endPoints.billing.bills, bill, authOptions())
 
   return data
 }
 
 export const updateBills = async (bills: Bill[]): Promise<Bill[]> => {
-  const { data }: AxiosResponse<Bill[]> = await axios.put(endPoints.billing.bills, bills, options)
+  const { data }: AxiosResponse<Bill[]> = await axios.put(endPoints.billing.bills, bills, authOptions())
 
   return data
 }

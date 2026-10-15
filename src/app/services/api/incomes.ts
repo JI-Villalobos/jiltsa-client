@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import Cookies from "js-cookie"
-import { endPoints } from ".."
+import { authOptions, endPoints } from ".."
 
 export interface IncomeRegistry {
   id: number,
@@ -12,30 +11,22 @@ export interface IncomeRegistry {
 }
 
 export type CreateIncomeRegistry = Omit<IncomeRegistry, 'id' | 'time'>
-
-const token: string = Cookies.get('token')!
-
-const options = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  }
-}
+export type CreatedIncomeRegistry = Omit<IncomeRegistry, 'time'>
 
 export const createIncome = async (incomeDto: CreateIncomeRegistry) => {
-  const { data }: AxiosResponse<IncomeRegistry> = await axios.post(endPoints.incomes.createIncome, incomeDto, options)
+  const { data }: AxiosResponse<CreatedIncomeRegistry> = await axios.post(endPoints.incomes.createIncome, incomeDto, authOptions())
 
   return data
 }
 
 export const createIncomes = async (incomes: CreateIncomeRegistry[]) => {
-  const { data }: AxiosResponse<IncomeRegistry[]> = await axios.post(endPoints.incomes.createIncomes, incomes, options)
+  const { data }: AxiosResponse<IncomeRegistry[]> = await axios.post(endPoints.incomes.createIncomes, incomes, authOptions())
   
   return data
 }
 
 export const getIncomes = async (accountingId: number) => {
-  const { data }: AxiosResponse<IncomeRegistry[]> = await axios.get(endPoints.incomes.getByAccounting(accountingId), options)
+  const { data }: AxiosResponse<IncomeRegistry[]> = await axios.get(endPoints.incomes.getByAccounting(accountingId), authOptions())
 
   return data
 

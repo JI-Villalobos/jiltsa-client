@@ -32,7 +32,7 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
     if (branchId && accounting) {
       getBranchById(branchId)
         .then((result) => {
-          setCashWithdrawal({ ...cashWithDrawal, branch: result.name, sellerName: accounting.seller })
+          setCashWithdrawal({ ...cashWithDrawal, branchId, branch: result.name, sellerName: accounting.seller })
           setStatus(successfullRequest)
         })
         .catch(() => {
@@ -111,7 +111,7 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
       <div className="p-2">
         {
           isValid ?
-            <Link href={`withdrawals/${cashWithDrawal.branch}`} className="text-mp-blue text-xs underline">
+            <Link href={`/withdrawals/${cashWithDrawal.branchId}`} className="text-mp-blue text-xs underline">
               Ver Registros
             </Link>
             : <p className="text-sm text-center text-mp-error">Selecciona un concepto y monto válidos</p>

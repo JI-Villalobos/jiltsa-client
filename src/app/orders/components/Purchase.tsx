@@ -1,11 +1,14 @@
 'use client'
 
+import Modal from "@/app/components/shared/Modal"
 import { Order } from "@/app/services/api/orders"
 import { useProviderStore } from "@/app/hooks/useProviderStore"
 import { formatAmount } from "@/utils/formatAmount"
 import clsx from "clsx"
 import Link from "next/link"
-import { BiCoinStack } from "react-icons/bi"
+import { useState } from "react"
+import { BiCoinStack, BiLockAlt } from "react-icons/bi"
+import { CloseOrderModal } from "./CloseOrderModal"
 
 interface Props {
   order: Order
@@ -14,6 +17,7 @@ interface Props {
 export const Purchase = ({ order }: Props) => {
   const { provider: providers } = useProviderStore()
   const provider = providers.find((item) => item.id === order.providerId)
+  const [showCloseModal, setShowCloseModal] = useState(false)
 
   return (
     <div
@@ -36,7 +40,22 @@ export const Purchase = ({ order }: Props) => {
           <BiCoinStack size={25} />
         </div>
       </Link>
-
+      {
+        order.isOpen &&
+        <button
+          className="ml-2 text-mp-blue hover:text-mp-green"
+          title="Cerrar orden"
+          onClick={() => setShowCloseModal(true)}
+        >
+          <BiLockAlt size={22} />
+        </button>
+      }
+      {
+        showCloseModal &&
+        <Modal onClose={() => setShowCloseModal(false)}>
+          <CloseOrderModal order={order} />
+        </Modal>
+      }
     </div>
   )
 }

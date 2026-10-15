@@ -1,6 +1,5 @@
 import axios from "axios"
-import Cookies from "js-cookie"
-import { endPoints } from ".."
+import { authOptions, endPoints } from ".."
 
 export interface Order {
   id?: number
@@ -31,40 +30,30 @@ export interface OrderItem {
 export type CreateOrder = Omit<Order, 'id' | 'items'>
 export type UpdateOrder = Omit<Order, 'items'>
 
-const token: string = Cookies.get('token')!
-
-const options = {
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  }
-}
-
 export const saveOrder = async (order: CreateOrder) => {
-  const { data } = await axios.post<Order>(endPoints.orders.mutate, order, options)
+  const { data } = await axios.post<Order>(endPoints.orders.mutate, order, authOptions())
 
   return data
 }
 
 export const updateOrder = async (order: UpdateOrder) => {
-  const { data } = await axios.put(endPoints.orders.mutate, order, options)
+  const { data } = await axios.put(endPoints.orders.mutate, order, authOptions())
 
   return data
 }
 
 export const getOrder = async (orderId: number) => {
-  const { data } = await axios.get<Order>(endPoints.orders.getById(orderId), options)
+  const { data } = await axios.get<Order>(endPoints.orders.getById(orderId), authOptions())
 
   return data
 }
 
-
 export const getOrders = async (branchId: number) => {
-  const { data } = await axios.get<Order[]>(endPoints.orders.getOrders(branchId), options)
+  const { data } = await axios.get<Order[]>(endPoints.orders.getOrders(branchId), authOptions())
 
   return data
 }
 
 export const saveItems = async (items: OrderItem[]) => {
-  await axios.post(endPoints.orderItems.saveAll, items, options)
+  await axios.post(endPoints.orderItems.saveAll, items, authOptions())
 }
