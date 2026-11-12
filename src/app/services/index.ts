@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 
 const API = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -12,6 +13,47 @@ export const authOptions = () => ({
     'Authorization': `Bearer ${Cookies.get('token')}`
   }
 })
+
+/**
+ * Error body returned by the API (RFC 9457 Problem Details), as declared
+ * by the `ProblemDetail` schema in api-docs.json.
+ */
+export type ProblemDetail = {
+  type?: string,
+  title?: string,
+  status?: number,
+  detail?: string,
+  instance?: string,
+  properties?: Record<string, unknown>
+}
+
+/**
+ * Extracts the API's ProblemDetail from a failed request, or undefined when
+ * the error is not an HTTP error with that body (network failure, timeout, etc).
+ */
+export const getProblemDetail = (error: unknown): ProblemDetail | undefined => {
+  if (!axios.isAxiosError<ProblemDetail>(error)) return undefined
+
+  const body = error.response?.data
+  if (body && typeof body === 'object' && ('title' in body || 'detail' in body || 'status' in body)) {
+    return body
+  }
+
+  return error.response ? { status: error.response.status } : undefined
+}
+
+/**
+ * Human readable message for a failed request: the API's `detail`, then its
+ * `title`, then the axios message.
+ */
+export const getErrorMessage = (error: unknown, fallback = 'Ocurrió un error inesperado'): string => {
+  const problem = getProblemDetail(error)
+  if (problem?.detail) return problem.detail
+  if (problem?.title) return problem.title
+  if (error instanceof Error && error.message) return error.message
+
+  return fallback
+}
 
 export type RequestStatus = {
   onLoading: boolean,

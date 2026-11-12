@@ -3,6 +3,12 @@ import { authOptions, endPoints } from ".."
 
 export type CheckType = 'CHECK_IN' | 'CHECK_OUT'
 
+/**
+ * The API declares this field as `string(byte)`: springdoc's rendering of a Java `byte`.
+ * It is a small numeric code, not base64, so it travels as a number.
+ */
+export type FurnitureCleanCondition = 1 | 2 | 3
+
 export interface CheckList {
     id: number
     checkType: CheckType
@@ -12,7 +18,7 @@ export interface CheckList {
     cellphoneCharge: number
     cellphoneCondition: boolean
     cellphoneObservation: string
-    furnitureCleanConditions: string
+    furnitureCleanConditions: FurnitureCleanCondition
     installationState: boolean
     installationStateObservation: string
     sellerId: number

@@ -4,7 +4,7 @@ import Modal from "@/app/components/shared/Modal"
 import Spinner from "@/app/components/shared/Spinner"
 import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
 import { getTotalBalance, TotalBalance } from "@/app/services/api/branches"
-import { CheckType, createCheckList, CreateCheckList } from "@/app/services/api/checklist"
+import { CheckType, createCheckList, CreateCheckList, FurnitureCleanCondition } from "@/app/services/api/checklist"
 import { CurrentAccounting, deleteAccounting, getCheckMode, getCurrentAccounting, getUserCredentials, setCheckMode } from "@/utils/appStorage"
 import DateFormat from "@/utils/DateFormat"
 import localDateFormat from "@/utils/localDateTime"
@@ -77,7 +77,7 @@ export const CheckListInfo = () => {
         const cellphoneCharge = formData.get('cellphoneCharge')?.toString()!
         const cellphoneCondition = formData.get('cellphoneCondition')?.toString()!
         const cellphoneObservation = formData.get('cellphoneObservation')?.toString()!
-        const furnitureCleanConditions = formData.get('furnitureCleanConditions')?.toString()!
+        const furnitureCleanConditions = Number(formData.get('furnitureCleanConditions')) as FurnitureCleanCondition
         const installationState = formData.get('installationState')?.toString()!
         const installationStateObservation = formData.get('installationStateObservation')?.toString()!
 
