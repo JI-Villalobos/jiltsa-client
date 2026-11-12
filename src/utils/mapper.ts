@@ -1,6 +1,8 @@
 import { XLSXPurchaseItem } from "@/app/hooks/useXLSXOrderItemsStore";
-import { uuidv4 } from "./xlsx-utils";
+import { XLSXPromotionItem } from "@/app/hooks/useXLSXPromotionItemsStore";
+import { cellToISODate, PROMOTION_ITEM_HEADERS, uuidv4 } from "./xlsx-utils";
 import { OrderItem } from "@/app/services/api/orders";
+import { CreatePromotionItem } from "@/app/services/api/promotions";
 
 export const mapToXLSXPurchaseItem = (row: any[]): XLSXPurchaseItem | undefined => {
   if (row[0] === 'ARTICULO') return undefined
@@ -47,3 +49,52 @@ export const orderItemListMapper = (items: XLSXPurchaseItem[], orderId: number,)
 
   return orderItems;
 }
+
+const toNumber = (value: unknown): number => {
+  if (typeof value === 'number') return value
+  if (typeof value === 'string') return Number(value.replace(/[$,\s]/g, ''))
+  return NaN
+}
+
+/** Validates one xlsx row of the promotion template. Returns the reason it cannot be sent, if any. */
+const promotionRowError = (item: XLSXPromotionItem): string | undefined => {
+  if (!item.key) return 'Falta la clave'
+  if (!Number.isInteger(item.quantity) || item.quantity < 0) return 'Cantidad inválida'
+  if ([item.normalPrice, item.promotionPrice, item.purchasePrice].some((p) => Number.isNaN(p) || p < 0)) return 'Precio inválido'
+  if (!item.expirationDate) return 'Caducidad inválida (usa AAAA-MM-DD)'
+  return undefined
+}
+
+export const mapToXLSXPromotionItem = (row: any[]): XLSXPromotionItem | undefined => {
+  if (row.length === 0 || row[0] === PROMOTION_ITEM_HEADERS[0]) return undefined
+  // Skip rows that are completely empty (trailing rows in the sheet)
+  if (row.every((cell) => cell === undefined || cell === null || String(cell).trim() === '')) return undefined
+
+  const item: XLSXPromotionItem = {
+    uuid: uuidv4(),
+    key: String(row[0] ?? '').trim(),
+    description: String(row[1] ?? '').trim(),
+    quantity: toNumber(row[2]),
+    normalPrice: toNumber(row[3]),
+    promotionPrice: toNumber(row[4]),
+    purchasePrice: toNumber(row[5]),
+    expirationDate: cellToISODate(row[6]) ?? ''
+  }
+
+  return { ...item, error: promotionRowError(item) }
+}
+
+export const mapPromotionItems = (data: any[][]): XLSXPromotionItem[] =>
+  data.map(mapToXLSXPromotionItem).filter((e): e is XLSXPromotionItem => e !== undefined)
+
+export const promotionItemListMapper = (items: XLSXPromotionItem[], promotionId: number): CreatePromotionItem[] =>
+  items.map((item) => ({
+    promotionId,
+    key: item.key,
+    description: item.description || undefined,
+    quantity: item.quantity,
+    normalPrice: item.normalPrice,
+    promotionPrice: item.promotionPrice,
+    purchasePrice: item.purchasePrice,
+    expirationDate: item.expirationDate
+  }))

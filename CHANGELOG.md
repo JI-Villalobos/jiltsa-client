@@ -7,6 +7,18 @@ usa [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Added
+- Página de promociones (`/promotions`): abrir una promoción, ver las activas de la
+  sucursal con su pérdida estimada y cerrarlas registrando la pérdida por caducidad.
+- Detalle de promoción con stepper (promoción, artículos, fotografías): alta de artículos
+  manual o por xlsx con plantilla descargable, registro de ventas que reduce la cantidad
+  del artículo y carga de fotografías a S3 mediante URL prefirmada.
+- Servicios para `promotions`, `promotion-items`, `files` y `expiration-losses`.
+- Variable `NEXT_PUBLIC_S3_HOSTNAME` para permitir las fotografías en `next/image`.
+
+### Changed
+- El header muestra la versión de `package.json` en lugar de un texto fijo.
+
 ## [1.4.0] - 2026-11-12
 
 ### Added

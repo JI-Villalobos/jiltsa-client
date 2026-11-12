@@ -5,6 +5,7 @@ services:
     build: .
     environment:
       NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL}
+      NEXT_PUBLIC_S3_HOSTNAME: ${NEXT_PUBLIC_S3_HOSTNAME}
     ports:
       - "3000:3000"
     volumes:

@@ -6,7 +6,7 @@ import { getUserCredentials, setBranchName } from "@/utils/appStorage";
 import Spinner from "./shared/Spinner";
 import { RequestStatus } from "../services";
 import { getBranchById } from "../services/api/branches";
-import { LuLandmark, LuMenu, LuReceipt, LuShoppingBag, LuWalletCards } from "react-icons/lu";
+import { LuBadgePercent, LuLandmark, LuMenu, LuReceipt, LuShoppingBag, LuWalletCards } from "react-icons/lu";
 
 export default function AsideMenu(): JSX.Element {
   const [branch, setBranch] = useState<string>('')
@@ -46,6 +46,7 @@ export default function AsideMenu(): JSX.Element {
         <LinkItem path="/operation" icon={<LuReceipt className="text-mp-green" />} name="Gastos" />
         <LinkItem path={`/withdrawals/${branchId}`} icon={<LuWalletCards className="text-mp-green" />} name="Depositos" />
         <LinkItem path={`/orders`} icon={<LuShoppingBag className="text-mp-green" />} name="Compras" />
+        <LinkItem path={`/promotions`} icon={<LuBadgePercent className="text-mp-green" />} name="Promociones" />
       </>
     </div>
   )

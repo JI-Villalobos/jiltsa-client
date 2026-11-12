@@ -37,6 +37,13 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+## Variables de entorno
+
+| Variable | Uso |
+| --- | --- |
+| `NEXT_PUBLIC_API_BASE_URL` | URL base de la API (`.../jiltsa/api/v1`). |
+| `NEXT_PUBLIC_S3_HOSTNAME` | Host del bucket que sirve las fotografías de los artículos en promoción (solo el hostname, sin `https://`). `next/image` rechaza hosts remotos que no estén registrados en `next.config.js`. |
+
 ## Versionado y releases
 
 Este proyecto usa [Semantic Versioning](https://semver.org/lang/es/) (`MAJOR.MINOR.PATCH`).

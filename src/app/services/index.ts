@@ -185,5 +185,29 @@ export const endPoints = {
   operativeExpenses: {
     mutate: `${API}/operative-expense`,
     getExpenses: (branchId: number, date: string) => `${API}/operative-expense/get-expenses?branchId=${branchId}&date=${encodeURIComponent(date)}`
+  },
+  promotions: {
+    create: `${API}/promotions`,
+    getById: (promotionId: number) => `${API}/promotions/${promotionId}`,
+    getActiveByBranch: (branchId: number) => `${API}/promotions/by-branch/${branchId}/active`,
+    getByBranch: (branchId: number, initialDate: string, finalDate: string) =>
+      `${API}/promotions/by-branch/${branchId}?initialDate=${initialDate}&finalDate=${finalDate}`,
+    close: (promotionId: number) => `${API}/promotions/${promotionId}/close`
+  },
+  promotionItems: {
+    create: `${API}/promotion-items`,
+    createBatch: `${API}/promotion-items/batch`,
+    byId: (itemId: number) => `${API}/promotion-items/${itemId}`,
+    getByPromotion: (promotionId: number) => `${API}/promotion-items/by-promotion/${promotionId}`
+  },
+  files: {
+    requestUpload: `${API}/files/upload-url`,
+    confirm: (fileId: number) => `${API}/files/${fileId}/confirm`,
+    byId: (fileId: number) => `${API}/files/${fileId}`,
+    getByPromotion: (promotionId: number) => `${API}/files/by-promotion/${promotionId}`,
+    getByOwner: (ownerType: string, ownerId: number) => `${API}/files/by-owner/${ownerType}/${ownerId}`
+  },
+  expirationLosses: {
+    getByPromotion: (promotionId: number) => `${API}/expiration-losses/by-promotion/${promotionId}`
   }
 }
