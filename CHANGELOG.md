@@ -7,6 +7,8 @@ usa [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-11-12
+
 ### Added
 - Página de promociones (`/promotions`): abrir una promoción, ver las activas de la
   sucursal con su pérdida estimada y cerrarlas registrando la pérdida por caducidad.
@@ -42,6 +44,7 @@ usa [Semantic Versioning](https://semver.org/lang/es/).
 - Servicios de API alineados con la última versión de `api-docs.json`.
 - Tipos de los servicios corregidos para coincidir con los esquemas de la API.
 
-[Unreleased]: https://github.com/JI-Villalobos/jiltsa-client/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/JI-Villalobos/jiltsa-client/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/JI-Villalobos/jiltsa-client/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/JI-Villalobos/jiltsa-client/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/JI-Villalobos/jiltsa-client/releases/tag/v1.3.0
