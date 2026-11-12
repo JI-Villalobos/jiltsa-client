@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "git config core.hooksPath .githooks || true",
+    "preversion": "pnpm lint",
+    "release:patch": "pnpm version patch -m \"chore(release): v%s\"",
+    "release:minor": "pnpm version minor -m \"chore(release): v%s\"",
+    "release:major": "pnpm version major -m \"chore(release): v%s\"",
+    "release:pre": "pnpm version prerelease --preid rc -m \"chore(release): v%s\""
   },
   "dependencies": {
     "@types/js-cookie": "^3.0.3",

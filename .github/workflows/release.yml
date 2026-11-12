@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verificar que el tag coincide con package.json
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error::El tag v$TAG_VERSION no coincide con package.json ($PKG_VERSION)"
+            exit 1
+          fi
+
+      - name: Extraer notas del CHANGELOG
+        id: notes
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          # Toma el bloque entre "## [VERSION]" y el siguiente "## [" o los links del final.
+          awk -v v="$VERSION" '
+            $0 ~ "^## \\[" v "\\]" { found=1; next }
+            found && /^## \[/ { exit }
+            found && /^\[.*\]: / { exit }
+            found { print }
+          ' CHANGELOG.md > release-notes.md
+          if [ ! -s release-notes.md ]; then
+            echo "Sin sección en CHANGELOG.md para $VERSION; se usarán notas generadas." > release-notes.md
+            echo "generate=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Crear GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          EXTRA=""
+          if [ "${{ steps.notes.outputs.generate }}" = "true" ]; then EXTRA="--generate-notes"; fi
+          case "$GITHUB_REF_NAME" in
+            *-*) EXTRA="$EXTRA --prerelease" ;;
+          esac
+          gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file release-notes.md $EXTRA

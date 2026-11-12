@@ -36,3 +36,43 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Versionado y releases
+
+Este proyecto usa [Semantic Versioning](https://semver.org/lang/es/) (`MAJOR.MINOR.PATCH`).
+La versión vive en `package.json` y cada release se marca con un tag `vX.Y.Z`.
+
+| Cambio | Bump | Tipo de commit |
+| --- | --- | --- |
+| Rompe compatibilidad (flujos, contratos con la API, variables de entorno) | `major` | `feat!:` / `fix!:` o `BREAKING CHANGE:` en el cuerpo |
+| Nueva funcionalidad compatible | `minor` | `feat:` |
+| Corrección de errores, sin cambio de comportamiento | `patch` | `fix:`, `perf:` |
+| Sin impacto en la app (docs, CI, refactors internos) | ninguno | `docs:`, `chore:`, `ci:`, `refactor:`, `test:` |
+
+### Commits
+
+Los mensajes siguen [Conventional Commits](https://www.conventionalcommits.org/es/).
+El hook `.githooks/commit-msg` los valida y se activa solo al correr `pnpm install`
+(script `prepare`). Para activarlo a mano: `git config core.hooksPath .githooks`.
+
+### Publicar una versión
+
+1. Mover lo pendiente de `## [Unreleased]` a una sección nueva en `CHANGELOG.md`
+   con la versión y la fecha, y hacer commit (`docs: changelog vX.Y.Z`).
+2. Ejecutar según el tipo de cambio:
+
+   ```bash
+   pnpm release:patch   # 1.3.0 -> 1.3.1
+   pnpm release:minor   # 1.3.0 -> 1.4.0
+   pnpm release:major   # 1.3.0 -> 2.0.0
+   pnpm release:pre     # 1.3.0 -> 1.3.1-rc.0 (pre-release)
+   ```
+
+   Esto corre el lint, actualiza `package.json`, crea el commit `chore(release): vX.Y.Z`
+   y el tag `vX.Y.Z`.
+3. Publicar: `git push --follow-tags`.
+
+Al subir el tag, el workflow `.github/workflows/release.yml` verifica que coincida con
+`package.json` y crea el GitHub Release con las notas de esa versión del `CHANGELOG.md`.
+
+La versión queda disponible en la app como `process.env.NEXT_PUBLIC_APP_VERSION`.

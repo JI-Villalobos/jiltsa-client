@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+# Valida que el mensaje de commit siga Conventional Commits.
+# El tipo determina el bump de version: feat -> minor, fix -> patch, "!" o BREAKING CHANGE -> major.
+# Se instala con `pnpm install` (script "prepare") o manualmente con:
+#   git config core.hooksPath .githooks
+
+msg_file="$1"
+first_line=$(head -n1 "$msg_file")
+
+# Permitir merges, reverts y commits generados por `pnpm version` (p. ej. "1.4.0" o "v1.4.0").
+case "$first_line" in
+  Merge*|Revert*|fixup!*|squash!*) exit 0 ;;
+esac
+if printf '%s' "$first_line" | grep -Eq '^v?[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$'; then
+  exit 0
+fi
+
+pattern='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9._/-]+\))?!?: .{1,}$'
+if ! printf '%s' "$first_line" | grep -Eq "$pattern"; then
+  cat >&2 <<MSG
+✖ Mensaje de commit inválido:
+    $first_line
+
+  Formato esperado (Conventional Commits):
+    <tipo>(<alcance opcional>)!?: <descripción>
+
+  Tipos: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+  Ejemplos:
+    feat(orders): agregar modal de cierre de orden
+    fix: corregir cálculo de saldo en caja
+    refactor!: cambiar contrato del servicio de pedidos
+
+  Para omitir esta validación: git commit --no-verify
+MSG
+  exit 1
+fi
