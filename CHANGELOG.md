@@ -7,6 +7,14 @@ usa [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Added
+- Expediente de la vendedora (`/seller-profile/[sellerId]`), accesible desde el nombre de la
+  vendedora en la información del turno. Si no existe perfil se crea con el formulario de
+  empleada (aviso de privacidad obligatorio); si existe se muestra en solo lectura.
+- Documentos del expediente (INE frente, INE reverso, comprobante de domicilio): se lista
+  solo la metadata de los archivos y se habilita la carga de los que faltan.
+- Servicio `seller-profiles` y soporte de `documentType` en el servicio de archivos.
+
 ## [1.5.0] - 2026-11-12
 
 ### Added

@@ -29,7 +29,7 @@ export default function SessionInfo(){
         accountingExists 
         ? (
             <div className="flex flex-row">
-              <RegisteredSessionInfo accountingId={accounting.accountingId} seller={accounting.seller}/>
+              <RegisteredSessionInfo accountingId={accounting.accountingId} seller={accounting.seller} sellerId={accounting.sellerId}/>
             </div>
           ) 
         : <NotRegisteredSessionInfo />

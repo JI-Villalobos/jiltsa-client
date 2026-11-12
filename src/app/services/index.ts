@@ -209,5 +209,11 @@ export const endPoints = {
   },
   expirationLosses: {
     getByPromotion: (promotionId: number) => `${API}/expiration-losses/by-promotion/${promotionId}`
+  },
+  sellerProfiles: {
+    create: `${API}/seller-profiles`,
+    byId: (profileId: number) => `${API}/seller-profiles/${profileId}`,
+    getBySeller: (sellerId: number) => `${API}/seller-profiles/by-seller/${sellerId}`,
+    getByBranch: (branchId: number) => `${API}/seller-profiles/by-branch/${branchId}`
   }
 }

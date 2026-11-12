@@ -1,6 +1,7 @@
 'use client'
 
 import { deleteAccounting } from "@/utils/appStorage"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { LuFolderOpen, LuUserCheck } from "react-icons/lu"
 import TotalBalanceItem from "./TotalBalanceItem"
@@ -8,9 +9,10 @@ import TotalBalanceItem from "./TotalBalanceItem"
 interface Props {
     accountingId: number
     seller: string
+    sellerId: number
 }
 
-export default function RegisteredSessionInfo({ accountingId, seller }: Props): JSX.Element {
+export default function RegisteredSessionInfo({ accountingId, seller, sellerId }: Props): JSX.Element {
     const router = useRouter()
     
     return(
@@ -22,7 +24,13 @@ export default function RegisteredSessionInfo({ accountingId, seller }: Props): 
                 Corte: <span className='text-mp-blue'>{accountingId } </span>
                 </p>
                 <LuUserCheck className="text-mp-green"/>
-                <p className='text-mp-dark font-coda text-sm'>Vendedora: <span className='text-mp-blue'>{seller}</span></p>
+                <p className='text-mp-dark font-coda text-sm'>
+                    Vendedora: <Link
+                        href={`/seller-profile/${sellerId}`}
+                        title="Ver expediente de la vendedora"
+                        className='text-mp-blue underline decoration-dotted underline-offset-2 hover:text-mp-green'
+                    >{seller}</Link>
+                </p>
                 <TotalBalanceItem />
             </div>
             <button 
