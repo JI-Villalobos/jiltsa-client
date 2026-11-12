@@ -2,7 +2,9 @@
 
 import Spinner from "@/app/components/shared/Spinner"
 import { useOrderStore } from "@/app/hooks/useOrderStore"
-import { failedRequest, initialStatus, pendingRequest } from "@/app/services"
+import { failedRequest, failedRequestFrom, initialStatus, pendingRequest } from "@/app/services"
+
+const SUBMIT_ERROR = 'No fue posible completar el registro inténtalo más tarde'
 import { Branch } from "@/app/services/api/branches"
 import { CreateOrder, Order, saveOrder } from "@/app/services/api/orders"
 import { getProviders, Provider } from "@/app/services/api/providers"
@@ -65,8 +67,8 @@ export const CreatePurchaseForm = () => {
         router.push(`/orders/${res.id}`)
         setSubmitStatus(initialStatus)
       })
-      .catch(() => {
-        setSubmitStatus(failedRequest)
+      .catch((e) => {
+        setSubmitStatus(failedRequestFrom(e, SUBMIT_ERROR))
       })
   }
 
@@ -101,7 +103,7 @@ export const CreatePurchaseForm = () => {
       >
         {submitStatus.onLoading ? <Spinner /> : 'Registrar'}
       </button>
-      {submitStatus.onError && <p>No fue posible completar el registro inténtalo más tarde </p>}
+      {submitStatus.onError && <p className="text-sm text-mp-error">{submitStatus.message ?? SUBMIT_ERROR}</p>}
     </div>
   )
 }

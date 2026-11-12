@@ -1,7 +1,9 @@
 'use client'
 
 import React, { useState } from "react"
-import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { failedRequestFrom, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+
+const LOGIN_ERROR = 'No fue posible Iniciar Sesión revisa que tus datos sean correctos'
 import { authenticate, AuthRequest } from "../services/api/auth"
 import { useRouter } from "next/navigation"
 import { LuLoaderCircle } from "react-icons/lu"
@@ -25,8 +27,8 @@ export default function LoginForm(): JSX.Element {
         setStatus(successfullRequest)
         router.push('/')
       }
-    ).catch(() => {
-      setStatus(failedRequest)
+    ).catch((e) => {
+      setStatus(failedRequestFrom(e, LOGIN_ERROR))
     })
   }
 
@@ -58,7 +60,7 @@ export default function LoginForm(): JSX.Element {
       </button>
       {
         status.onError ? (<p className="text-sm text-mp-error text-center w-full mt-6">
-          No fue posible Iniciar Sesión revisa que tus datos sean correctos
+          {status.message ?? LOGIN_ERROR}
         </p>)
           : <p className="text-sm text-mp-blue text-center w-1/2 mt-6">
             *La autenticación en este portal solo es posible a travez de  personal con credenciales de administrador

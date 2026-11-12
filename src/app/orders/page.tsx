@@ -7,7 +7,9 @@ import Modal from "../components/shared/Modal";
 import { CreatePurchaseForm } from "./components/CreatePurchaseForm";
 import { getOrders, Order } from "../services/api/orders";
 import { getProviders } from "../services/api/providers";
-import { failedRequest, initialStatus, pendingRequest } from "../services";
+import { failedRequest, failedRequestFrom, initialStatus, pendingRequest } from "../services";
+
+const LOAD_ERROR = 'No se pudieron cargar las órdenes. Intenta nuevamente más tarde.'
 import { getBranchId } from "@/utils/appStorage";
 import { Purchase } from "./components/Purchase";
 import { useProviderStore } from "../hooks/useProviderStore";
@@ -28,8 +30,8 @@ export default function Orders() {
           setOrders(res)
           setStatus(initialStatus)
         })
-        .catch(() => {
-          setStatus(failedRequest)
+        .catch((e) => {
+          setStatus(failedRequestFrom(e, LOAD_ERROR))
         })
     }
 
@@ -64,7 +66,7 @@ export default function Orders() {
             </div>
           ) : status.onError ? (
             <p className="mt-6 text-sm text-mp-error">
-              No se pudieron cargar las órdenes. Intenta nuevamente más tarde.
+              {status.message ?? LOAD_ERROR}
             </p>
           ) : (
             orders.map((order) => <Purchase key={`id-key-${order.id}`} order={order} />)

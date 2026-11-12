@@ -1,6 +1,8 @@
 'use client'
 
-import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
+import { failedRequestFrom, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
+
+const SUBMIT_ERROR = 'Error al registrar el deposito intentalo nuevamente'
 import { createCashRegistry } from "@/app/services/api/withdrawals"
 import { useWithdrawalRegistryStore } from "@/app/store/useWithdrawalRegistryStore"
 import { formatAmount } from "@/utils/formatAmount"
@@ -21,8 +23,8 @@ export const FinalizeWithdrawalRegistry = () => {
                 setUpdateFlag()
                 setStage(WithdrawalStages.SELECT_WITHDRAWAL_STAGE)
             })
-            .catch(() => {
-                setWithdrawalRegistryStatus(failedRequest)
+            .catch((e) => {
+                setWithdrawalRegistryStatus(failedRequestFrom(e, SUBMIT_ERROR))
             })
     }
 
@@ -55,7 +57,7 @@ export const FinalizeWithdrawalRegistry = () => {
             }
             {
                 withdrawalRegistryStatus.onError &&
-                <p className="text-xs text-mp-error mt-2 mb-2">Error al registrar el deposito intentalo nuevamente</p>
+                <p className="text-xs text-mp-error mt-2 mb-2">{withdrawalRegistryStatus.message ?? SUBMIT_ERROR}</p>
             }
         </div>
     )

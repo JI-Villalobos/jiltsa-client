@@ -44,13 +44,12 @@ export const getProblemDetail = (error: unknown): ProblemDetail | undefined => {
 
 /**
  * Human readable message for a failed request: the API's `detail`, then its
- * `title`, then the axios message.
+ * `title`, then the fallback. Axios' own message is never shown to the user.
  */
 export const getErrorMessage = (error: unknown, fallback = 'Ocurrió un error inesperado'): string => {
   const problem = getProblemDetail(error)
   if (problem?.detail) return problem.detail
   if (problem?.title) return problem.title
-  if (error instanceof Error && error.message) return error.message
 
   return fallback
 }
@@ -58,7 +57,9 @@ export const getErrorMessage = (error: unknown, fallback = 'Ocurrió un error in
 export type RequestStatus = {
   onLoading: boolean,
   onError: boolean,
-  onSuccess: boolean
+  onSuccess: boolean,
+  /** Message to show the user when onError is true. */
+  message?: string
 }
 
 export const pendingRequest: RequestStatus = {
@@ -84,6 +85,15 @@ export const successfullRequest: RequestStatus = {
   onError: false,
   onSuccess: true
 }
+
+/**
+ * Failed status carrying the API's error message (or the fallback) so the
+ * component can render it: `setStatus(failedRequestFrom(e, 'No se pudo guardar'))`.
+ */
+export const failedRequestFrom = (error: unknown, fallback?: string): RequestStatus => ({
+  ...failedRequest,
+  message: getErrorMessage(error, fallback)
+})
 
 export const endPoints = {
   auth: {

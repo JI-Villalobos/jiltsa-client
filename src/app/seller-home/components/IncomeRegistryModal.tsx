@@ -1,6 +1,8 @@
 'use client'
 
-import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
+import { failedRequestFrom, initialStatus, pendingRequest, successfullRequest } from "@/app/services"
+
+const SUBMIT_ERROR = 'No fue posible registrar los ingresos, intentalo nuevamente'
 import { CreateIncomeRegistry, createIncomes, getIncomes } from "@/app/services/api/incomes"
 import { getCurrentAccounting } from "@/utils/appStorage"
 import { Defaults, Income } from "@/utils/variables"
@@ -65,8 +67,8 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
                         router.push("/close-operation")
                         setIncomeStatus(successfullRequest)
                     })
-                    .catch(() => {
-                        setIncomeStatus(failedRequest)
+                    .catch((e) => {
+                        setIncomeStatus(failedRequestFrom(e, SUBMIT_ERROR))
                     })
             }
         }
@@ -118,7 +120,7 @@ export const IncomeRegistryModal = ({ showModal }: Props) => {
                 }
             </button>
             {
-                incomeStatus.onError && <p className="mb-2 text-sm text-mp-error">No fue posible registrar los ingresos, intentalo nuevamente</p>
+                incomeStatus.onError && <p className="mb-2 text-sm text-mp-error">{incomeStatus.message ?? SUBMIT_ERROR}</p>
             }
             {
                 successMessage &&

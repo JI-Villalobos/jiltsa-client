@@ -4,7 +4,9 @@ import ErrorMessage from "@/app/components/shared/ErrorMessage";
 import Pagination from "@/app/components/shared/Pagination";
 import Spinner from "@/app/components/shared/Spinner";
 import Layout from "@/app/layouts/Layout";
-import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
+import { failedRequestFrom, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
+
+const LOAD_ERROR = 'No fue posible cargar el registro de retiros, intentalo más tarde'
 import { getLatestCashRegistries, PageCashWithdrawal } from "@/app/services/api/withdrawals";
 import { conceptList, WithdrawalStages } from "@/utils/variables";
 import { useParams, useRouter } from "next/navigation";
@@ -46,8 +48,8 @@ export default function BranchWithdrawals(): JSX.Element {
           setPage(result)
           setStatus(successfullRequest)
         })
-        .catch(() => {
-          setStatus(failedRequest)
+        .catch((e) => {
+          setStatus(failedRequestFrom(e, LOAD_ERROR))
         })
     }
   }, [pageNumber, updateFlag])
@@ -70,7 +72,7 @@ export default function BranchWithdrawals(): JSX.Element {
           status.onLoading ? <Spinner bgBlank /> :
             status.onError ? <ErrorMessage
               title="Error"
-              description="No fue posible cargar el registro de retiros, intentalo más tarde"
+              description={status.message ?? LOAD_ERROR}
             /> :
               <></>
         }
@@ -128,7 +130,7 @@ export default function BranchWithdrawals(): JSX.Element {
               )))
               : <ErrorMessage
                 title="Error"
-                description="No fue posible cargar el registro de retiros, intentalo más tarde"
+                description={status.message ?? LOAD_ERROR}
               />
         }
      

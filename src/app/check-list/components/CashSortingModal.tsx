@@ -1,6 +1,8 @@
 'use client'
 
-import { failedRequest, initialStatus, pendingRequest } from "@/app/services"
+import { failedRequest, failedRequestFrom, initialStatus, pendingRequest } from "@/app/services"
+
+const SAVE_ERROR = 'Error al guardar el conteo de efectivo, intenta de nuevo'
 import { CashSorting, saveCashSorting } from "@/app/services/api/cashSorting"
 import { deleteAccounting, getBranchId, getStoredCashSorting, storeCashSorting } from "@/utils/appStorage"
 import { calculateTotalAmount, compare } from "@/utils/cashSortingUtils"
@@ -76,9 +78,7 @@ export const CashSortingModal = ({ mode, accountingId, showContinueButton, showM
             showModal(false)
           })
           .catch((e) => {
-            console.log(e);
-            console.log(cashSorting);
-            setSubmitStatus(failedRequest)
+            setSubmitStatus(failedRequestFrom(e, SAVE_ERROR))
           })
       } else {
         if (storedCashSorting) {
@@ -97,8 +97,7 @@ export const CashSortingModal = ({ mode, accountingId, showContinueButton, showM
                 showModal(false)
               })
               .catch((e) => {
-                console.log(e);
-                setSubmitStatus(failedRequest)
+                setSubmitStatus(failedRequestFrom(e, SAVE_ERROR))
               })
           } else {
             setSubmitStatus(failedRequest)
@@ -264,7 +263,7 @@ export const CashSortingModal = ({ mode, accountingId, showContinueButton, showM
           }
         </button>
         {
-          submitStatus.onError && <p className="text-mp-error text-sm">Error al guardar el conteo de efectivo, intenta de nuevo</p>
+          submitStatus.onError && <p className="text-mp-error text-sm">{submitStatus.message ?? SAVE_ERROR}</p>
         }
         {
           unmatch && <p className="text-mp-error text-sm mb-2">El monto contado no coincide con el total, contado: {formatAmount(counted)}</p>

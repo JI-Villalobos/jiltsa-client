@@ -11,7 +11,9 @@ import Modal from "../components/shared/Modal";
 import { ExpenseStages } from "@/utils/variables";
 import { NewExpenseModal } from "../seller-home/components/NewExpenseModal";
 import { ExpenseRegistry, getExpenses } from "../services/api/expenses";
-import { failedRequest, initialStatus, pendingRequest, successfullRequest } from "../services";
+import { failedRequestFrom, initialStatus, pendingRequest, successfullRequest } from "../services";
+
+const LOAD_ERROR = 'No fue posible cargar los gastos del periodo'
 import Spinner from "../components/shared/Spinner";
 import ErrorMessage from "../components/shared/ErrorMessage";
 import { formatAmount } from "@/utils/formatAmount";
@@ -37,8 +39,8 @@ export default function Operation(): JSX.Element {
           setExpenses(res)
           setLoadExpensesStatus(successfullRequest)
         })
-        .catch(() => {
-          setLoadExpensesStatus(failedRequest)
+        .catch((e) => {
+          setLoadExpensesStatus(failedRequestFrom(e, LOAD_ERROR))
         })
     }
   }, [updateFlag])
@@ -60,7 +62,7 @@ export default function Operation(): JSX.Element {
       <div className="w-full flex flex-col items-center justify-center gap-2">
         {
           loadExpensesStatus.onLoading ? <Spinner bgBlank /> :
-            loadExpensesStatus.onError ? <ErrorMessage title="Error" description="No fue posible cargar los gastos del periodo" /> :
+            loadExpensesStatus.onError ? <ErrorMessage title="Error" description={loadExpensesStatus.message ?? LOAD_ERROR} /> :
               expenses.length === 0 ? <p className="text-sm text-mp-dark">No hay gastos registrados en este turno</p> :
                 expenses.map((expense) => (
                   <div key={expense.id} className="w-11/12 md:w-3/4 lg:w-1/2 rounded border-s-4 border-mp-green bg-mp-white shadow-md gap-4 p-4 flex flex-row justify-between items-center">

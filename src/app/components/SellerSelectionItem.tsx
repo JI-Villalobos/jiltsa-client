@@ -5,7 +5,9 @@ import { Dispatch, SetStateAction, useState } from "react"
 import Spinner from "./shared/Spinner"
 import { getCurrentDate } from "@/utils/dateOperations"
 import { Seller } from "../services/api/sellers"
-import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { failedRequestFrom, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+
+const OPEN_ERROR = 'Ocurrio un erro al intentar abrir tu turno intentalo mas tarde'
 import { newAccounting } from "../services/api/accounts"
 import { useRouter } from "next/navigation"
 import { LuLoader, LuUserRound } from "react-icons/lu"
@@ -30,8 +32,8 @@ export default function SellerSellectionItem({ seller, setMessage }: Props): JSX
         setStatus(successfullRequest)
         router.push("/check-list")
       })
-      .catch(() => {
-        setStatus(failedRequest)
+      .catch((e) => {
+        setStatus(failedRequestFrom(e, OPEN_ERROR))
       })
   }
 
@@ -49,7 +51,7 @@ export default function SellerSellectionItem({ seller, setMessage }: Props): JSX
         <LuUserRound />
         {status.onLoading ? <LuLoader className="animate-spin" /> : `${seller.fullName}`}
       </button>
-      {status.onError && <p className="text-center text-mp-error text-sm">Ocurrio un erro al intentar abrir tu turno intentalo mas tarde</p>}
+      {status.onError && <p className="text-center text-mp-error text-sm">{status.message ?? OPEN_ERROR}</p>}
     </>
   )
 }

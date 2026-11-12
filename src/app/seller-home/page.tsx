@@ -6,7 +6,7 @@ import Error from "@/app/components/shared/Error";
 import Skeleton from "@/app/components/Skeleton";
 import TableReport from "@/app/components/TableReport";
 import Layout from "@/app/layouts/Layout";
-import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
+import { failedRequestFrom, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services";
 import { Accounting, getLatestRegistries } from "@/app/services/api/accounts";
 import { CurrentAccounting, getBranchId, getCurrentAccounting } from "@/utils/appStorage";
 import { useEffect, useState } from "react";
@@ -40,8 +40,8 @@ function SellerHome(): JSX.Element {
       getLatestRegistries(branchId).then((result) => {
         setAccounts(result)
         setStatus(successfullRequest)
-      }).catch(() => {
-        setStatus(failedRequest)
+      }).catch((e) => {
+        setStatus(failedRequestFrom(e, 'No fue posible cargar la actividad reciente'))
       })
     }
   }, [updateFlag])
@@ -72,7 +72,7 @@ function SellerHome(): JSX.Element {
           </div>
         }
         <p className='mt-2 text-xl text-mp-dark'>Actividad Reciente:</p>
-        {status.onLoading ? <Skeleton /> : status.onError ? <Error /> : <TableReport accounts={accounts} />}
+        {status.onLoading ? <Skeleton /> : status.onError ? <Error message={status.message} /> : <TableReport accounts={accounts} />}
       </>
       {
         showExpenseModal &&

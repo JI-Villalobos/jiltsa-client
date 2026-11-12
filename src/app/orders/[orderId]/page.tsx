@@ -3,7 +3,7 @@
 import Layout from "@/app/layouts/Layout"
 import Skeleton from "@/app/components/Skeleton"
 import Error from "@/app/components/shared/Error"
-import { failedRequest, initialStatus, pendingRequest } from "@/app/services"
+import { failedRequestFrom, initialStatus, pendingRequest } from "@/app/services"
 import { getOrder, Order } from "@/app/services/api/orders"
 import { formatAmount } from "@/utils/formatAmount"
 import { use, useEffect, useState } from "react"
@@ -37,8 +37,8 @@ export default function OrderId({
         setOrder(res)
         setStatus(initialStatus)
       })
-      .catch(() => {
-        setStatus(failedRequest)
+      .catch((e) => {
+        setStatus(failedRequestFrom(e, 'No fue posible cargar la orden'))
       })
   }, [orderId])
 
@@ -55,7 +55,7 @@ export default function OrderId({
     <Layout>
       <div className="w-10/12 flex flex-col justify-center items-center py-4">
         {status.onLoading && <Skeleton />}
-        {status.onError && <Error />}
+        {status.onError && <Error message={status.message} />}
         {order && !status.onLoading && !status.onError && (
           <div className="w-full max-w-3xl rounded-2xl border border-mp-green/20 bg-white p-2 shadow-sm">
             <div className="flex items-center justify-between border-b border-mp-green/10 pb-2">

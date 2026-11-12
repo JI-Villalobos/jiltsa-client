@@ -6,7 +6,9 @@ import { getBranchId, getCurrentAccounting } from "@/utils/appStorage"
 import Link from "next/link"
 import { conceptList } from "@/utils/variables"
 import { CreateCashWithdrawalDto } from "../services/api/withdrawals"
-import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { failedRequestFrom, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+
+const BRANCH_ERROR = 'No Fue Posible Cragar datos de tu Sucursal'
 import { getBranchById } from "../services/api/branches"
 
 type Props = {
@@ -35,8 +37,8 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
           setCashWithdrawal({ ...cashWithDrawal, branchId, branch: result.name, sellerName: accounting.seller })
           setStatus(successfullRequest)
         })
-        .catch(() => {
-          setStatus(failedRequest)
+        .catch((e) => {
+          setStatus(failedRequestFrom(e, BRANCH_ERROR))
         })
     }
   }, [])
@@ -97,7 +99,7 @@ export default function NewCashRegistry({ setCashWithdrawal, cashWithDrawal, con
         }}
       />
       {
-        status.onError ? <p className="text-mp-error"> No Fue Posible Cragar datos de tu Sucursal</p>
+        status.onError ? <p className="text-mp-error">{status.message ?? BRANCH_ERROR}</p>
           : (
             <button
               className="bg-mp-green rounded text-mp-gray-soft text-sm p-2 w-1/3 m-2"

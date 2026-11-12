@@ -5,7 +5,9 @@ import { Dispatch, SetStateAction, useState } from "react"
 import { STAGES } from "../Expenses"
 import Spinner from "./Spinner"
 import ErrorMessage from "./ErrorMessage"
-import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services"
+import { failedRequest, failedRequestFrom, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "@/app/services"
+
+const AMOUNT_ERROR = 'El monto total no debe ser menor al monto vendido en Prontipagos'
 import { CreateIncomeRegistry, createIncomes } from "@/app/services/api/incomes"
 
 interface Props {
@@ -65,8 +67,8 @@ export default function IncomesRegistry({ setStage }: Props): JSX.Element {
                     setStage(STAGES.SUCCESS)
                     setIncomesRegistered(result)
                 })
-                .catch(() => {
-                    setStatus(failedRequest)
+                .catch((e) => {
+                    setStatus(failedRequestFrom(e, 'No fue posible registrar las ventas'))
                     setStage(STAGES.FAILED)
                 })
 
@@ -170,7 +172,7 @@ export default function IncomesRegistry({ setStage }: Props): JSX.Element {
                         >
                             Continuar
                         </button>
-                        {status.onError && <p className="text-sm text-center text-mp-error">El monto total no debe ser menor al monto vendido en Prontipagos</p>}
+                        {status.onError && <p className="text-sm text-center text-mp-error">{status.message ?? AMOUNT_ERROR}</p>}
                     </div>
             }
         </div>

@@ -5,7 +5,9 @@ import Spinner from "./shared/Spinner"
 import { CurrentAccounting, getCurrentAccounting, setStoredExpenseRegistry } from "@/utils/appStorage"
 import { STAGES } from "./Expenses"
 import { ExpenseType, getExpenseTypes } from "../services/api/collections"
-import { failedRequest, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+import { failedRequest, failedRequestFrom, initialStatus, pendingRequest, RequestStatus, successfullRequest } from "../services"
+
+const SUBMIT_ERROR = 'Error al registrar el gasto: Revisa que los datos sean correctos'
 import { createExpense, CreateExpenseRegistry } from "../services/api/expenses"
 
 interface Props {
@@ -64,8 +66,8 @@ export default function NewExpense({ setStage, accountingId }: Props): JSX.Eleme
         }, 2000)
         setStatus(pendingRequest)
       })
-      .catch(() => {
-        setStatus(failedRequest)
+      .catch((e) => {
+        setStatus(failedRequestFrom(e, SUBMIT_ERROR))
       })
     } else {
       setStatus(failedRequest)
@@ -148,7 +150,7 @@ export default function NewExpense({ setStage, accountingId }: Props): JSX.Eleme
       {
         status.onError &&
         <p className="text-center text-sm text-mp-error p-1">
-          Error al registrar el gasto: Revisa que los datos sean correctos
+          {status.message ?? SUBMIT_ERROR}
         </p>
       }
     </form>

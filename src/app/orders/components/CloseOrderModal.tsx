@@ -1,6 +1,8 @@
 'use client'
 
-import { failedRequest, initialStatus, pendingRequest } from "@/app/services"
+import { failedRequestFrom, initialStatus, pendingRequest } from "@/app/services"
+
+const CLOSE_ERROR = 'No fue posible cerrar la orden, inténtalo más tarde'
 import { Order, updateOrder } from "@/app/services/api/orders"
 import { OPERATIVE_EXPENSE_CATEGORIES, saveOperativeExpense } from "@/app/services/api/operativeExpenses"
 import { getCurrentDate } from "@/utils/dateOperations"
@@ -71,8 +73,8 @@ export const CloseOrderModal = ({ order }: Props) => {
       await updateOrder({ ...orderData, isOpen: false })
 
       window.location.reload()
-    } catch {
-      setStatus(failedRequest)
+    } catch (e) {
+      setStatus(failedRequestFrom(e, CLOSE_ERROR))
     }
   }
 
@@ -136,7 +138,7 @@ export const CloseOrderModal = ({ order }: Props) => {
             {
               status.onError &&
               <p className="text-center text-sm text-mp-error">
-                No fue posible cerrar la orden, inténtalo más tarde
+                {status.message ?? CLOSE_ERROR}
               </p>
             }
           </Form>
